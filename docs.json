@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "name": "Veritome",
-  "theme": "willow",
+  "theme": "mint",
   "colors": {
     "primary": "#4d1c3d",
     "light": "#1b1514"
