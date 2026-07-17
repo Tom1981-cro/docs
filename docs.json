@@ -108,13 +108,21 @@
               "knowledge-base/prohibited-practices",
               "knowledge-base/annex-iii-high-risk"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "tab": "Help Centre",
+        "groups": [
           {
-            "group": "Support",
+            "group": "Help Centre",
+            "icon": "life-ring",
             "pages": [
-              "support/faq",
-              "support/troubleshooting",
-              "support/contact"
+              "help-centre/overview",
+              "help-centre/getting-started",
+              "help-centre/faqs",
+              "help-centre/troubleshooting",
+              "help-centre/contact-support"
             ]
           }
         ]
