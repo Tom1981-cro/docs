@@ -22,7 +22,20 @@
       "label": "Sign Up Free",
       "href": "https://veritome.eu/register"
     },
-    "links": []
+    "links": [
+      {
+        "href": "https://academy.veritome.eu",
+        "label": "Academy"
+      },
+      {
+        "href": "https://veritome.eu/founding",
+        "label": "Founders"
+      },
+      {
+        "href": "https://veritome.eu/product/aria",
+        "label": "Aria AI"
+      }
+    ]
   },
   "navigation": {
     "versions": [
@@ -163,16 +176,18 @@
   },
   "description": "Veritome guides European SMEs through every phase of EU AI Act compliance — from first classification to post-market monitoring — without needing a dedicated legal team.",
   "background": {
-    "decoration": "gradient",
     "color": {
-      "light": "#F8F7FB",
-      "dark": "#16131F"
+      "light": "#F3F1F8",
+      "dark": "#322C42"
+    },
+    "image": {
+      "light": "/images/veritome-bg-light.png",
+      "dark": "/images/veritome-bg-dark.png"
     }
   },
   "fonts": {
     "heading": {
-      "family": "Open Sans",
-      "weight": 700
+      "family": "Sora"
     },
     "body": {
       "family": "Open Sans",
@@ -181,5 +196,8 @@
   },
   "metadata": {
     "timestamp": true
+  },
+  "icons": {
+    "library": "fontawesome"
   }
 }
