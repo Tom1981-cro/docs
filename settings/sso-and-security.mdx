@@ -1,0 +1,181 @@
+---
+title: "Configure SSO, MFA, and Security for Your Account"
+sidebarTitle: "SSO & Security"
+description: "Enable TOTP multi-factor authentication, configure SAML or OIDC single sign-on, review audit logs, manage sessions, and rotate API keys."
+---
+
+Veritome gives you layered security controls to protect your compliance data and meet your organisation's internal information security requirements. Multi-factor authentication is available on every plan; SSO and SCIM provisioning are available on Business and Enterprise plans. All security events are recorded in the audit log, which is accessible to Owners and Admins.
+
+## Multi-Factor Authentication (MFA)
+
+Multi-factor authentication adds a second verification step at login, requiring a time-based one-time password (TOTP) from an authenticator app in addition to your password. MFA is available on **all plans** and is strongly recommended for all team members, especially those with Owner or Admin roles.
+
+### Enabling MFA for Your Account
+
+<Steps>
+  <Step title="Go to Settings → Security">
+    Click **Settings** in the left sidebar, then select **Security**. The Security page shows your current MFA status.
+  </Step>
+  <Step title="Click Enable MFA">
+    Under the **Multi-factor authentication** section, click **Enable MFA**.
+  </Step>
+  <Step title="Scan the QR code">
+    Open your authenticator app (Google Authenticator, Authy, 1Password, Microsoft Authenticator, or any TOTP-compatible app) and scan the QR code displayed on screen. Alternatively, copy the setup key and enter it manually in your app.
+  </Step>
+  <Step title="Enter the verification code">
+    Your app generates a six-digit code. Enter it in the **Verification code** field on the Veritome setup screen and click **Verify**.
+  </Step>
+  <Step title="Save your recovery codes">
+    Veritome generates eight single-use recovery codes. **Download or print these now and store them securely.** Recovery codes are the only way to access your account if you lose your authenticator device. Each code can only be used once.
+  </Step>
+</Steps>
+
+<Warning>
+  If you lose access to your authenticator app and have not saved your recovery codes, contact support@veritome.eu. Account recovery requires identity verification and may take up to 2 business days.
+</Warning>
+
+### Disabling MFA
+
+To disable MFA, go to **Settings → Security**, click **Disable MFA**, enter a current TOTP code to confirm, and click **Confirm**. You should only disable MFA if you are immediately switching to a different MFA method (e.g. switching authenticator apps) or enabling organisation-enforced SSO.
+
+### Enforcing MFA Organisation-Wide
+
+Owners can require all team members to enable MFA before they can access Veritome. To enforce MFA:
+
+1. Go to **Settings → Security → MFA policy**.
+2. Toggle **Require MFA for all members** to on.
+3. Set a **Grace period** (1–7 days) during which existing members without MFA can still log in. After the grace period, members without MFA are locked out until they complete MFA setup.
+
+## Single Sign-On (SSO)
+
+SSO allows your team to authenticate with Veritome using your organisation's existing identity provider (IdP), eliminating the need for separate Veritome passwords. Veritome supports **SAML 2.0** and **OIDC (OpenID Connect)**.
+
+<Note>
+  SSO is available on **Business and Enterprise plans** only. Attempting to configure SSO on a lower plan redirects you to the plan upgrade page.
+</Note>
+
+### Supported Identity Providers
+
+Veritome has been tested with the following identity providers, though any standards-compliant SAML 2.0 or OIDC provider will work:
+
+- Microsoft Entra ID (formerly Azure AD)
+- Okta
+- Google Workspace
+- Ping Identity
+- JumpCloud
+- Auth0
+
+### Configuring SAML SSO
+
+<Steps>
+  <Step title="Navigate to Settings → SSO & Security → SSO Configuration">
+    Open the **SSO Configuration** tab. You will see the Veritome SAML service provider metadata: the Entity ID and Assertion Consumer Service (ACS) URL.
+  </Step>
+  <Step title="Create a SAML application in your IdP">
+    In your identity provider, create a new SAML application (sometimes called a "SAML integration" or "enterprise application"). Use the Veritome Entity ID and ACS URL from step 1 as the SP Entity ID and the Reply URL/ACS URL in your IdP configuration.
+  </Step>
+  <Step title="Configure attribute mappings">
+    Map the following user attributes in your IdP to the Veritome expected values:
+
+    | Veritome attribute | IdP attribute (typical) |
+    |---|---|
+    | `email` | `user.email` |
+    | `firstName` | `user.givenname` |
+    | `lastName` | `user.surname` |
+    | `role` (optional) | Custom attribute or group claim |
+  </Step>
+  <Step title="Download the IdP metadata">
+    Download the SAML metadata XML file from your IdP, or copy the IdP SSO URL and X.509 certificate.
+  </Step>
+  <Step title="Upload metadata to Veritome">
+    Back in Veritome, paste the IdP SSO URL, upload the X.509 certificate (or paste the metadata XML), and click **Save configuration**.
+  </Step>
+  <Step title="Test the SSO connection">
+    Click **Test SSO**. Veritome initiates a SAML authentication request. Complete the login in the IdP pop-up. A success message confirms the configuration is working.
+  </Step>
+  <Step title="Enable SSO for your organisation">
+    Toggle **Enable SSO** to on. From this point, all team members sign in via your IdP. Existing password-based sessions remain valid for 24 hours, after which SSO is required.
+  </Step>
+</Steps>
+
+### Configuring OIDC SSO
+
+<Steps>
+  <Step title="Navigate to Settings → SSO & Security → SSO Configuration">
+    Select **OIDC** as the protocol.
+  </Step>
+  <Step title="Register Veritome as an OIDC client in your IdP">
+    Create a new OIDC application in your IdP. Set the **Redirect URI** to the value shown on the Veritome SSO configuration page (e.g. `https://veritome.eu/auth/callback/oidc`). Note the **Client ID** and **Client Secret** generated by your IdP.
+  </Step>
+  <Step title="Enter OIDC credentials in Veritome">
+    Paste the **Client ID**, **Client Secret**, and **Issuer URL** (the base URL of your IdP's OIDC discovery endpoint) into the Veritome OIDC configuration form.
+  </Step>
+  <Step title="Test and enable">
+    Click **Test OIDC connection** to verify the credentials, then toggle **Enable SSO** to on.
+  </Step>
+</Steps>
+
+<Tip>
+  After enabling SSO, set up [SCIM provisioning](/settings/team-and-roles#scim-provisioning) so that team member accounts are created and deactivated automatically whenever your IdP user directory changes.
+</Tip>
+
+## Audit Log
+
+The audit log records every significant action taken within your Veritome organisation, providing a tamper-evident trail for compliance and security investigations.
+
+### Accessing the Audit Log
+
+1. Go to **Settings → Audit**.
+2. The log displays events in reverse chronological order. Each entry shows the timestamp (UTC), the actor (user or system), the action, the affected resource, and the IP address.
+
+### Filtering the Audit Log
+
+Use the filter controls to narrow by:
+
+- **Date range** — select a custom start and end date
+- **Actor** — filter to a specific team member
+- **Event type** — narrow to specific categories (authentication, billing, team management, dossier changes, evidence changes, SSO events)
+- **Resource** — filter to a specific system, obligation, or team member
+
+### Exporting the Audit Log
+
+Click **Export CSV** to download a filtered or full audit log as a CSV file. Exported logs are useful for ISMS reporting, ISO 27001 audits, and regulatory inquiries.
+
+<Info>
+  The audit log retains events for 12 months on Business and Enterprise plans, and for 3 months on Core and Growth plans. Events older than the retention window are permanently deleted.
+</Info>
+
+## Active Sessions
+
+The **Active Sessions** page shows every current login session associated with your account — including the device, browser, location (derived from IP address), and time of last activity.
+
+To view and manage sessions:
+
+1. Go to **Settings → Security → Active Sessions**.
+2. Your current session is marked **This device**.
+3. To revoke any other session (e.g. a device you no longer have access to), click **Revoke** next to that session entry. The revoked session is invalidated immediately.
+4. To revoke all sessions except your current one, click **Revoke all other sessions**.
+
+<Warning>
+  If you see an active session you do not recognise, revoke it immediately and change your password. Consider reviewing the audit log filtered to authentication events to identify any unauthorised access.
+</Warning>
+
+## API Key Management
+
+Veritome's API allows programmatic access to your compliance data on **Growth and above** plans. API keys authenticate API requests.
+
+To create an API key:
+
+1. Go to **Settings → Security → API Keys**.
+2. Click **Create API key**.
+3. Enter a descriptive name (e.g. *"CI/CD pipeline — staging"*) and select the permissions scope (**Read only** or **Read/Write**).
+4. Click **Create**. The full API key is shown once — copy it immediately and store it in a secrets manager. Veritome does not display the full key again.
+
+To revoke an API key:
+
+1. Find the key by name in the API Keys list.
+2. Click **Revoke**. The key is invalidated immediately.
+
+<Note>
+  For full API reference documentation, including available endpoints, request formats, and rate limits, see the [Veritome API Reference](/api/overview).
+</Note>

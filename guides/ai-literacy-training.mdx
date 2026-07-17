@@ -1,0 +1,98 @@
+---
+title: "Run Article 4 AI Literacy Training for Your Team"
+sidebarTitle: "AI Literacy"
+description: "Meet your Article 4 AI literacy obligation by enrolling staff, assigning training programmes, tracking completions, and exporting a signed compliance report for auditors."
+---
+
+Article 4 of the EU AI Act requires every provider and deployer to take measures ensuring that the people operating their AI systems have a sufficient level of AI literacy — an understanding of the capabilities, limitations, risks, and appropriate use of the systems they work with. This obligation applies at the organisational level: it is not satisfied system by system, but by demonstrating that your whole organisation has a documented, ongoing literacy programme. Veritome's AI Literacy module gives you everything you need to meet Article 4 out of the box, from built-in training content to completion certificates and a one-click compliance report.
+
+## Article 4 at a glance
+
+<Info>
+  Article 4 AI Literacy is an **org-level obligation** in Veritome. One completion tracker covers your entire organisation, and the obligation appears in the Organisation section of your Obligations board rather than on any individual system. Completing it contributes to the compliance score of every system your organisation operates.
+</Info>
+
+The Act does not prescribe a specific training syllabus — it requires literacy "to the extent possible" taking into account the staff member's role, the technical knowledge required, and the context of deployment. Veritome's built-in programmes are designed to satisfy this requirement across the most common roles in European SMEs, with content that is updated when guidance from the EU AI Office is published.
+
+## Built-in training programmes
+
+Veritome includes four sector-aligned training tracks, each split into role-based modules:
+
+<CardGroup cols={2}>
+  <Card title="Financial Services" icon="landmark">
+    Covers AI use in credit scoring, fraud detection, customer service automation, and investment tools. Includes regulatory context (AI Act + EBA guidance) and practical oversight exercises.
+  </Card>
+  <Card title="HR & Employment" icon="users">
+    Covers AI-assisted recruitment, performance management, and workforce analytics. Emphasises bias risks, human oversight requirements, and worker rights under the Act.
+  </Card>
+  <Card title="Healthcare" icon="heart-pulse">
+    Covers AI in clinical decision support, medical imaging, and patient management. Addresses safety classification, Annex III high-risk obligations, and patient rights.
+  </Card>
+  <Card title="Operations" icon="gear">
+    A general-purpose track for staff using AI tools in logistics, supply chain, customer support, or back-office automation. Covers basic AI concepts, risk awareness, and incident reporting duties.
+  </Card>
+</CardGroup>
+
+Each track contains modules for three role levels: **Awareness** (all staff), **Practitioner** (those who use AI systems in day-to-day work), and **Oversight** (managers and compliance leads responsible for AI system governance).
+
+## Enrol staff and assign a programme
+
+<Steps>
+  <Step title="Open the AI Literacy module">
+    From the main navigation, click **AI Literacy**. The overview screen shows your organisation's current literacy score, total enrolments, completion rate, and the status of your Article 4 obligation.
+  </Step>
+  <Step title="Add staff members">
+    Click **Enrol staff**. You can add staff in three ways:
+
+    - **Manual entry** — type each person's name, email address, and role.
+    - **CSV import** — download the template, fill in the required columns (name, email, role, department), and upload. Veritome validates each row and creates enrolments in bulk.
+    - **Directory sync** — if your organisation uses Google Workspace or Microsoft 365, connect the directory in **Settings → Integrations** and Veritome can import your user list directly.
+
+    Each staff member receives an enrolment email with a link to their personalised training portal.
+  </Step>
+  <Step title="Assign a training programme">
+    Select one or more staff members from the enrolments list and click **Assign programme**. Choose the sector track that matches their work context and the role level appropriate to their responsibilities. You can assign different tracks to different departments — for example, the HR track for your people team and the Operations track for your logistics team.
+
+    <Tip>
+      If you are unsure which track to assign, use Aria: open the Aria assistant panel and describe the team member's role. Aria will recommend the most appropriate track and role level with a brief explanation, citing Article 4's proportionality requirement.
+    </Tip>
+  </Step>
+  <Step title="Track progress">
+    Return to the **AI Literacy** overview at any time to see completion status across the organisation. The progress table shows each staff member's name, assigned programme, modules completed, modules remaining, and estimated time to completion. Filter by department, track, or completion status to focus on where action is needed.
+
+    <Info>
+      The **Organisation literacy score** on the AI Literacy overview is calculated as the percentage of assigned modules completed across all enrolled staff. Veritome uses this score to determine whether your Article 4 obligation can be marked as Approved on the Obligations board.
+    </Info>
+  </Step>
+  <Step title="Send reminders to incomplete staff">
+    Select staff members who have not completed their assigned modules and click **Send reminder**. Veritome sends a personalised email reminder with a direct link to the training portal. You can also configure **automatic reminders** in the AI Literacy settings — for example, a weekly nudge to anyone with outstanding modules, or an escalation email to their manager after 30 days of inactivity.
+  </Step>
+  <Step title="Issue certificates on completion">
+    When a staff member completes all modules in their assigned programme, Veritome automatically:
+
+    - Generates a personalised **completion certificate** in PDF, showing the staff member's name, the programme completed, the completion date, and a hash-sealed verification ID.
+    - Emails the certificate to the staff member.
+    - Logs the completion in the organisation's literacy record.
+
+    Staff members can also download their certificates at any time from their training portal. Certificates carry a `verify.veritome.eu` URL so their authenticity can be confirmed without a Veritome account.
+  </Step>
+  <Step title="Export the compliance report">
+    Once you have reached the completion threshold (or to share interim progress with an auditor), click **Export compliance report** from the AI Literacy overview. Veritome generates a PDF report that includes:
+
+    - A summary of your Article 4 obligation and how it has been addressed.
+    - A table of all enrolled staff, their assigned programmes, and completion status.
+    - An aggregate literacy score for the organisation.
+    - Copies of all issued certificates (as an appendix or as a linked evidence bundle).
+    - The report generation timestamp and SHA-256 hash.
+
+    This report is the document you attach to your Article 4 obligation as evidence of completion. Once attached and the obligation is approved through the four-eyes workflow, it contributes to every system's compliance score.
+  </Step>
+</Steps>
+
+## Annual review
+
+Article 4 is not a one-time checkbox — the Act requires literacy measures to be maintained as staff and systems change. Veritome prompts you to run an **annual review** by scheduling a review event in the **Calendar** module. At review time, re-enrol new staff, update programme assignments for staff who have changed roles, and regenerate the compliance report. The previous year's report is retained in the evidence history so the audit trail remains continuous.
+
+<Note>
+  When you add new AI systems to your register or re-classify existing ones, Veritome checks whether the change requires any staff to complete additional training modules — for example, if a system is reclassified from Minimal to High-Risk. Where a gap is detected, Veritome creates a supplemental training task linked to the affected system and notifies the AI Literacy admin.
+</Note>

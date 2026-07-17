@@ -1,0 +1,160 @@
+---
+title: "EU AI Act Risk Tiers: From Minimal to Unacceptable"
+sidebarTitle: "Risk Tiers"
+description: "A plain-language explanation of the EU AI Act's four risk tiers — Unacceptable, High, Limited, and Minimal — with real-world examples for each."
+---
+
+The EU AI Act does not treat every AI system the same way. Instead, it assigns each system to one of four risk tiers based on the severity of harm it could cause. Your tier determines which obligations apply to you — from no mandatory requirements at all, through transparency duties, all the way to a full compliance programme or an outright ban. Getting your tier right is the single most important step in any compliance journey.
+
+## At a glance
+
+| Tier | Mandatory obligations | Examples |
+|------|-----------------------|---------|
+| **Unacceptable Risk** | Prohibited — must not be deployed | Social scoring, real-time biometric surveillance in public spaces |
+| **High Risk** | Full obligation set (Arts. 9, 10, 13, 14, 15, 43, 47, 49, 72, 73) | AI in hiring, credit scoring, medical triage dispatch |
+| **Limited Risk** | Transparency disclosures only (Art. 50) | Customer-facing chatbots, AI-generated images and video |
+| **Minimal Risk** | None | Spam filters, recommendation engines, AI in video games |
+
+---
+
+## Unacceptable Risk — Prohibited Practices
+
+These are AI applications that the EU considers so dangerous to fundamental rights, safety, or human dignity that they are banned entirely. Placing a prohibited AI system on the EU market — or continuing to use one — is a direct violation of Article 5, which has been in force since **2 February 2025**.
+
+<CardGroup cols={2}>
+  <Card title="Social Scoring" icon="ranking-star">
+    AI systems used by public authorities to evaluate or classify individuals based on their social behaviour, leading to detrimental treatment — for example, restricting access to services or public spaces.
+  </Card>
+  <Card title="Subliminal Manipulation" icon="brain">
+    AI that works below conscious awareness to manipulate people's decisions in ways that are likely to cause harm — bypassing their rational agency without their knowledge.
+  </Card>
+  <Card title="Exploiting Vulnerabilities" icon="shield-halved">
+    Systems that target people because of their age, disability, or social/economic situation to distort behaviour in ways that could harm them or others.
+  </Card>
+  <Card title="Real-Time Biometric Surveillance" icon="camera">
+    Live biometric identification of people in publicly accessible spaces by law enforcement, except in very narrow, judicially authorised circumstances.
+  </Card>
+</CardGroup>
+
+The full list of eight prohibited categories is covered in detail in the [Prohibited Practices guide](/knowledge-base/prohibited-practices).
+
+<Warning>
+  If Veritome's classification wizard flags your system against any Article 5 category, the workflow is deliberately blocked. You cannot proceed to an obligation set for a prohibited system — you need to redesign or discontinue it.
+</Warning>
+
+---
+
+## High Risk — Full Compliance Programme Required
+
+High-risk AI systems are not banned, but they carry the heaviest compliance obligations in the Act. There are two routes to a high-risk classification:
+
+1. **Annex I route** — The AI system is embedded in a product already regulated under EU product-safety law (for example, medical devices, machinery, or aviation components). The AI inherits high-risk status.
+2. **Annex III route** — The AI system falls within one of eight specific domains listed in Annex III of the Act, regardless of whether it is embedded in a regulated product.
+
+<Info>
+  Article 6(3) provides a limited exception: even if a system technically falls within Annex III, it may not be classified as high-risk if it demonstrably does not pose a significant risk. Providers relying on this exception must document their reasoning carefully and register the self-assessment in the EU database.
+</Info>
+
+### What obligations apply to high-risk systems?
+
+If your system is high-risk, you must satisfy a comprehensive set of requirements before placing it on the market or putting it into service:
+
+<Accordion title="Risk management system (Art. 9)">
+  You must establish, implement, document, and continuously update a risk management system across the entire lifecycle of your AI system. This is not a one-time exercise — it requires ongoing identification, analysis, estimation, and mitigation of known and reasonably foreseeable risks.
+</Accordion>
+
+<Accordion title="Data and data governance (Art. 10)">
+  Training, validation, and testing datasets must meet quality criteria. You need to examine data for potential biases, ensure it is representative of the intended use population, and put governance processes in place to manage data throughout the system's life.
+</Accordion>
+
+<Accordion title="Technical documentation (Art. 11)">
+  Comprehensive technical documentation — as specified in Annex IV — must be drawn up before the system is placed on the market and kept up to date throughout its deployment.
+</Accordion>
+
+<Accordion title="Transparency and instructions for use (Art. 13)">
+  Providers must supply deployers with clear instructions for use covering the system's purpose, performance characteristics, known limitations, and the human oversight measures required.
+</Accordion>
+
+<Accordion title="Human oversight (Art. 14)">
+  High-risk systems must be designed so that natural persons can effectively monitor their operation, understand what outputs mean, and intervene or override when necessary.
+</Accordion>
+
+<Accordion title="Accuracy, robustness, cybersecurity (Art. 15)">
+  Systems must achieve an appropriate level of accuracy throughout their lifecycle and be resilient against errors, faults, inconsistencies, and attempts to compromise them.
+</Accordion>
+
+<Accordion title="Conformity assessment (Art. 43) and EU Declaration of Conformity (Art. 47)">
+  Before market placement, providers must run a conformity assessment — either internal control or via a notified body, depending on the system type. A written EU Declaration of Conformity must then be drawn up and kept for ten years.
+</Accordion>
+
+<Accordion title="Registration in the EU database (Art. 49)">
+  High-risk AI systems (and in some cases their deployers) must be registered in the publicly accessible EU AI database before being placed on the market or put into service.
+</Accordion>
+
+<Accordion title="Post-market monitoring (Art. 72) and incident reporting (Art. 73)">
+  Providers must establish a post-market monitoring system to collect and analyse data on system performance after deployment. Serious incidents must be reported to the relevant national market-surveillance authority within strict calendar-day deadlines.
+</Accordion>
+
+### High-risk examples by domain
+
+See the full [Annex III guide](/knowledge-base/annex-iii-high-risk) for a domain-by-domain breakdown. Common examples include:
+
+- **HR & recruitment** — AI that screens CVs, ranks candidates, or monitors employee productivity
+- **Credit & insurance** — AI used to assess creditworthiness or set life/health insurance premiums
+- **Healthcare dispatch** — AI that classifies emergency calls or triages patients
+- **Education** — AI that determines admission, assesses exam performance, or monitors students
+
+---
+
+## Limited Risk — Transparency Obligations
+
+Limited-risk AI systems are not subject to the full high-risk obligation set, but they must meet disclosure requirements under **Article 50**. The core principle is that people have a right to know when they are interacting with AI.
+
+<CardGroup cols={2}>
+  <Card title="Chatbots and Conversational AI" icon="message-bot">
+    Systems that interact with people through natural language — including customer service bots and virtual assistants — must inform users they are interacting with AI, unless it is obvious from context.
+  </Card>
+  <Card title="Synthetic Content" icon="image">
+    AI-generated images, video, audio, and text that could be mistaken for authentic human-created content must be labelled or watermarked so that people know it is AI-generated.
+  </Card>
+  <Card title="Emotion Recognition and Biometric Categorisation" icon="face-smile">
+    Systems that infer emotional states or categorise individuals by biometric characteristics must inform the people being assessed.
+  </Card>
+  <Card title="Deep Fakes" icon="masks-theater">
+    Realistic synthetic depictions of real people require disclosure that the content has been artificially generated or manipulated.
+  </Card>
+</CardGroup>
+
+<Tip>
+  If you deploy a customer-facing chatbot or use AI-generated content in marketing, you have live transparency obligations under Article 50 right now — these are not part of the delayed high-risk timeline.
+</Tip>
+
+---
+
+## Minimal Risk — No Mandatory Obligations
+
+The vast majority of AI systems in use today fall into the minimal-risk category. The Act imposes no mandatory compliance obligations on these systems, though providers and deployers are encouraged to adopt voluntary codes of conduct.
+
+**Examples of minimal-risk AI:**
+- Spam and phishing filters in email clients
+- Recommendation engines for e-commerce or streaming platforms
+- AI features in video games (non-player character behaviour, procedural generation)
+- AI-powered grammar and spell-check tools
+- Basic process automation that does not make consequential decisions about people
+
+<Note>
+  "Minimal risk" does not mean "no regulation at all." Other EU laws — including the GDPR, the Consumer Rights Directive, and sector-specific regulations — may still apply to how you collect data and make decisions. Veritome focuses on AI Act obligations, but your legal team should review the broader regulatory picture.
+</Note>
+
+---
+
+## How classification determines your compliance path
+
+Once you know your tier, your compliance work becomes much more targeted:
+
+1. **Unacceptable** → Immediate action required: shut down or fundamentally redesign the system.
+2. **High Risk** → Build the full compliance programme: risk management, documentation, conformity assessment, registration, post-market monitoring.
+3. **Limited Risk** → Implement the required disclosures and content labelling.
+4. **Minimal Risk** → No mandatory steps, but document your classification reasoning.
+
+Veritome's classification wizard guides you through Article 6 step by step and automatically generates the obligation set that matches your tier. Start with the [free readiness assessment](https://veritome.eu/apps/readiness-assessment) if you are not yet sure where your systems sit.

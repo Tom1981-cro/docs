@@ -1,0 +1,184 @@
+---
+title: "Dossiers API: Export Audit-Ready Compliance Documents"
+sidebarTitle: "Dossiers"
+description: "Retrieve dossier status and generate audit-ready compliance documents — Annex IV, FRIA, Declaration of Conformity, and Annex VIII — for any registered AI system."
+---
+
+A technical dossier is the audit-ready evidence package that demonstrates your AI system's conformity with the EU AI Act. Veritome can generate several document types on demand, pulling structured data from your system record, obligations, risk items, and evidence vault. Use the Dossiers API to automate document generation as part of a pre-deployment checklist, schedule regular exports, or trigger re-generation whenever the underlying compliance data changes.
+
+<Note>
+  Dossier generation requires the **Core plan** or above. Calling this endpoint on a lower plan returns `403 Forbidden` with a `feature_locked` error code.
+</Note>
+
+---
+
+## Get dossier status
+
+Retrieve the current dossier record for a system, including its entries and their review history.
+
+```
+GET /api/systems/{id}/dossier
+```
+
+### Path parameters
+
+<ParamField path="id" type="string" required>
+  The system's unique identifier (cuid) or human reference (e.g. `SYS-000001`).
+</ParamField>
+
+### Response
+
+<ResponseField name="dossier" type="object | null">
+  The dossier record, or `null` if no dossier has been created for this system yet.
+  <Expandable title="Dossier object">
+    <ResponseField name="id" type="string">Unique dossier identifier.</ResponseField>
+    <ResponseField name="status" type="string">Overall dossier status: `DRAFT`, `UNDER_REVIEW`, or `APPROVED`.</ResponseField>
+    <ResponseField name="entries" type="array">
+      <Expandable title="Dossier entry">
+        <ResponseField name="id" type="string">Entry identifier.</ResponseField>
+        <ResponseField name="entryNumber" type="number">Sequential entry index within the dossier.</ResponseField>
+        <ResponseField name="type" type="string">Document type — see [Document types](#document-types) below.</ResponseField>
+        <ResponseField name="status" type="string">Entry status: `DRAFT`, `UNDER_REVIEW`, or `APPROVED`.</ResponseField>
+        <ResponseField name="downloadUrl" type="string | null">Time-limited signed URL for downloading the generated document. See [Download URLs](#download-urls).</ResponseField>
+        <ResponseField name="hash" type="string | null">SHA-256 integrity hash of the generated file, for tamper-evidence verification.</ResponseField>
+        <ResponseField name="createdAt" type="string">ISO 8601 timestamp of when this entry was generated.</ResponseField>
+        <ResponseField name="submittedBy" type="object | null">User who submitted this entry, with `id` and `name`.</ResponseField>
+        <ResponseField name="reviewedBy" type="object | null">User who reviewed this entry, with `id` and `name`.</ResponseField>
+      </Expandable>
+    </ResponseField>
+    <ResponseField name="createdAt" type="string">ISO 8601 timestamp of when the dossier was first created.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+### curl example
+
+```bash
+curl https://veritome.eu/api/systems/clx9f2k0000043b6wqztp8m1k/dossier \
+  -H "Authorization: Bearer <your-api-key>"
+```
+
+---
+
+## Generate a dossier document
+
+Trigger generation of a compliance document for a system. If no dossier record exists yet, this call creates one and appends the first entry.
+
+```
+POST /api/systems/{id}/dossier
+```
+
+### Path parameters
+
+<ParamField path="id" type="string" required>
+  The system's unique identifier (cuid) or human reference.
+</ParamField>
+
+### Request body
+
+<ParamField body="type" type="string" required>
+  The type of document to generate. Must be one of:
+  - `annex_iv` — Technical documentation (Annex IV, required for high-risk AI systems)
+  - `fria` — Fundamental Rights Impact Assessment
+  - `doc` — Declaration of Conformity (EU DoC)
+  - `annex_viii` — Post-market monitoring plan (Annex VIII)
+</ParamField>
+
+### Response (201 Created)
+
+<ResponseField name="id" type="string">
+  Unique identifier for the dossier entry that was created.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The document type that was generated.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Initial status of the generated entry: always `DRAFT` on creation.
+</ResponseField>
+
+<ResponseField name="downloadUrl" type="string">
+  A time-limited signed URL for downloading the generated PDF or structured document. Valid for **15 minutes** from the moment of generation. Re-call `GET /api/systems/{id}/dossier` to obtain a fresh URL after expiry.
+</ResponseField>
+
+<ResponseField name="hash" type="string">
+  SHA-256 hash of the document contents. Use this to verify document integrity after download.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  ISO 8601 timestamp of when the document was generated.
+</ResponseField>
+
+### curl example
+
+```bash
+curl -X POST https://veritome.eu/api/systems/clx9f2k0000043b6wqztp8m1k/dossier \
+  -H "Authorization: Bearer <your-api-key>" \
+  -H "Content-Type: application/json" \
+  -d '{"type": "annex_iv"}'
+```
+
+### Example response
+
+```json
+{
+  "id": "dos_cm1ab2cd3ef4gh5ij6kl",
+  "type": "annex_iv",
+  "status": "DRAFT",
+  "downloadUrl": "https://storage.veritome.eu/dossiers/signed/annex_iv_SYS-000001_20250610.pdf?token=eyJhbGc...",
+  "hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "createdAt": "2025-06-10T14:22:00.000Z"
+}
+```
+
+---
+
+## Document types
+
+| Type | EU AI Act reference | Description |
+|------|-------------------|-------------|
+| `annex_iv` | Annex IV | Technical documentation demonstrating conformity for high-risk AI systems |
+| `fria` | Art. 27 | Fundamental Rights Impact Assessment for deployers |
+| `doc` | Art. 47 | EU Declaration of Conformity |
+| `annex_viii` | Annex VIII | Serious incident and malfunctioning reporting template |
+
+## Download URLs
+
+The `downloadUrl` field is a **time-limited signed URL** that expires 15 minutes after generation. It points directly to the stored document and can be downloaded without any additional authentication headers.
+
+If the URL has expired, call `GET /api/systems/{id}/dossier` to retrieve a fresh signed URL for any existing dossier entry.
+
+## TypeScript: generate and download Annex IV
+
+```typescript
+import * as fs from "fs";
+import * as https from "https";
+
+const BASE = "https://veritome.eu/api";
+const SYSTEM_ID = "clx9f2k0000043b6wqztp8m1k";
+const headers = {
+  Authorization: `Bearer ${process.env.VERITOME_API_KEY}`,
+  "Content-Type": "application/json",
+};
+
+// Step 1: Trigger generation
+const genRes = await fetch(`${BASE}/systems/${SYSTEM_ID}/dossier`, {
+  method: "POST",
+  headers,
+  body: JSON.stringify({ type: "annex_iv" }),
+});
+
+if (!genRes.ok) {
+  throw new Error(`Generation failed: ${genRes.status} ${await genRes.text()}`);
+}
+
+const { downloadUrl, hash, id } = await genRes.json();
+console.log(`Dossier entry created: ${id}`);
+console.log(`Integrity hash: ${hash}`);
+
+// Step 2: Download the document within the 15-minute window
+const fileRes = await fetch(downloadUrl);
+const buffer = Buffer.from(await fileRes.arrayBuffer());
+fs.writeFileSync(`annex_iv_${SYSTEM_ID}.pdf`, buffer);
+console.log("Annex IV saved to disk.");
+```

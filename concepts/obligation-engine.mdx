@@ -1,0 +1,122 @@
+---
+title: "How the Obligation Engine Maps Your Compliance Duties"
+sidebarTitle: "Obligation Engine"
+description: "Learn how Veritome's Obligation Engine automatically maps EU AI Act duties to your systems based on role, risk tier, and Annex III domain — and how to work through them."
+---
+
+After you classify an AI system, Veritome's Obligation Engine runs automatically. Within seconds it produces the complete, personalised set of EU AI Act duties that apply to your system — no manual triage, no reading through 144 articles to find the ones that matter to you. This page explains how the engine derives obligations, how they are organised, what the different scopes and statuses mean, and how the smart forms and guided wizard mode work.
+
+## How the engine derives obligations
+
+The Obligation Engine is a database-driven rules engine. It holds one row per EU AI Act obligation in a central **Obligation Definitions** table. Each definition declares its applicability criteria:
+
+- **Applicable roles** — which of Provider, Deployer, Importer, Distributor, or GPAI Model Provider this obligation applies to.
+- **Applicable risk levels** — which of High, Limited, Minimal, or Prohibited risk tiers trigger this obligation.
+- **Applicable domains** — which Annex III domains are relevant (or whether the obligation applies across all domains).
+- **Conditional logic** — additional boolean flags on the system (e.g. `isChatbot`, `hasEmotionRecognition`, `generatesContent`, `isWorkplaceAI`, `isGpaiModelProvider`, `isPublicBodyOrPublicServiceProvider`) that further gate whether the obligation applies.
+
+When you confirm a classification, the engine evaluates your system's active classification (role + risk tier + Annex III domain) against every obligation definition. For each definition where the criteria match, the engine creates a **System Obligation** — a per-system instance of that duty, pre-populated with the statutory applicability date, article reference, and guidance text.
+
+<Note>
+  The Obligation Engine is the **single source of truth** for what applies to your system. Tab bars, phase bars, and compliance scores are all derived from the engine — there is never a mismatch between what the rules say and what the UI shows.
+</Note>
+
+## How obligations are organised
+
+### By article
+
+Every obligation is tagged with an EU AI Act article reference. The most common article clusters for High-Risk systems are:
+
+| Article | Topic | Who it applies to |
+|---------|-------|-------------------|
+| Art. 4 | AI literacy | All organisations (organisation-level) |
+| Art. 9 | Risk management system | Providers |
+| Art. 10 | Data governance | Providers |
+| Art. 11 | Technical documentation (Annex IV) | Providers |
+| Art. 12 | Record-keeping and logging | Providers |
+| Art. 13 | Transparency to deployers — instructions for use | Providers |
+| Art. 14 | Human oversight measures | Providers and Deployers |
+| Art. 15 | Accuracy, robustness, cybersecurity | Providers |
+| Art. 17 | Quality management system | Providers |
+| Art. 26 | Deployer obligations | Deployers |
+| Art. 27 | Fundamental rights impact assessment (FRIA) | Deployers (public sector / essential services) |
+| Art. 43 | Conformity assessment | Providers |
+| Art. 47 | Declaration of conformity | Providers |
+| Art. 49 | EU AI database registration | Providers |
+| Art. 50 | Transparency for user-facing AI | Providers and Deployers (Limited-Risk / chatbots) |
+| Art. 53 | GPAI model obligations | GPAI Model Providers |
+| Art. 55 | GPAI systemic-risk obligations | GPAI Model Providers (systemic risk threshold) |
+| Art. 72 | Post-market monitoring | Providers |
+| Art. 73 | Serious incident reporting | Providers and Deployers |
+
+### By tab
+
+Obligations are grouped into **tabs** on the system detail view, organised by topic area. Tabs are derived dynamically — only tabs containing at least one applicable obligation are shown for a given system, so a Minimal-Risk system does not show a full technical documentation tab that would be empty.
+
+Common tab labels include: **Overview**, **Risk Management**, **Data Governance**, **Technical Documentation**, **Human Oversight**, **Transparency**, **Conformity Assessment**, **Registration**, **Post-Market Monitoring**, and **Incidents**. GPAI model providers see additional tabs for **GPAI Governance** and (for systemic-risk models) **Systemic Risk**.
+
+### By phase
+
+Every obligation belongs to one of the six compliance journey phases. The phase badge on each obligation card lets you see at a glance where the obligation sits in your overall compliance programme without leaving the tab view.
+
+## Obligation scope: system-level vs organisation-level
+
+Most obligations are **system-level** — one instance is generated per AI system per applicable obligation definition. If you have five High-Risk systems as a Provider, you get five separate Art. 9 risk management obligations, one for each system.
+
+A small number of obligations are **organisation-level** — one instance is generated for the entire organisation, not per system. The key example is **Art. 4 AI literacy**: the requirement to ensure sufficient AI literacy across your staff is an organisational obligation. Veritome emits it once, places it in Phase 2 (Scope & Literacy), and links it to the AI Literacy section of the platform. Completing it once satisfies the obligation for all systems.
+
+<Info>
+  Organisation-level obligations appear in the **All Obligations** tracker just like system-level obligations, but their system column shows "Organisation" rather than a specific system name. They are also visible in the AI Literacy section for literacy-specific obligations.
+</Info>
+
+## Obligation statuses
+
+Every obligation instance has a status that reflects where it is in the completion workflow:
+
+| Status | Meaning | Counts toward score? |
+|--------|---------|---------------------|
+| **Not Started** | Engine-generated; no work begun | No (0 %) |
+| **In Progress** | User has saved partial work in the smart form | Partial (proportional to checklist completion) |
+| **Awaiting Approval** | Responsible user submitted for four-eyes sign-off | Partial |
+| **Approved** | Second authorised user reviewed and approved | Yes (100 %) |
+| **Complete** | Obligation fully satisfied; approval not required or already given | Yes (100 %) |
+| **Overdue** | Due date passed; obligation not yet Complete | No (0 %, drag on score) |
+| **Not Applicable** | Justified exemption recorded | Neutral (excluded from denominator) |
+
+Status transitions follow a workflow:
+- Any user with **Complete task** permission can move an obligation from Not Started → In Progress → Awaiting Approval.
+- A user with **Approve tasks** permission (and who is **not** the user who submitted it) can move it from Awaiting Approval → Approved or back to In Progress.
+- Org admins can move any obligation to any status with a justification note.
+
+<Warning>
+  The four-eyes approval model is enforced by the platform for obligations on High-Risk systems. The user who completes a task cannot be the same user who approves it. This mirrors the independence requirement implicit in Art. 9's risk management framework.
+</Warning>
+
+## Smart forms and guided wizard mode
+
+Each obligation opens a **smart form** — a structured form pre-built for that specific EU AI Act duty. Smart forms include:
+
+- **Field-level guidance** — each form field includes help text explaining what the EU AI Act specifically requires, sourced from the regulatory text and official guidance documents.
+- **Checklist items** — most obligations include a numbered checklist of sub-requirements. You can complete checklist items independently, attach evidence to individual items, and add per-item notes.
+- **Evidence attachment** — upload supporting files (PDFs, screenshots, CSVs, zip archives) directly to an obligation or to a specific checklist item. Veritome computes a SHA-256 hash at upload time; you can later verify integrity via the **Verify file** function in the Evidence Map.
+- **Notes** — free-text notes on any obligation, visible to all members with obligation access.
+
+For **draftable obligations** (those where Aria AI assistance is enabled), you see an **Ask Aria** button within the smart form. Aria reads the obligation's context — your system name, role, risk tier, and Annex III domain — and drafts a compliant response for you to review, edit, and accept. Aria drafting is available for key obligations including Art. 9 risk register entries, Art. 13 instructions for use, Art. 27 FRIA narratives, and Art. 17 quality management policy sections.
+
+### PDF export
+
+Completed obligation forms can be exported as formatted PDFs — go to the obligation detail page and click **Download PDF**. On the Core plan and above, the full Annex IV technical documentation dossier can be generated as a consolidated PDF from **Systems → [System] → Dossier**, packaging all completed Phase 3 obligations into a regulator-ready document.
+
+<Tip>
+  When working on a complex obligation like Art. 9 Risk Management, use the **In Progress** status to save partial work between sessions. The form auto-saves every time you leave a field, so your work is never lost even if you close the browser tab.
+</Tip>
+
+## How the engine handles regulatory updates
+
+The Obligation Engine's definition set is versioned in code and updated whenever the AI Office or European Commission issues binding guidance, new technical standards, or amendments (such as the Digital Omnibus). When definitions are updated:
+
+- Existing **System Obligation instances** that are already Complete or Approved are **not** automatically re-opened. You are notified of the change via the regulatory updates feed and can manually review affected obligations.
+- Existing obligations that are Not Started or In Progress may have their guidance text updated automatically.
+- New obligation definitions (e.g. a new article comes into force) are added to the engine and generate new System Obligation instances for all systems where the applicability criteria match.
+
+You can always see the **effective date** of each obligation — the statutory date from which the EU AI Act article applies — in the obligation detail panel. This date is distinct from your own working due date, which you set or inherit from the engine's default.

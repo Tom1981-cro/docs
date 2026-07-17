@@ -1,0 +1,197 @@
+---
+title: "Annex III High-Risk AI: Domains and What They Mean"
+sidebarTitle: "Annex III"
+description: "A plain-language guide to all eight Annex III high-risk AI domains — what use cases each covers, real-world examples, and which obligations apply."
+---
+
+Annex III is the list at the heart of the EU AI Act's risk classification system. It names eight specific domains where AI systems are presumed to be high-risk, triggering the Act's full set of provider and deployer obligations. If your AI system is used in one of these domains, you almost certainly need to go through the complete compliance programme — unless you can demonstrate that your specific system genuinely does not pose a significant risk under Article 6(3).
+
+Understanding Annex III is not just about checking whether a domain name matches your industry. It requires looking at the specific function your AI system performs within that domain. An AI-powered scheduling tool used by a hospital is not automatically high-risk — but an AI that decides which patients receive which treatment is a different matter entirely.
+
+## The obligations that high-risk classification triggers
+
+Before diving into the domains, here is what is at stake. A confirmed high-risk classification under Annex III means you must satisfy **all** of the following obligations:
+
+| Obligation | Article | Applies to |
+|------------|---------|------------|
+| Risk management system | Art. 9 | Provider |
+| Data and data governance | Art. 10 | Provider |
+| Technical documentation | Art. 11 | Provider |
+| Transparency & instructions for use | Art. 13 | Provider |
+| Human oversight | Art. 14 | Provider |
+| Accuracy, robustness, cybersecurity | Art. 15 | Provider |
+| Deployer obligations | Art. 26 | Deployer |
+| Fundamental Rights Impact Assessment | Art. 27 | Deployer (specific cases) |
+| Conformity assessment | Art. 43 | Provider |
+| EU Declaration of Conformity | Art. 47 | Provider |
+| Registration in EU database | Art. 49 | Provider & deployer |
+| Post-market monitoring | Art. 72 | Provider |
+| Serious incident reporting | Art. 73 | Provider & deployer |
+
+---
+
+## The eight Annex III domains
+
+### 1. Biometrics
+
+<Info>
+  Biometric identification and categorisation systems were among the most debated areas of the Act. The obligations here apply to remote biometric identification — not to, for example, fingerprint-based device unlock.
+</Info>
+
+This domain covers AI systems used for:
+
+- **Remote biometric identification** — identifying a natural person without their active participation, typically by matching facial images, gait patterns, or other biometric traits against a reference database.
+- **Biometric verification** — one-to-one matching confirming that a person is who they claim to be, in contexts where errors carry significant consequences.
+- **Biometric categorisation** — classifying people based on biometric data into categories with legal or similar significance (not to be confused with the Art. 5(1)(e) prohibition on categorising by sensitive attributes).
+
+**High-risk examples:** Border control facial recognition systems; employee access systems that log and evaluate biometric data for workforce management purposes; identity verification systems used in financial services onboarding.
+
+**Not automatically high-risk:** Physical access control using biometrics (e.g. a fingerprint reader on an office door) where the processing is minimal and the consequences of error are low — though the Article 6(3) exception reasoning must still be documented.
+
+---
+
+### 2. Critical Infrastructure
+
+This domain covers AI systems used in the management and operation of critical infrastructure — specifically where a failure or incorrect output could endanger the health, safety, or fundamental rights of large numbers of people, or cause significant economic damage.
+
+**Sectors in scope:** Water supply, gas networks, electricity grids, road traffic management systems, digital infrastructure (including major cloud services and networks), and other critical utilities.
+
+**High-risk examples:**
+- AI used to detect anomalies and manage load balancing across an electricity distribution network
+- AI controlling the safety systems of a water treatment facility
+- AI that manages routing and traffic signal timing for a large urban road network
+- Cybersecurity AI that makes autonomous decisions to block or isolate parts of digital infrastructure
+
+**Not automatically high-risk:** General IT management or monitoring tools used within a critical infrastructure company for internal administrative tasks — the key question is whether the AI's output directly influences the safety or continuity of the infrastructure.
+
+---
+
+### 3. Education and Vocational Training
+
+<Warning>
+  This is a domain where many EdTech companies have underestimated their exposure. If your product influences admission decisions, assessment outcomes, or learning pathways in an educational context, review your classification carefully.
+</Warning>
+
+This domain covers AI systems that determine or substantially influence access to educational opportunities or the evaluation of learners' performance.
+
+**Covered use cases:**
+- AI that scores or ranks applications for admission to educational institutions (schools, universities, vocational programmes)
+- Automated essay grading or exam assessment tools that produce a score used in formal evaluation
+- AI that monitors student behaviour during examinations and makes inferences about academic integrity
+- Tools that determine access to specific educational paths or vocational training programmes
+
+**High-risk examples:**
+- A university admissions platform that uses AI to rank applicants based on predicted academic performance
+- An online learning platform that uses AI to certify professional competency, where certification affects employment
+
+**Not automatically high-risk:** Adaptive learning tools that personalise study materials without making consequential decisions about the learner's progress or qualifications.
+
+---
+
+### 4. Employment, Workers Management, and Access to Self-Employment
+
+This is the domain with the broadest reach for B2B SaaS providers. AI used in human resources and workforce management is among the most commonly deployed high-risk AI in the EU market.
+
+**Covered use cases:**
+- **Recruitment and selection** — AI that screens CVs, shortlists candidates, or ranks applicants for employment or self-employment opportunities
+- **Promotion and termination decisions** — AI that contributes to decisions about performance ratings, promotions, or dismissals
+- **Task allocation and monitoring** — AI that allocates work tasks, sets productivity targets, or monitors compliance with those targets
+- **Workforce analytics** — AI that produces assessments used to make consequential HR decisions
+
+**High-risk examples:**
+- Applicant tracking systems with AI screening that filter CVs before human review
+- Performance management platforms that produce AI-generated ratings influencing bonuses or promotion decisions
+- Gig economy platforms using AI to assign jobs, calculate earnings, or deactivate worker accounts based on behavioural scores
+
+**Important:** Article 26(7) also requires deployers of these systems to notify workers' representatives and affected workers before the system is put into service in a workplace.
+
+---
+
+### 5. Access to Essential Private and Public Services and Benefits
+
+This domain has four distinct sub-categories defined in the Act:
+
+<CardGroup cols={2}>
+  <Card title="5(a) — Public assistance and healthcare eligibility" icon="hand-holding-heart">
+    AI used to evaluate eligibility for essential public assistance benefits and services, including healthcare. For example, an AI system that determines whether a person qualifies for social housing, disability benefits, or a referral to a specialist.
+  </Card>
+  <Card title="5(b) — Creditworthiness and credit scoring" icon="credit-card">
+    AI used to assess the creditworthiness of natural persons or to establish their credit score — but explicitly **excluding** AI used purely for fraud detection. A credit scoring model used in lending decisions is high-risk; a fraud detection model on the same transaction is not under this sub-category.
+  </Card>
+  <Card title="5(c) — Life and health insurance risk and pricing" icon="shield-heart">
+    AI used to assess and price risk in life insurance and health insurance contexts, where the output affects whether a person can obtain cover and at what price.
+  </Card>
+  <Card title="5(d) — Emergency call classification and dispatch" icon="phone-volume">
+    AI that classifies emergency calls or dispatches emergency services, including AI used for patient triage in emergency healthcare settings.
+  </Card>
+</CardGroup>
+
+**Why this matters:** SMEs in fintech, insurtech, and health-tech are likely to encounter this domain directly. If your product produces a score, ranking, or recommendation that influences whether a person can access financial services, insurance, or essential public support, you are almost certainly in scope.
+
+---
+
+### 6. Law Enforcement
+
+This domain applies to AI used by law enforcement authorities for specific investigative, analytical, and operational purposes.
+
+**Covered use cases:**
+- AI used to assess the risk of an individual becoming a victim of crime
+- Polygraph-type tools used to assess the reliability of evidence or statements made by natural persons
+- AI for detecting the emotional state of a person during questioning or investigation
+- AI used to evaluate the reliability of evidence in criminal proceedings
+- AI for profiling natural persons in connection with criminal activity or investigations
+- AI used for crime analytics — predicting where or when crime is likely to occur based on historical data
+
+<Info>
+  Private-sector organisations are generally not in this domain unless they provide services directly to law enforcement authorities, or their system is used in a law-enforcement context. However, if your AI is embedded in a product sold to police forces or border authorities, you need to assess this carefully.
+</Info>
+
+---
+
+### 7. Migration, Asylum, and Border Control Management
+
+This domain covers AI systems used in decisions related to migration, asylum applications, and border management — areas where errors can have severe and irreversible consequences for individuals.
+
+**Covered use cases:**
+- Polygraph or lie-detection type tools used with applicants or travellers
+- Risk assessment of persons to determine whether they pose an irregular migration or security risk
+- AI to assist in the examination of asylum, visa, or residence permit applications, including verification of documents
+- AI used to monitor border surveillance situations
+
+**Why the stakes are high:** Decisions in this domain can result in deportation, detention, or refusal of protection for people seeking asylum. The fundamental rights implications — including the right to life, freedom from torture, and family unity — mean this domain receives the strictest scrutiny.
+
+---
+
+### 8. Administration of Justice and Democratic Processes
+
+This domain covers AI that intersects with judicial decision-making and the integrity of democratic participation.
+
+**Covered use cases:**
+- AI used by courts or judicial authorities to research facts and law, or to interpret legislation
+- AI used to assist arbitration and mediation processes
+- AI that influences elections — for example, by producing highly targeted political content or predicting and influencing voter behaviour in ways that undermine the free formation of opinion
+
+**Why this exists separately from law enforcement:** Judicial independence and electoral integrity are foundational to democratic society. The Act recognises that AI influencing judicial reasoning or electoral choice poses risks to the entire legal and political order — beyond the individual harms addressed in other domains.
+
+---
+
+## The Article 6(3) exception — when high-risk can be avoided
+
+The Act provides one limited off-ramp: Article 6(3) allows a provider to self-certify that an Annex III system is **not** high-risk, provided they can demonstrate that it does not pose a significant risk to the health, safety, or fundamental rights of natural persons.
+
+<Warning>
+  Relying on Article 6(3) is not a simple opt-out. You must register your reasoning in the EU database, and if your self-assessment is incorrect, you remain exposed to the full penalty regime. Veritome generates an Article 6(3) exception record with a structured justification template — but you should always involve legal counsel before relying on this exception for a genuinely borderline system.
+</Warning>
+
+The exception is most credible when:
+- The system's output is purely advisory and a human always makes the final decision
+- The decision affected by the system has low stakes or is easily reversible
+- The system does not interact directly with the affected natural persons
+
+---
+
+## Next steps
+
+Once you know that your system falls within an Annex III domain, use Veritome's classification wizard to confirm your classification and generate your full obligation set. The wizard walks you through Article 6 step by step and automatically maps every applicable article to a tracked task in your compliance dossier.
+
+Start with the [free readiness assessment](https://veritome.eu/apps/readiness-assessment) if you are exploring Annex III applicability for the first time.

@@ -1,0 +1,174 @@
+---
+title: "Generate Compliance Reports and Export Your Data"
+sidebarTitle: "Reports"
+description: "Export PDF dossiers, CSV data, and SHA-256 audit bundles. Schedule compliance snapshots and download everything your regulators need."
+---
+
+Veritome's reporting and export tools let you package your compliance work into formats that regulators, auditors, and senior stakeholders can use outside the platform. From a single-obligation PDF to a full audit bundle with cryptographic integrity proofs, every export format is designed around EU AI Act submission requirements — no reformatting required.
+
+## Export Formats at a Glance
+
+<CardGroup cols={2}>
+  <Card title="PDF Dossier Export" icon="file-pdf">
+    Generate structured PDFs for Annex IV technical documentation, FRIA, Declaration of Conformity, and Annex VIII incident reports.
+  </Card>
+  <Card title="CSV Export" icon="file-csv">
+    Download a flat-file export of all systems and obligations — useful for spreadsheet analysis, reporting to management, or importing into other tools.
+  </Card>
+  <Card title="Audit Bundle" icon="file-zipper">
+    A ZIP archive containing all compliance artefacts plus a SHA-256 manifest file. Every document in the bundle is individually hashed for integrity verification.
+  </Card>
+  <Card title="Stored Snapshots" icon="camera">
+    Point-in-time compliance snapshots stored in Veritome and retrievable on demand. Available on Business and Enterprise plans.
+  </Card>
+</CardGroup>
+
+## PDF Dossier Exports
+
+Veritome can generate a print-ready PDF for each of the following document types. Navigate to **Reports → Export** and select the system and document type you need.
+
+<Tabs>
+  <Tab title="Annex IV">
+    **Technical Documentation** as required by EU AI Act Annex IV. Covers general description of the system, description of development process, monitoring and testing procedures, and the log-keeping specifications. Veritome pre-fills every section from your dossier data.
+  </Tab>
+  <Tab title="FRIA">
+    **Fundamental Rights Impact Assessment** — a structured report mapping your system's potential impact on the fundamental rights of affected persons. Veritome exports the full assessment with your responses, risk ratings, and mitigation measures.
+  </Tab>
+  <Tab title="DoC">
+    **Declaration of Conformity** as specified in EU AI Act Article 47. The export includes the provider's name, system name, harmonised standards applied, notified body reference (if applicable), and the authorised signatory fields ready for wet or electronic signature.
+  </Tab>
+  <Tab title="Annex VIII">
+    **Incident and Serious Malfunction Report** template for post-market surveillance. The Annex VIII export captures incident date, description, affected users, corrective measures taken, and follow-up timelines.
+  </Tab>
+</Tabs>
+
+<Note>
+  PDF dossier generation is available on **Core and above** plans. On Free and Starter plans, you can preview the dossier layout but cannot download the PDF.
+</Note>
+
+<Steps>
+  <Step title="Navigate to Reports">
+    From the left sidebar, click **Reports**, then select the **Export** tab.
+  </Step>
+  <Step title="Select a system">
+    Use the system picker to choose the AI system you want to export. Only systems you have at least Member access to are shown.
+  </Step>
+  <Step title="Choose the document type">
+    Select one or more of: Annex IV, FRIA, Declaration of Conformity, Annex VIII. You can select all four to bundle them into a single PDF.
+  </Step>
+  <Step title="Generate and download">
+    Click **Generate PDF**. Veritome compiles the export (typically under 30 seconds for a full dossier). Click **Download** when the status shows **Ready**.
+  </Step>
+</Steps>
+
+## CSV Export
+
+The CSV export gives you a tabular view of all systems and obligations in your organisation, including completion status, assignee, last-updated date, and evidence count for each obligation row.
+
+<Steps>
+  <Step title="Open Reports → Export">
+    Navigate to **Reports → Export** and click the **CSV** tab.
+  </Step>
+  <Step title="Configure the export">
+    Choose whether to include all systems or a specific system. Select which columns to include (system name, obligation title, phase, status, assignee, evidence count, last updated, due date).
+  </Step>
+  <Step title="Download">
+    Click **Export CSV**. The file downloads immediately — no generation queue.
+  </Step>
+</Steps>
+
+## Audit Bundle with SHA-256 Manifest
+
+The audit bundle is Veritome's most complete export format, designed for regulatory submissions and formal audits. It is a ZIP archive containing:
+
+- All PDF exports (Annex IV, FRIA, DoC, Annex VIII) for the selected system.
+- All evidence documents attached to the system's obligations.
+- A machine-readable `manifest.json` listing every file in the archive with its SHA-256 hash, file size, and the obligation(s) it satisfies.
+
+### Verifying Integrity
+
+Any recipient of an audit bundle can verify its integrity without any special software:
+
+1. Extract the ZIP archive.
+2. Locate `manifest.json` at the archive root.
+3. For each file listed, compute the SHA-256 hash of the extracted file using any standard tool (e.g. `sha256sum` on Linux/macOS, `Get-FileHash` on Windows PowerShell).
+4. Compare the computed hash against the hash in `manifest.json`. An exact match on every file confirms the bundle has not been tampered with.
+
+<Tip>
+  The dossier hash shown on your system's [Public Verify](/features/public-verify) page corresponds to the SHA-256 hash of the `manifest.json` file in the audit bundle. This allows regulators to cross-reference the public record and the submitted bundle in a single step.
+</Tip>
+
+### Generating an Audit Bundle
+
+<Steps>
+  <Step title="Navigate to Reports → Audit Bundle">
+    From **Reports**, click the **Audit Bundle** tab.
+  </Step>
+  <Step title="Select the system and scope">
+    Choose the system and the compliance phases to include (you can include all phases or select specific ones). Select whether to include evidence files — note that including all evidence files can result in large archive sizes.
+  </Step>
+  <Step title="Generate the bundle">
+    Click **Generate audit bundle**. Bundle generation is queued and may take 1–5 minutes depending on the number of evidence files. You receive an in-app notification and an email when the bundle is ready.
+  </Step>
+  <Step title="Download and verify">
+    Click **Download** from the notification or the **Audit Bundle** tab. Verify file hashes against the manifest before submitting to regulators.
+  </Step>
+</Steps>
+
+## Stored Compliance Snapshots
+
+Stored compliance snapshots capture the complete state of your organisation's compliance posture at a specific point in time. Unlike on-demand exports, snapshots are stored within Veritome and can be retrieved and compared months or years later.
+
+<Note>
+  Stored snapshots are available on **Business and Enterprise** plans only.
+</Note>
+
+Snapshots are useful for:
+
+- **Audit trails** — prove what your compliance posture was on a specific date (e.g. when a new regulation took effect).
+- **Board reporting** — share a frozen view of compliance status without exposing the live dossier.
+- **Before/after comparisons** — compare snapshots taken before and after a major system change to demonstrate due diligence.
+
+To create a snapshot manually:
+
+<Steps>
+  <Step title="Navigate to Reports → Snapshots">
+    Click **Reports** in the left sidebar, then select the **Snapshots** tab.
+  </Step>
+  <Step title="Click 'Create snapshot'">
+    Click **Create snapshot**. Enter an optional label (e.g. *"Q4 2024 board review"*) and click **Confirm**.
+  </Step>
+  <Step title="Access historical snapshots">
+    All snapshots appear in the list with their creation date and label. Click any snapshot to view a read-only version of the compliance dashboard as it appeared at that moment, or click **Export** to download a PDF or CSV of the snapshot.
+  </Step>
+</Steps>
+
+## Scheduled Report Generation
+
+On **Business and Enterprise** plans, you can schedule automatic report generation so that exports are ready without manual intervention.
+
+<Steps>
+  <Step title="Open Reports → Schedule">
+    Navigate to **Reports → Schedule** and click **New schedule**.
+  </Step>
+  <Step title="Configure the schedule">
+    Choose frequency (weekly, monthly, quarterly), the report type (snapshot, PDF dossier, CSV), the system scope, and the delivery method (download to Veritome, email to specified addresses, or push to a connected integration).
+  </Step>
+  <Step title="Save the schedule">
+    Click **Save schedule**. The first report runs at the next scheduled interval. You can run an immediate test by clicking **Run now**.
+  </Step>
+</Steps>
+
+<Warning>
+  Scheduled reports count against your storage quota. Enterprise plans have unlimited report storage; Business plans retain the last 24 scheduled reports per system. Older reports are automatically purged.
+</Warning>
+
+## Plan-Gated Features Summary
+
+| Feature | Free | Starter | Core | Growth | Business | Enterprise |
+|---|---|---|---|---|---|---|
+| CSV export | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| PDF dossier export | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| Audit bundle | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| Stored snapshots | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| Scheduled reports | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |

@@ -1,0 +1,165 @@
+---
+title: "Key EU AI Act Articles Every SME Must Know"
+sidebarTitle: "Key Articles"
+description: "A plain-language guide to the most important EU AI Act articles for SMEs — who they apply to, what they require, and when they become enforceable."
+---
+
+The EU AI Act spans 113 articles, but you do not need to master every one of them to achieve compliance. What you do need is a working understanding of the articles that create direct, actionable obligations for your business. This guide summarises the articles that matter most for European SMEs — whether you build AI systems, deploy them, or both.
+
+## Quick-reference table
+
+| Article | Title | Applies to | In force |
+|---------|-------|------------|----------|
+| Art. 4 | AI literacy | Providers & deployers | 2 Feb 2025 |
+| Art. 5 | Prohibited practices | Everyone | 2 Feb 2025 |
+| Art. 6 | High-risk classification rules | Providers & deployers | 2 Feb 2025 |
+| Art. 9 | Risk management system | Providers | High-risk deadline |
+| Art. 10 | Data and data governance | Providers | High-risk deadline |
+| Art. 11 | Technical documentation | Providers | High-risk deadline |
+| Art. 13 | Transparency & instructions for use | Providers | High-risk deadline |
+| Art. 14 | Human oversight | Providers | High-risk deadline |
+| Art. 15 | Accuracy, robustness, cybersecurity | Providers | High-risk deadline |
+| Art. 26 | Deployer obligations (high-risk) | Deployers | High-risk deadline |
+| Art. 27 | Fundamental Rights Impact Assessment | Deployers (specific cases) | High-risk deadline |
+| Art. 43 | Conformity assessment | Providers | High-risk deadline |
+| Art. 47 | EU Declaration of Conformity | Providers | High-risk deadline |
+| Art. 49 | Registration in EU database | Providers & deployers | High-risk deadline |
+| Art. 50 | Transparency for limited-risk AI | Providers & deployers | 2 Feb 2025 |
+| Art. 72 | Post-market monitoring | Providers | High-risk deadline |
+| Art. 73 | Serious incident reporting | Providers & deployers | High-risk deadline |
+| Art. 99 | Penalties | Everyone | 2 Aug 2025 |
+
+<Info>
+  "High-risk deadline" refers to 2 December 2027 for stand-alone Annex III systems and 2 August 2028 for AI embedded in Annex I regulated products — both as revised by the Digital Omnibus, whose final adoption is pending. Verify the operative deadline with legal counsel before fixing your project timeline.
+</Info>
+
+---
+
+## Article deep-dives
+
+<Accordion title="Art. 4 — AI Literacy (in force 2 Feb 2025)">
+  **Who it applies to:** Providers and deployers.
+
+  **What it requires:** You must take measures to ensure that the people working for you — or on your behalf — have a sufficient level of AI literacy. This means they should understand the capabilities and limitations of the AI systems they operate, the risks those systems can create, and the role they play in oversight and responsible use.
+
+  **What "sufficient" means in practice:** The Act does not prescribe a specific curriculum or certification. Instead, literacy must be appropriate to the role: a developer building an AI system needs deeper technical understanding than a call centre agent who uses an AI-powered tool to flag customer queries. You should document the literacy measures you have put in place, tailored by role.
+
+  **For SMEs:** This does not mean sending every employee on an expensive AI ethics course. A structured internal briefing, documented procedures, and a short awareness programme for staff who interact with AI systems will satisfy the intent. Veritome's obligation tracker generates literacy tasks calibrated to your organisation's role profile.
+</Accordion>
+
+<Accordion title="Art. 5 — Prohibited Practices (in force 2 Feb 2025)">
+  **Who it applies to:** Everyone — providers, deployers, importers, distributors.
+
+  **What it requires:** Article 5 bans eight categories of AI use outright. There is no exception, no grace period, and no proportionality defence. If your system falls into a prohibited category, it must be shut down or fundamentally redesigned.
+
+  The eight categories cover: subliminal or manipulative techniques that cause harm; exploiting vulnerabilities of specific groups; social scoring by public authorities; real-time remote biometric identification in public spaces (with narrow law-enforcement exceptions); biometric categorisation to infer sensitive attributes; emotion recognition in the workplace or educational settings; predictive policing based solely on profiling; and untargeted facial scraping to build or expand recognition databases.
+
+  **Penalties:** Up to €35 million or 7% of global annual turnover for a violation.
+
+  See the [Prohibited Practices guide](/knowledge-base/prohibited-practices) for a detailed breakdown of each category.
+</Accordion>
+
+<Accordion title="Art. 9 — Risk Management System">
+  **Who it applies to:** Providers of high-risk AI systems.
+
+  **What it requires:** You must establish, implement, document, and continuously update a risk management system that spans the entire lifecycle of your AI system — from initial design through post-deployment monitoring.
+
+  The system must identify and analyse known and reasonably foreseeable risks, estimate and evaluate those risks, adopt appropriate risk-mitigation measures, and test that the measures work. It is a living document, not a one-time audit.
+
+  **Key components:**
+  - Identification of all risks associated with the intended purpose and foreseeable misuse
+  - Risk estimation and evaluation based on the severity and probability of harm
+  - Risk mitigation measures — both at design level and at the level of deployer instructions
+  - Residual risk communication — if risks cannot be fully mitigated, providers must disclose them to deployers
+
+  **For SMEs:** Veritome generates a structured risk register aligned to Article 9 for each high-risk system you register. The register is version-controlled and links to your evidence vault so you can demonstrate ongoing compliance.
+</Accordion>
+
+<Accordion title="Art. 13 — Transparency and Instructions for Use">
+  **Who it applies to:** Providers of high-risk AI systems.
+
+  **What it requires:** You must provide deployers with clear, complete, and up-to-date instructions for use (IFU). The IFU is the primary document through which deployers understand how to use your system correctly, safely, and within the boundaries you have designed for.
+
+  The instructions must cover: the identity and contact details of the provider; the system's capabilities, limitations, and intended purpose; levels of accuracy and relevant performance metrics; known biases and risks; the technical infrastructure needed for correct operation; any human oversight measures required; expected lifetime and maintenance schedule; and how to report incidents.
+
+  **Why this matters for deployers:** If you are a deployer, the IFU is your primary compliance reference. Your Article 26 obligations — including human oversight, input data control, and log retention — are all tied to operating the system "in accordance with the instructions for use."
+</Accordion>
+
+<Accordion title="Art. 14 — Human Oversight">
+  **Who it applies to:** Providers of high-risk AI systems (design obligation); deployers (operational obligation via Art. 26).
+
+  **What it requires:** High-risk AI systems must be designed so that natural persons can effectively oversee them during the period of use. Oversight is not optional — it must be built into the system architecture, not bolted on afterwards.
+
+  The Act specifies that human oversight must enable the people responsible for oversight to:
+  - Fully understand the system's capabilities and limitations
+  - Monitor the system's operation for signs of anomalies or unexpected outputs
+  - Interpret outputs correctly, particularly in high-stakes decisions
+  - Override, disregard, or reverse the system's output in appropriate cases
+  - Intervene to stop the system or prevent it from operating in certain situations
+
+  **For deployers:** Article 26(2) requires you to assign human oversight to competent natural persons with sufficient authority, training, and resources to actually intervene. Oversight on paper is not enough.
+</Accordion>
+
+<Accordion title="Art. 27 — Fundamental Rights Impact Assessment (FRIA)">
+  **Who it applies to:** Deployers of high-risk AI systems — specifically, public bodies and private entities deploying systems in the domains covered by Annex III points 1, 2, 3, 5(a), and 6 through 8.
+
+  **What it requires:** Before deploying a high-risk AI system in scope, you must carry out a Fundamental Rights Impact Assessment. The FRIA evaluates how deploying the system could affect the fundamental rights of the people it interacts with or makes decisions about — including rights to non-discrimination, privacy, dignity, and due process.
+
+  **What the FRIA must cover:**
+  - A description of the deployer's processes in which the system will be used
+  - The time period and frequency of use
+  - The categories of natural persons likely to be affected
+  - The specific risks of harm to fundamental rights
+  - Whether existing safeguards adequately address those risks
+  - The identity of the responsible person within the organisation
+
+  **For SMEs:** If you are a smaller public-sector body or provide essential services — healthcare, social benefits, emergency dispatch — the FRIA is a mandatory pre-deployment step, not a best practice. Veritome generates a structured FRIA template that maps directly to the Article 27 checklist.
+</Accordion>
+
+<Accordion title="Art. 73 — Serious Incident Reporting">
+  **Who it applies to:** Providers (primary reporting obligation) and deployers (via Art. 26(5), reporting to the provider and, where necessary, to the authority directly).
+
+  **What it requires:** When a high-risk AI system causes or contributes to a "serious incident" — defined as an incident resulting in death, serious health harm, significant property damage, or a serious violation of fundamental rights — you must report it to the national market-surveillance authority within strict calendar-day deadlines.
+
+  **Reporting deadlines:**
+  | Severity | Deadline |
+  |----------|----------|
+  | Death of a person | 10 calendar days |
+  | Critical infrastructure disruption (widespread / irreversible) | 2 calendar days |
+  | All other serious incidents | 15 calendar days |
+
+  An initial incomplete report is permitted where you cannot yet provide full details within the deadline — the requirement is to notify promptly and supplement later.
+
+  **For deployers:** Your first obligation under Article 26(5) is to notify the provider. If the provider does not act or cannot be contacted, you may need to report directly to the authority. Document every incident, even those that do not meet the "serious" threshold, for your post-market monitoring trail.
+</Accordion>
+
+---
+
+## Deployer obligations under Article 26
+
+If you use a high-risk AI system that you did not build, Article 26 is your primary compliance reference. It contains seven sub-paragraphs, each creating a distinct obligation:
+
+<CardGroup cols={2}>
+  <Card title="Art. 26(1) — Follow the instructions for use" icon="book-open">
+    Take appropriate technical and organisational measures to use the system strictly within the boundaries set by the provider's instructions for use.
+  </Card>
+  <Card title="Art. 26(2) — Assign human oversight" icon="user-check">
+    Designate competent, trained natural persons with the resources and authority to monitor and, where needed, override the system.
+  </Card>
+  <Card title="Art. 26(4) — Control input data" icon="database">
+    Where you control the data fed into the system, ensure it is relevant and sufficiently representative for the intended purpose.
+  </Card>
+  <Card title="Art. 26(5) — Monitor and report" icon="bell">
+    Monitor operation per the instructions for use; notify the provider (and authority if needed) of serious risks and incidents.
+  </Card>
+  <Card title="Art. 26(6) — Retain logs" icon="clock-rotate-left">
+    Keep automatically generated logs for at least six months, unless another applicable law requires a different retention period.
+  </Card>
+  <Card title="Art. 26(7) — Notify workers" icon="users">
+    Before putting a high-risk system into service for workplace use, inform workers' representatives and the affected workers that the system will be used.
+  </Card>
+</CardGroup>
+
+<Tip>
+  Veritome automatically maps your deployer obligations to the correct sub-paragraphs of Article 26 based on your system classification. Each obligation is linked to evidence tasks so you can demonstrate compliance in your dossier.
+</Tip>

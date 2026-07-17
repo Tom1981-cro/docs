@@ -1,0 +1,108 @@
+---
+title: "Report AI Incidents Under Article 73 of the EU AI Act"
+sidebarTitle: "Incident Reporting"
+description: "Log, review, and submit reportable AI incidents to the right national authority on time — with Veritome's four-eyes workflow and deadline-tracking built in."
+---
+
+Article 73 of the EU AI Act requires providers of high-risk AI systems to report serious incidents and malfunctions to the relevant national market surveillance authority without undue delay. Missing a reporting deadline can trigger significant penalties — up to €15 million or 3 % of global annual turnover. Veritome's incident module gives your team a structured workflow to log, investigate, and submit incidents, with automatic deadline countdown timers and a built-in register of national authorities so you always know where to report.
+
+## What is a reportable incident?
+
+<Accordion title="Incidents that must be reported under Article 73">
+  Under Article 73, a **serious incident** is one that results in, or could plausibly lead to:
+
+  - The death of a person, or serious harm to a person's health.
+  - A serious and irreversible disruption to the management or operation of critical infrastructure.
+  - A breach of EU law protecting fundamental rights.
+  - Serious property damage with widespread societal or economic consequences.
+
+  In addition, Article 26(5) requires deployers to report to providers any malfunction or unexpected behaviour that could constitute a serious incident, even if no harm has yet materialised. Providers must then assess whether the event triggers an Article 73 report to the authority.
+</Accordion>
+
+**Who must report:** Providers of high-risk AI systems are the primary reporting entity under Article 73. Deployers have a parallel duty under Article 26(5) to notify the provider. If the provider is established outside the EU and you are their authorised representative, the reporting duty falls to you.
+
+## Deadline categories
+
+<Warning>
+  Reporting deadlines under Article 73 are calendar days from the moment you become aware of the incident — not working days. Veritome starts the countdown timer the moment you log an incident. Do not delay logging.
+</Warning>
+
+| Category | Deadline | Examples |
+|----------|----------|---------|
+| **Serious incident — widespread harm or critical infrastructure** | 2 calendar days | Incident causing or risking widespread disruption to energy grids, transport networks, or affecting large numbers of people simultaneously |
+| **Serious incident — death** | 10 calendar days | System output that directly contributes to a fatality |
+| **Serious incident — other** | 15 calendar days | Serious harm to an individual's health or fundamental rights that does not result in death |
+| **Unexpected risk / malfunction** | 15 calendar days | Unexpected behaviour identified during deployment that could lead to a serious incident |
+| **Post-market finding** | 30 calendar days | Risk identified during post-market monitoring that does not require immediate reporting but must still be notified |
+
+## The four-eyes incident workflow
+
+Veritome enforces a four-eyes review before any incident report is submitted to an authority. This protects your organisation by ensuring that a second qualified person has validated the facts and categorisation before they become a formal regulatory submission.
+
+<Steps>
+  <Step title="Log the incident">
+    Navigate to **Incidents** in the main menu and click **Log incident**. Fill in the initial report form:
+
+    - **Incident title** — a concise label for internal tracking.
+    - **Affected system** — select the AI system from your register.
+    - **Date and time the incident was first detected** — this sets the deadline clock.
+    - **Incident description** — a factual narrative of what happened, what output was produced, and what harm did or could occur.
+    - **Harm category** — select the closest match from the dropdown (death, serious health harm, critical infrastructure, fundamental rights, property damage, unexpected risk, post-market finding). Veritome calculates the applicable deadline automatically.
+
+    Click **Save draft**. The incident is created with status **Draft** and the deadline timer starts immediately. The countdown is visible on the incident card and on the main Incidents dashboard.
+  </Step>
+  <Step title="Gather evidence">
+    Open the incident record and click the **Evidence** tab. Attach all supporting materials:
+
+    - System logs and output records from the relevant time window.
+    - User reports or complaints.
+    - Any internal investigation notes.
+    - Communications with the affected party (if applicable).
+    - Technical analysis of the root cause.
+
+    Evidence can be uploaded directly, pulled from Google Drive or SharePoint, or linked from GitHub. All attached files are hashed on ingestion so their integrity is verifiable.
+  </Step>
+  <Step title="Identify the reporting authority">
+    Click the **Authority** tab within the incident record. The **Authority Register** shows the correct national market surveillance authority for your organisation's country and the system's deployment country. Select the authority you will report to. Veritome pre-fills the authority's official contact details, submission portal URL, and any country-specific form requirements.
+
+    <Info>
+      If your system is deployed across multiple EU member states, you may need to notify more than one authority. Veritome lets you add multiple authorities to a single incident and tracks a separate submission status for each.
+    </Info>
+  </Step>
+  <Step title="Submit for peer review">
+    When your investigation is complete and evidence is attached, click **Submit for review**. The incident status changes to **Under Review**. Veritome notifies the designated reviewer — a second team member with incident-review rights — and surfaces the item in their queue. The deadline timer continues to run.
+
+    <Tip>
+      Assign a reviewer at the point of logging the incident, not after investigation. This means the reviewer can follow the evidence-gathering in real time and approve more quickly, giving you more of the deadline for the investigation itself.
+    </Tip>
+  </Step>
+  <Step title="Peer review">
+    The reviewer opens the incident from their queue. They read the description, review the evidence, check the harm categorisation and the selected authority, and either:
+
+    - **Approve** — the incident moves to **Ready to submit**. The assignee is notified.
+    - **Request changes** — the incident returns to the assignee with a comment. The deadline timer continues.
+  </Step>
+  <Step title="Submit to authority">
+    Once approved, the assignee clicks **Submit to authority**. Veritome:
+
+    1. Generates a formatted incident report in PDF, pre-populated with all collected data.
+    2. Presents the report for final review.
+    3. On confirmation, marks the incident as **Submitted**, records the submission timestamp, and attaches the generated PDF to the incident record.
+
+    For authorities with online portals, Veritome displays the portal URL alongside the generated PDF so you can paste the content into the authority's own form or upload the PDF directly. The submission record in Veritome serves as your internal evidence of timely reporting.
+  </Step>
+</Steps>
+
+## Incident statuses
+
+| Status | Meaning |
+|--------|---------|
+| **Draft** | Logged, evidence being gathered, deadline clock running |
+| **Under Review** | Submitted internally, awaiting peer approval |
+| **Ready to Submit** | Peer-approved, awaiting authority submission |
+| **Submitted** | Formally reported to the authority, timestamp recorded |
+| **Closed** | Authority has acknowledged receipt and case is resolved |
+
+## After submission
+
+Keep the incident record open and monitor the **Authority response** tab for acknowledgement from the national authority. If the authority requests additional information, log the correspondence in the incident record and attach any supplementary documents. Once the authority closes the case, update the incident status to **Closed** and record the outcome. Closed incidents remain in your incident register permanently — they form part of your post-market monitoring evidence.

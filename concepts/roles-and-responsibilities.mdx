@@ -1,0 +1,120 @@
+---
+title: "Roles in the EU AI Act: Provider, Deployer, and GPAI"
+sidebarTitle: "Roles"
+description: "Understand what Provider, Deployer, and GPAI Model Provider mean under the EU AI Act, which obligations each role triggers, and how Veritome's team roles control who can do what."
+---
+
+One of the first things the EU AI Act establishes is **who is responsible** for a given AI system. The answer depends on your organisation's position in the AI value chain — whether you built and placed the system on the market, use a third-party system professionally, or develop a general-purpose model that others build on. Veritome calls this your **role**, and it is the single most consequential input to the Obligation Engine: change your role, and the entire set of applicable articles changes with it.
+
+## The three roles Veritome supports
+
+### Provider
+
+A **Provider** is an organisation (natural or legal person) that develops an AI system or a general-purpose AI model and places it on the EU market or puts it into service — either under their own name or brand, or that of a third party. The Provider role carries the broadest and most demanding obligations under the EU AI Act.
+
+You are a Provider if:
+- You built the AI system from scratch or trained it.
+- You modified a third-party model significantly (Arts. 25(1)(b) and (c)) and place the resulting system on the market.
+- You market or sell the system under your own brand, even if you did not build it yourself (Art. 25(1)(a) — placing under own name).
+- You developed an AI system for internal use only (you are both Provider and Deployer for that system).
+
+Key Provider obligations include risk management (Art. 9), data governance (Art. 10), technical documentation (Art. 11), human oversight design (Art. 14), quality management system (Art. 17), conformity assessment (Art. 43), declaration of conformity (Art. 47), CE marking (Art. 48), and EU AI database registration (Art. 49).
+
+### Deployer
+
+A **Deployer** is an organisation that uses an AI system under its own authority in a professional context. Deployers do not develop or place systems on the market — they use third-party AI tools in their operations.
+
+You are a Deployer if:
+- You subscribe to or license an AI tool from a vendor (e.g. an HR platform with AI screening features, a document processing AI, a customer service chatbot).
+- You integrate a third-party AI system into your business processes.
+- You use a public API to incorporate AI capabilities into an internal workflow.
+
+Deployer obligations are lighter than Provider obligations but remain significant for High-Risk systems. Key Deployer obligations include: implementing the Provider's human oversight measures (Art. 26(1)), monitoring the system in operation (Art. 26(5)), logging and retaining records (Art. 12, as enabled by the Provider), informing affected individuals of automated decisions where required (Art. 26(11)), conducting a Fundamental Rights Impact Assessment before deployment (Art. 27 — for public bodies and essential service providers), and reporting serious incidents (Art. 73).
+
+<Note>
+  A Deployer who places a High-Risk system on the market under their own name, substantially modifies it, or changes its intended purpose is **upgraded to Provider** under Art. 25. Veritome's classification wizard asks this question explicitly — a "Yes" answer automatically upgrades your role and generates the full Provider obligation set.
+</Note>
+
+### GPAI Model Provider
+
+A **GPAI Model Provider** (General Purpose AI Model Provider) is an organisation that develops, trains, and makes available a general-purpose AI model — a model capable of a wide range of tasks, typically trained on large amounts of data, and used as a component in downstream applications (e.g. GPT-4, Gemini, Claude, Llama). GPAI obligations apply from August 2025.
+
+You are a GPAI Model Provider if:
+- You trained a foundation or frontier model and release it — publicly, commercially, or via API.
+- You maintain and update a large-scale AI model that third-party application developers build on.
+- You release an open-source base model (with a partial exemption from some Arts. 53 requirements for genuine open-source models under Art. 53(2)).
+
+Key GPAI Model Provider obligations (Art. 53): technical documentation for the model, compliance with EU copyright law, transparency summary of training data, and cooperation with downstream providers and deployers. If your model exceeds 10²⁵ FLOPs training compute (systemic risk, Art. 51), additional obligations apply under Art. 55: adversarial testing (red-teaming), serious incident reporting to the AI Office, cybersecurity measures, and energy efficiency reporting.
+
+Using an application built on a third-party GPAI model (e.g. a chatbot powered by the OpenAI API) does **not** make you a GPAI Model Provider. You are the Deployer of that application. The Art. 53/55 obligations fall on the organisation that trained and placed the underlying model on the market.
+
+## Role → key obligations mapping
+
+The table below shows the primary EU AI Act obligations by role and risk tier for High-Risk systems (the most demanding scenario). Obligations for Limited-Risk and Minimal-Risk systems are a subset.
+
+| Obligation | Article | Provider | Deployer | GPAI Model Provider |
+|-----------|---------|----------|----------|-------------------|
+| Risk management system | Art. 9 | ✅ Required | ❌ | ❌ |
+| Data governance | Art. 10 | ✅ Required | ❌ | ✅ (training data) |
+| Technical documentation | Art. 11 / Annex IV | ✅ Required | ❌ | ✅ (Art. 53) |
+| Automatic logging | Art. 12 | ✅ Required | ✅ (enable & retain) | ❌ |
+| Instructions for use (IFU) | Art. 13 | ✅ Required | ❌ | ❌ |
+| Human oversight measures | Art. 14 | ✅ Design | ✅ Implement | ❌ |
+| Accuracy and robustness | Art. 15 | ✅ Required | ❌ | ❌ |
+| Quality management system | Art. 17 | ✅ Required | ❌ | ❌ |
+| Deployer obligations | Art. 26 | ❌ | ✅ Required | ❌ |
+| FRIA (public bodies) | Art. 27 | ❌ | ✅ (if public/essential service) | ❌ |
+| Conformity assessment | Art. 43 | ✅ Required | ❌ | ❌ |
+| Declaration of conformity | Art. 47 | ✅ Required | ❌ | ❌ |
+| CE marking | Art. 48 | ✅ Required | ❌ | ❌ |
+| EU AI database registration | Art. 49 | ✅ Required | ✅ (limited fields) | ✅ Required |
+| Transparency to users | Art. 50 | ✅ (chatbots, generated content) | ✅ (chatbots) | ❌ |
+| Post-market monitoring | Art. 72 | ✅ Required | ❌ | ❌ |
+| Serious incident reporting | Art. 73 | ✅ Required | ✅ Required | ✅ (Art. 55) |
+| AI literacy | Art. 4 | ✅ Org-level | ✅ Org-level | ✅ Org-level |
+
+<Info>
+  The table above covers the core High-Risk obligations. The full obligation set for your system may include additional conditional obligations triggered by system capability flags (e.g. `isChatbot`, `hasEmotionRecognition`, `generatesContent`, `isWorkplaceAI`). The Obligation Engine evaluates all conditions when generating your obligation list.
+</Info>
+
+## Selecting your role during classification
+
+You select your role in **Step 7** of the classification wizard. The wizard's role step presents four options: Provider, Deployer, Importer, and Distributor. A follow-up question covers Art. 25: if you answer that you place the system under your own name or have substantially modified it, your role upgrades to Provider regardless of what you selected in step 7.
+
+The GPAI Model Provider flag is set separately in **Step 2** of the wizard (the GPAI model check) — answering "Yes, we provide a GPAI model" sets `isGpaiModelProvider = true` and gates the Arts. 53–55 obligation set.
+
+You can change your role by running a re-classification. Re-classifying requires a justification note and the **Re-classify systems** permission.
+
+## Team roles within Veritome
+
+Distinct from the EU AI Act roles above, Veritome has its own **team roles** that control who can do what within the platform. These are assigned per organisation member and can be fully customised.
+
+<Accordion title="Org Admin">
+  Full platform access: billing, team management, security settings, SSO configuration, all compliance features, audit log, API keys. Minimum two Org admins per organisation is recommended so there is always a backup for lockout recovery.
+</Accordion>
+
+<Accordion title="Compliance Manager">
+  Approves obligations and documents, full read/write compliance access, generates and downloads regulatory reports, issues AI literacy certificates, views the audit log. Receives the approvals queue on the dashboard. This role is designed for whoever is accountable for your AI Act compliance programme.
+</Accordion>
+
+<Accordion title="Compliance Officer">
+  Creates and edits AI systems, completes tasks, fills smart forms, submits for approval. Cannot approve their own work — this separation enforces the four-eyes model. Designed for day-to-day compliance execution.
+</Accordion>
+
+<Accordion title="System Owner">
+  Manages only their assigned AI systems. Cannot see or edit systems they are not assigned to — access is scoped by system assignment. Designed for technical leads or product managers who own individual systems in the inventory.
+</Accordion>
+
+<Accordion title="Legal Counsel">
+  Read-only access across all systems and documents. Can review smart forms before approval submissions. Cannot create or edit operational data. Designed for in-house legal reviewers or external counsel with an advisory role.
+</Accordion>
+
+<Accordion title="Auditor">
+  Read-only access to everything: systems, obligations, evidence, audit log. Can export reports and download approved PDFs. Cannot create or edit anything. Designed for internal audit functions or external regulatory auditors conducting a compliance review.
+</Accordion>
+
+Custom roles with granular permission combinations can be created in **Settings → Roles**. Every permission in the platform can be toggled individually, so you can create a role that, for example, can upload evidence and fill forms but cannot approve or download PDFs.
+
+<Tip>
+  For most SMEs, the practical minimum is: one **Org admin** (who also acts as Compliance manager), one or two **Compliance officers** handling day-to-day obligation work, and a **System owner** for each AI system's technical contact. This setup ensures four-eyes coverage on approvals while keeping the team small.
+</Tip>

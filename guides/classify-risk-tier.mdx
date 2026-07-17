@@ -1,0 +1,113 @@
+---
+title: "Classify Your AI System's Risk Tier Under the EU AI Act"
+sidebarTitle: "Classify Risk"
+description: "Step through Veritome's classification wizard to determine your system's EU AI Act risk tier, role, and Annex III domain — and trigger automatic obligation mapping."
+---
+
+Classification is the most consequential step in your compliance journey. The risk tier Veritome assigns — Unacceptable, High-Risk, Limited, or Minimal — determines every obligation your system carries under the EU AI Act. Veritome's classification wizard mirrors the Act's own branching logic exactly: it screens for prohibited practices first, then routes through Annex III domains, and finally confirms your role. The result is a timestamped classification record that locks in your obligation set and starts the compliance clock.
+
+## Before you start
+
+Open the system you want to classify from the **Systems** register. If you have not yet registered the system, complete that step first — see [Register Your First AI System in Veritome](/guides/register-ai-system).
+
+<Info>
+  Aria, Veritome's EU-hosted AI assistant, reads your system's name, description, and intended purpose and pre-fills suggested answers throughout the wizard. Review each suggestion carefully — you remain responsible for the final classification — but Aria's article references give you a useful starting point.
+</Info>
+
+## Run the classification wizard
+
+<Steps>
+  <Step title="Open the Classification wizard">
+    From your system's overview page, click **Classify system** (or **Re-classify** if a prior record exists). The wizard opens in a full-screen modal with a progress bar across the top showing the five stages.
+  </Step>
+  <Step title="Stage 1 — Article 5 prohibited-practice screening">
+    The wizard presents the **eight prohibitions** set out in Article 5 of the EU AI Act, extended with the additions introduced by the Digital Omnibus package. Each prohibition is shown as a plain-language question. Answer **Yes** or **No** for each:
+
+    <Accordion title="The eight Article 5 prohibitions (+ Digital Omnibus additions)">
+      1. **Subliminal manipulation** — does the system deploy subliminal techniques that distort behaviour beyond a person's awareness?
+      2. **Exploitation of vulnerabilities** — does it exploit age, disability, or social/economic situation to distort behaviour?
+      3. **Social scoring by public authorities** — does it evaluate or classify people based on social behaviour for public-authority purposes?
+      4. **Real-time remote biometric identification in public spaces** — does it perform live biometric identification in publicly accessible spaces for law-enforcement purposes (outside narrow exceptions)?
+      5. **Emotion recognition in workplace or education** — does it infer emotions of workers or students in those settings?
+      6. **Biometric categorisation inferring protected characteristics** — does it infer race, political opinion, religion, or similar attributes from biometric data?
+      7. **Predictive policing based solely on profiling** — does it assess individual criminal risk based only on profiling or personality traits?
+      8. **Facial recognition scraping** — does it build or expand facial-recognition databases by untargeted scraping of images?
+
+      The Digital Omnibus additions extend prohibition 4 and introduce tighter constraints on general-purpose AI systems used in prohibited contexts.
+    </Accordion>
+
+    <Warning>
+      If you answer **Yes** to any prohibited practice, the wizard immediately flags the system as **Unacceptable Risk** and blocks it from advancing further. The system record is saved in a blocked state; you cannot generate obligations or dossiers for a prohibited system. If you believe the answer was incorrect, re-run the classification.
+    </Warning>
+  </Step>
+  <Step title="Stage 2 — Role selection">
+    Select the role your organisation holds in relation to this system. Your role determines which articles of the Act apply to you.
+
+    <CardGroup cols={2}>
+      <Card title="Provider" icon="code">
+        You developed the system, placed it on the EU market, or put it into service under your own name or trademark. Providers carry the heaviest obligation set — including technical documentation (Annex IV), conformity assessment, and EU database registration.
+      </Card>
+      <Card title="Deployer" icon="play">
+        You use a third-party AI system in a professional context to produce outputs that affect people. Deployers are responsible for instructions-for-use compliance, human oversight, and fundamental rights impact assessments (Art. 27) for high-risk systems.
+      </Card>
+      <Card title="GPAI Model Provider" icon="cpu">
+        You develop or place on the market a general-purpose AI model (e.g. a foundation model). GPAI providers face specific obligations under Chapter V, including model cards, transparency, and — for systemic-risk models — adversarial testing.
+      </Card>
+      <Card title="Importer / Distributor" icon="truck">
+        You bring a system into the EU from a third country (importer) or make it available on the market without altering it (distributor). Veritome maps the reduced but real obligation set for these roles.
+      </Card>
+    </CardGroup>
+  </Step>
+  <Step title="Stage 3 — Risk tier determination">
+    Based on your answers so far, the wizard calculates the applicable risk tier:
+
+    | Tier | Meaning | Next step |
+    |------|---------|-----------|
+    | **Unacceptable** | System matches a prohibited practice | Blocked — no further progress |
+    | **High-Risk** | System falls under Annex III or Annex I product route | Proceed to Annex III domain selection |
+    | **Limited Risk** | System faces specific transparency obligations (e.g. chatbots, deepfakes) | Obligation Engine maps Art. 50 duties |
+    | **Minimal Risk** | No mandatory obligations under the Act | Obligation Engine maps best-practice items |
+
+    <Tip>
+      If you are unsure whether your system is high-risk, answer the screening questions conservatively and proceed to Annex III domain selection. You can always re-run classification with a different answer — a new record is created each time, preserving the audit trail.
+    </Tip>
+  </Step>
+  <Step title="Stage 4 — Annex III domain selection (High-Risk systems only)">
+    If the wizard routes your system to High-Risk, select the **Annex III domain** that best describes the system's area of application. The eight domains map directly to the Act's Annex III:
+
+    <Accordion title="Annex III domains">
+      - **Biometrics** — remote biometric identification, biometric categorisation, emotion recognition
+      - **Critical infrastructure** — safety components in the management and operation of road, rail, water, energy, and digital infrastructure
+      - **Education and vocational training** — determining access, admission, assessment outcomes, or monitoring in education
+      - **Employment, workers management, and access to self-employment** — recruitment, promotion, task allocation, and performance monitoring
+      - **Access to essential private services and public services and benefits** — creditworthiness, insurance pricing, public benefit eligibility, emergency services dispatch
+      - **Law enforcement** — risk assessment, polygraphs, crime analytics, evidence evaluation
+      - **Migration, asylum, and border control management** — risk assessment, document verification, irregular migration detection
+      - **Administration of justice and democratic processes** — legal research, case-outcome prediction, influencing elections
+    </Accordion>
+
+    Select the domain that matches the primary use case. If your system spans multiple domains, select the most specific one; you can add a note in the free-text field. The domain selection refines the obligation set the Obligation Engine will generate.
+  </Step>
+  <Step title="Stage 5 — Confirm and mint the classification record">
+    Review the summary: prohibited-practice screening result, role, risk tier, and (if applicable) Annex III domain. Each entry shows the article reference that drives it.
+
+    Click **Confirm classification**. Veritome:
+
+    - **Mints a timestamped classification record** and appends it to the system's audit trail.
+    - **Triggers the Obligation Engine**, which auto-maps all duties applicable to your role, risk tier, and domain.
+    - Advances the system to **Phase 2 (Scope & Literacy)** of the six-phase journey.
+    - Notifies any team members assigned to the system.
+  </Step>
+</Steps>
+
+## Re-running classification
+
+You can re-classify a system at any time — for example, if its intended purpose changes or new guidance is published. Click **Re-classify** from the system's overview page. The wizard runs again from Stage 1, and when you confirm the new classification:
+
+- A **new classification record** is created and added to the audit trail.
+- The previous record is retained (it is never deleted).
+- The Obligation Engine re-generates the obligation set based on the new classification; obligations you have already completed are preserved where they remain applicable.
+
+<Note>
+  Re-classification does not reset completed obligations. If an obligation existed under the previous classification and still applies under the new one, Veritome carries its completion status forward. Obligations that no longer apply are archived rather than deleted, so your audit trail remains complete.
+</Note>

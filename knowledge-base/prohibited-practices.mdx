@@ -1,0 +1,133 @@
+---
+title: "EU AI Act Article 5: Prohibited AI Practices Explained"
+sidebarTitle: "Prohibited Practices"
+description: "A plain-language breakdown of all eight Article 5 prohibited AI practices, what each ban covers, and what Veritome does when it detects a match."
+---
+
+Article 5 of the EU AI Act lists the AI practices that are banned entirely across the European Union. Unlike the obligations that apply to high-risk systems — which you can satisfy with the right processes and documentation — prohibited practices have no compliance path. If your AI system falls into one of the eight categories below, it must be withdrawn or fundamentally redesigned. There is no exception based on company size, and no grace period: Article 5 has been **in force since 2 February 2025**.
+
+The penalty for a violation is up to **€35 million or 7% of your global annual turnover**, whichever is higher. This is the most severe penalty tier in the entire regulation.
+
+## Why Article 5 comes first
+
+Article 5 is a threshold check, not a compliance programme. Before Veritome builds your obligation set, the classification wizard screens your system against every prohibited category. If it flags a match, the workflow stops — no obligation set can be generated for a prohibited system, because the only compliant outcome is to not deploy it.
+
+---
+
+## The eight prohibited categories
+
+<Accordion title="1 — Subliminal or manipulative techniques causing harm">
+  **What is banned:** AI systems that use techniques operating below a person's conscious awareness — or that exploit psychological vulnerabilities — to materially distort their behaviour in a way that causes, or is likely to cause, significant harm to them or others.
+
+  **The key elements:** The harm must be significant, and the technique must either bypass conscious decision-making (subliminal) or exploit a weakness the person cannot reasonably be expected to protect against. Ordinary persuasion — advertising, product recommendations — is not covered unless it meets both the technique and the harm threshold.
+
+  **Examples of what is banned:**
+  - AI that subtly alters the framing of options to steer people toward choices against their own financial interests without their awareness
+  - Hidden auditory or visual cues designed to trigger emotional responses that override rational evaluation
+
+  **What is not banned:** Personalised recommendations, targeted advertising, and A/B testing do not automatically fall into this category, provided they rely on content and rational persuasion rather than covert psychological manipulation causing real harm.
+</Accordion>
+
+<Accordion title="2 — Exploiting vulnerabilities of specific groups">
+  **What is banned:** AI that exploits the specific vulnerabilities of a particular group of persons — due to their age, disability, or social or economic situation — to materially distort their behaviour in a way that causes, or is likely to cause, significant harm.
+
+  **Who is protected:** This prohibition focuses on people who are less able to recognise or resist manipulation because of their circumstances. Children, people with cognitive disabilities, people in financial distress, and elderly people are the primary protected groups.
+
+  **Examples of what is banned:**
+  - AI used in debt-collection platforms that identify signs of mental distress and apply more aggressive pressure to vulnerable individuals
+  - AI in gambling platforms that detect problem-gambling patterns and use them to increase engagement
+
+  **Important distinction from prohibition 1:** This prohibition does not require a subliminal technique — it is enough that the AI exploits a vulnerability and causes material harm. The group must be identifiable and the system must be targeting that vulnerability specifically.
+</Accordion>
+
+<Accordion title="3 — Social scoring by public authorities">
+  **What is banned:** AI systems operated by, or on behalf of, public authorities that evaluate or classify natural persons based on their social behaviour or personal characteristics, where the scoring leads to detrimental treatment that is disproportionate to the behaviour or unrelated to the context in which the data was originally generated.
+
+  **Why this matters:** The Act is specifically targeting "Chinese-style" social credit systems — government-run programmes that aggregate behaviour across many domains of life and penalise people in ways that have nothing to do with the original context.
+
+  **Examples of what is banned:**
+  - A municipal authority using an AI that aggregates late-payment data, social media activity, and public transport behaviour to produce a "citizen trustworthiness score" used to restrict access to public services
+  - A government benefit authority using AI to deprioritise applications from people flagged as having "antisocial" online behaviour
+
+  **What is not banned:** Risk scoring that is proportionate to a specific, related context — for example, fraud detection by a tax authority based on financial behaviour relevant to tax compliance — falls outside this prohibition.
+</Accordion>
+
+<Accordion title="4 — Real-time remote biometric identification in public spaces">
+  **What is banned:** The use of real-time remote biometric identification systems (RBI) in publicly accessible spaces for law enforcement purposes.
+
+  **What "real-time" means:** The identification, categorisation, or matching happens at the moment of capture — live processing of biometric data as people move through a space — as opposed to post-hoc analysis of stored footage.
+
+  **The law enforcement exceptions (narrow and conditional):** Member states may authorise real-time RBI for law enforcement in specific, judicially or administratively pre-authorised situations, including: targeted searches for specific victims of crime; preventing an imminent terrorist attack; or identifying a person to whom an arrest warrant applies for a serious criminal offence. These exceptions require prior authorisation and are strictly time and location limited.
+
+  **What this means for the private sector:** Private organisations have no exceptions at all. A shopping centre, stadium, or employer cannot run real-time facial recognition on members of the public in their premises. Post-hoc biometric analysis (processing recorded footage after the fact) is not covered by this specific prohibition, though it may still be high-risk under Annex III.
+</Accordion>
+
+<Accordion title="5 — Biometric categorisation inferring sensitive attributes">
+  **What is banned:** AI systems that use biometric data to categorise natural persons by their race, political opinions, trade union membership, religious or philosophical beliefs, sex life, or sexual orientation.
+
+  **Why this is distinct from ban 4:** Ban 4 covers real-time identification in public spaces. This prohibition covers categorisation by sensitive characteristics — regardless of whether it is real-time or post-hoc, public space or private.
+
+  **Examples of what is banned:**
+  - Analysing facial geometry to infer likely political affiliation for targeting purposes
+  - Using gait analysis to infer religious identity or ethnicity for profiling
+  - Running biometric analysis on employee photos to infer union sympathies
+
+  **The scope question:** This prohibition covers inference of sensitive attributes from biometric data. It does not ban all use of biometric data — biometric authentication for access control, for example, is a different matter governed by GDPR and potentially Annex III, but not this prohibition.
+</Accordion>
+
+<Accordion title="6 — Emotion recognition in the workplace and education">
+  **What is banned:** AI systems that infer the emotional states of natural persons in the contexts of the workplace or educational institutions.
+
+  **Why education and work?** The Act recognises that these are environments where significant power imbalances exist. Employees and students cannot meaningfully consent to being emotionally surveilled by those who control their livelihoods or academic progression.
+
+  **Examples of what is banned:**
+  - Software that monitors employee webcam feeds during calls and produces "engagement" or "stress" scores for managers
+  - Proctoring software that flags student emotional states as indicators of cheating risk during exams
+  - Hiring tools that analyse facial expressions during video interviews to assess "enthusiasm" or "confidence"
+
+  **Narrow exceptions:** Emotion recognition is permitted in limited professional contexts where it is strictly necessary — for example, in law enforcement or security-critical applications where there is a specific legal basis. These exceptions do not apply to general commercial workplace or education deployments.
+</Accordion>
+
+<Accordion title="7 — Predictive policing based solely on profiling">
+  **What is banned:** AI systems used by law enforcement to predict the risk of a natural person committing a criminal offence based solely on profiling or on an assessment of their personality traits and characteristics, without any concrete prior behaviour or specific intelligence.
+
+  **The "solely" qualifier is important:** This prohibition targets pure profile-based prediction — using demographic data, behavioural patterns, or personality assessments in isolation to decide that someone is likely to commit a crime. It does not prohibit all predictive tools used in law enforcement, only those that work without concrete evidence about the specific individual.
+
+  **Examples of what is banned:**
+  - AI that produces a "recidivism risk score" based on demographic characteristics and neighbourhood data, used to inform bail or sentencing decisions
+  - AI that flags individuals for pre-emptive police attention based on social media behaviour and inferred personality traits, without specific intelligence about planned criminal activity
+</Accordion>
+
+<Accordion title="8 — Untargeted facial scraping to build recognition databases">
+  **What is banned:** Creating or expanding facial recognition databases by scraping facial images from the internet or CCTV footage in an untargeted way.
+
+  **What "untargeted" means:** Bulk harvesting of images — crawling the web, social media, or public camera feeds to amass biometric data — without a specific, lawful purpose tied to identifiable individuals. The key feature is the indiscriminate, mass collection rather than the targeted processing of specific images for a lawful purpose.
+
+  **Examples of what is banned:**
+  - Crawling social media platforms to collect profile images for a commercial facial recognition service
+  - Processing city-wide CCTV archives to build a database linking faces to identities for future use
+
+  **Why this matters for SaaS providers:** Several commercial facial recognition API providers have been found to have engaged in precisely this practice. If your product relies on third-party biometric datasets, you must verify that the data was not collected in a manner that violates this prohibition.
+</Accordion>
+
+---
+
+## Digital Omnibus additions
+
+<Note>
+  The Digital Omnibus instrument proposed further amendments to Article 5. Final adoption of the Digital Omnibus is pending — the exact text and scope of any additions should be confirmed with qualified legal counsel before relying on them in your compliance programme.
+</Note>
+
+The Digital Omnibus is expected to add further prohibited practices, potentially expanding the scope of bans on biometric categorisation and emotional state inference beyond the workplace and education contexts. Veritome will update the classification wizard and obligation engine as soon as the final text is adopted.
+
+---
+
+## What Veritome does when it flags an Article 5 match
+
+When your system description triggers an Article 5 flag during the classification wizard, Veritome:
+
+1. **Blocks the workflow** — no obligation set is generated, because a prohibited system cannot be made compliant through documentation.
+2. **Identifies the specific prohibition** — the wizard explains which of the eight categories matches and why.
+3. **Suggests the path forward** — whether that means redesigning the system to remove the prohibited feature, or reconsidering whether the use case is viable in the EU at all.
+
+If you believe a flag is incorrect — for example, because your system falls within a narrow law-enforcement exception — you can add a justification note, which is retained in your dossier for review. Contact [Veritome support](https://veritome.eu/contact) if you need help evaluating an edge case.

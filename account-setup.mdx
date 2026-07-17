@@ -1,0 +1,133 @@
+---
+title: "Set Up Your Veritome Account and Organisation"
+sidebarTitle: "Account Setup"
+description: "Create your Veritome account with email or Google, verify your email, configure MFA, create your organisation, and invite your compliance team."
+---
+
+Veritome uses an organisation-based workspace model: every user belongs to one organisation, and all AI systems, obligations, and evidence are scoped to that organisation. This guide walks you through creating your account, securing it with multi-factor authentication, setting up your organisation profile, and inviting your team.
+
+## Create your account
+
+Navigate to [app.veritome.eu](https://app.veritome.eu) and choose a sign-up method.
+
+<Tabs>
+  <Tab title="Email and password">
+    1. Enter your work email address and choose a password (minimum 12 characters).
+    2. Click **Create account**. Veritome sends a verification email to the address you provided.
+    3. Open the email and click **Verify email address**. The link is valid for 24 hours.
+    4. After verification you are redirected to the app and prompted to complete MFA enrolment.
+
+    <Note>
+      Use your work email address, not a personal one. Your email domain is visible to your organisation admins and appears on compliance documents.
+    </Note>
+  </Tab>
+  <Tab title="Google OAuth">
+    1. Click **Continue with Google**.
+    2. Choose your Google account and grant the requested permissions (name and email only — Veritome does not access your Google Drive or other data).
+    3. Google confirms your identity and you are redirected to the app. No separate email verification step is required.
+    4. You are immediately prompted to complete MFA enrolment.
+  </Tab>
+</Tabs>
+
+## Enrol in multi-factor authentication
+
+MFA is mandatory for every Veritome account — it cannot be skipped or disabled for individual users. After your first login you are directed to the MFA enrolment screen.
+
+<Steps>
+  <Step title="Open your authenticator app">
+    Use any TOTP-compatible authenticator: Google Authenticator, Microsoft Authenticator, Authy, 1Password, Bitwarden, or any RFC 6238-compliant app.
+  </Step>
+  <Step title="Scan the QR code">
+    Veritome displays a QR code on the enrolment screen. Scan it with your authenticator app. If you cannot scan the QR code, click **Show manual entry code** and type the secret key directly into your authenticator.
+  </Step>
+  <Step title="Enter and confirm the one-time code">
+    Your authenticator app displays a six-digit code that rotates every 30 seconds. Enter the current code into Veritome and click **Enable MFA**. If the code is accepted, enrolment is complete.
+  </Step>
+  <Step title="Save your recovery codes">
+    Veritome displays a set of single-use recovery codes. Save these in a password manager or a secure offline location. Recovery codes allow you to regain access if you lose your authenticator device. Each code can only be used once.
+  </Step>
+</Steps>
+
+<Warning>
+  If you lose access to your authenticator app and have no recovery codes, contact your organisation admin to reset your MFA. Organisation admins can remove MFA on behalf of a member from **Settings → Team**.
+</Warning>
+
+## Create or join an organisation
+
+Every Veritome account must belong to an organisation. When you first log in, you are offered two options:
+
+- **Create a new organisation** — enter your company or team name and click **Create**. You become the first **Org admin** of the new workspace.
+- **Join an existing organisation** — if a colleague has already created your company's workspace and sent you an invitation email, click the **Accept invitation** link in that email. You join the organisation with the role your admin assigned.
+
+<Info>
+  Each Veritome subscription is tied to an organisation. The Free plan allows one organisation with one AI system and one member. If you need to track systems across separate legal entities, contact [support@veritome.eu](mailto:support@veritome.eu) to discuss multi-organisation options.
+</Info>
+
+## Set up your organisation profile
+
+After creating an organisation, go to **Settings → Company profile** to complete the setup:
+
+- **Company name** — the legal or trading name displayed on generated documents and the EU AI database registration export.
+- **Country** — your primary EU/EEA country of establishment. Required for certain Art. 22 and Art. 23 obligations if you operate across borders.
+- **Industry / sector** — helps Veritome surface relevant Annex III domain suggestions during classification.
+- **VAT number** — optional, displayed on invoices for Business and Enterprise customers.
+- **Logo** — optional, appears on exported PDF documents such as declarations of conformity and dossiers.
+
+## Complete your personal profile
+
+Go to **Settings → Profile** to update:
+
+- **Display name** — shown to teammates and on obligation assignments.
+- **Job title** — optional, useful when assigning obligations (e.g. "Head of Data Science", "DPO").
+- **Notification preferences** — choose which events trigger email notifications: obligation due dates, evidence expiry, incident updates, and regulatory alerts.
+
+## Invite team members
+
+<Steps>
+  <Step title="Open the Team settings">
+    Go to **Settings → Team**. You see a list of current members, their roles, and their invitation status.
+  </Step>
+  <Step title="Click Invite member">
+    Enter the invitee's work email address and select the role they should have:
+
+    | Role | What they can do |
+    |------|-----------------|
+    | **Org admin** | Full access: billing, team management, security, all compliance features |
+    | **Compliance manager** | Approves obligations and forms, full read/write compliance access, generates reports |
+    | **Compliance officer** | Creates and edits systems, completes tasks, fills smart forms, submits for approval |
+    | **System owner** | Manages only their assigned AI systems; scoped access enforced by system assignments |
+    | **Legal counsel** | Read-only access to all systems and documents; can review forms before approval |
+    | **Auditor** | Read-only access; can export reports and download approved PDFs |
+
+    You can also create custom roles with granular permissions — go to **Settings → Roles**.
+  </Step>
+  <Step title="Send the invitation">
+    Click **Send invitation**. The invitee receives an email with a link to create their account (or log in if they already have one) and join your organisation. Invitations expire after 7 days; resend from **Settings → Team** if needed.
+  </Step>
+</Steps>
+
+<Tip>
+  For high-risk AI systems, Veritome's four-eyes approval model requires at least one user with the **Approve tasks** permission (Compliance manager or Org admin) and a separate user who completes the task. Add both types of user before you start working through Phase 3 (Build & Document) obligations.
+</Tip>
+
+## Configure security settings
+
+Go to **Settings → Security** to manage account-level security options:
+
+<Accordion title="MFA management">
+  Org admins can see each member's MFA enrolment status in **Settings → Team**. To reset MFA for a locked-out member, select the member's row and click **Reset MFA**. The member must re-enrol on their next login.
+
+  Individual users can view their own MFA status, regenerate recovery codes, or re-enrol a new device at **Settings → Security**.
+</Accordion>
+
+<Accordion title="SSO (Business and Enterprise plans)">
+  Single Sign-On via SAML 2.0 is available on the Business (€699/month) and Enterprise plans. Go to **Settings → Security → SSO** to upload your IdP metadata or enter your SAML configuration manually. Once SSO is enabled, members must authenticate via your identity provider; Veritome continues to enforce MFA at the session level unless your IdP already satisfies it.
+</Accordion>
+
+<Accordion title="Audit log">
+  Every create, update, delete, and approval event is recorded in the audit log. Go to **Settings → Audit log** to search, filter by user or event type, and export records as CSV. The audit log is accessible to users with the **View audit log** permission (Org admin, Compliance manager, Legal counsel, Auditor by default).
+</Accordion>
+
+<Accordion title="API keys and webhooks">
+  API access is available on the Growth plan (€349/month) and above. Go to **Settings → API** to generate API keys and register webhook endpoints. Webhooks fire on obligation status changes, new incidents, and evidence uploads — useful for integrating Veritome into your existing GRC tooling.
+</Accordion>

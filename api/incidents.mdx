@@ -1,0 +1,229 @@
+---
+title: "Incidents API: Log and Manage Art. 73 Incident Reports"
+sidebarTitle: "Incidents"
+description: "Create, retrieve, and manage Article 73 serious-incident reports with automatic deadline calculation and status tracking through the Veritome Incidents API."
+---
+
+Article 73 of the EU AI Act requires providers and deployers of high-risk AI systems to report serious incidents to the relevant national market surveillance authority without undue delay. Veritome calculates the reporting deadline automatically from the date of awareness and the incident type, and tracks each report through a four-eyes approval workflow. Use the Incidents API to log incidents programmatically from your monitoring infrastructure or internal issue-tracking systems.
+
+---
+
+## List incidents
+
+Retrieve all incidents recorded in your organisation.
+
+```
+GET /api/incidents
+```
+
+### Query parameters
+
+<ParamField query="systemId" type="string">
+  Filter incidents to a specific AI system by its unique identifier.
+</ParamField>
+
+<ParamField query="status" type="string">
+  Filter incidents by their current status: `DRAFT`, `UNDER_REVIEW`, `NOTIFIED_TO_AUTHORITY`, or `CLOSED`.
+</ParamField>
+
+### Response
+
+<ResponseField name="incidents" type="array">
+  <Expandable title="Incident object">
+    <ResponseField name="id" type="string">Unique incident identifier.</ResponseField>
+    <ResponseField name="type" type="string">Incident type as defined by Art. 73: `SERIOUS_INCIDENT`, `NEAR_MISS`, or `MALFUNCTIONING`.</ResponseField>
+    <ResponseField name="description" type="string">Detailed description of the incident.</ResponseField>
+    <ResponseField name="severity" type="string">Assessed severity level: `LOW`, `MEDIUM`, `HIGH`, or `CRITICAL`.</ResponseField>
+    <ResponseField name="status" type="string">Workflow status: `DRAFT`, `UNDER_REVIEW`, `NOTIFIED_TO_AUTHORITY`, or `CLOSED`.</ResponseField>
+    <ResponseField name="systemId" type="string">Identifier of the AI system the incident relates to.</ResponseField>
+    <ResponseField name="deadline" type="string">ISO 8601 timestamp of the Art. 73 reporting deadline, calculated from the date of awareness and incident type.</ResponseField>
+    <ResponseField name="incidentDate" type="string">ISO 8601 timestamp of when the incident occurred.</ResponseField>
+    <ResponseField name="awareDate" type="string">ISO 8601 timestamp of when your organisation became aware of the incident.</ResponseField>
+    <ResponseField name="occurredCountry" type="string | null">ISO alpha-2 country code of the member state where the incident occurred.</ResponseField>
+    <ResponseField name="createdAt" type="string">ISO 8601 timestamp of when the incident report was created.</ResponseField>
+    <ResponseField name="system" type="object">
+      <Expandable title="System reference">
+        <ResponseField name="name" type="string">Name of the AI system.</ResponseField>
+        <ResponseField name="ref" type="string">Short human reference, e.g. `SYS-000001`.</ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+### curl example
+
+```bash
+# All open incidents
+curl "https://veritome.eu/api/incidents?status=DRAFT" \
+  -H "Authorization: Bearer <your-api-key>"
+
+# Incidents for a specific system
+curl "https://veritome.eu/api/incidents?systemId=clx9f2k0000043b6wqztp8m1k" \
+  -H "Authorization: Bearer <your-api-key>"
+```
+
+---
+
+## Create an incident
+
+Log a new Article 73 incident report. Veritome calculates the regulatory deadline automatically, places the deadline on the compliance calendar, and notifies all organisation admins.
+
+```
+POST /api/incidents
+```
+
+<Note>
+  Incident reporting requires the **Core plan** or above (`incidentReporting` feature flag). Submitting this endpoint on a lower plan returns `403 Forbidden`.
+</Note>
+
+### Request body
+
+<ParamField body="systemId" type="string" required>
+  The identifier of the AI system involved in the incident. The system must belong to your organisation.
+</ParamField>
+
+<ParamField body="type" type="string" required>
+  Incident type. Must be one of: `SERIOUS_INCIDENT`, `NEAR_MISS`, or `MALFUNCTIONING`.
+</ParamField>
+
+<ParamField body="description" type="string" required>
+  Full description of what happened, including any relevant context, affected users, and immediate impact.
+</ParamField>
+
+<ParamField body="incidentDate" type="string" required>
+  ISO 8601 date of when the incident occurred, e.g. `"2025-06-01"`.
+</ParamField>
+
+<ParamField body="awareDate" type="string">
+  ISO 8601 date of when your organisation first became aware of the incident. The Art. 73 reporting deadline clock starts from this date. Defaults to `incidentDate` if omitted.
+</ParamField>
+
+<ParamField body="occurredCountry" type="string">
+  ISO alpha-2 country code of the member state where the incident took place, e.g. `"DE"`. Used to route the report to the correct national market surveillance authority. Defaults to your organisation's registered country if omitted.
+</ParamField>
+
+<ParamField body="personsAffected" type="number">
+  Estimated number of natural persons affected or at risk.
+</ParamField>
+
+<ParamField body="immediateActions" type="string">
+  Description of any immediate corrective or containment actions already taken.
+</ParamField>
+
+<ParamField body="harmDescription" type="string">
+  Description of the harm caused or potential harm that could result.
+</ParamField>
+
+<ParamField body="providerNotified" type="boolean" default="false">
+  Set to `true` if the AI system's provider (supplier/vendor) has been notified.
+</ParamField>
+
+<ParamField body="reporterName" type="string">
+  Full name of the person submitting the report. Defaults to the authenticated user's name.
+</ParamField>
+
+<ParamField body="reporterEmail" type="string">
+  Email of the person submitting the report. Defaults to the authenticated user's email.
+</ParamField>
+
+### Response (201 Created)
+
+<ResponseField name="incident" type="object">
+  The full incident record, including the calculated `deadline` field.
+</ResponseField>
+
+### curl example
+
+```bash
+curl -X POST https://veritome.eu/api/incidents \
+  -H "Authorization: Bearer <your-api-key>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "systemId": "clx9f2k0000043b6wqztp8m1k",
+    "type": "SERIOUS_INCIDENT",
+    "description": "The fraud detection model misclassified 47 legitimate transactions as fraudulent, causing payment failures for affected customers.",
+    "incidentDate": "2025-06-08",
+    "awareDate": "2025-06-09",
+    "occurredCountry": "DE",
+    "personsAffected": 47,
+    "immediateActions": "Affected customers contacted. Model inference paused pending investigation.",
+    "harmDescription": "Financial harm — customers unable to complete legitimate purchases.",
+    "providerNotified": false
+  }'
+```
+
+### Example response
+
+```json
+{
+  "incident": {
+    "id": "inc_cm1ab2cd3ef4gh5ij6kl",
+    "type": "SERIOUS_INCIDENT",
+    "description": "The fraud detection model misclassified 47 legitimate transactions…",
+    "status": "DRAFT",
+    "systemId": "clx9f2k0000043b6wqztp8m1k",
+    "incidentDate": "2025-06-08T00:00:00.000Z",
+    "awareDate": "2025-06-09T00:00:00.000Z",
+    "deadline": "2025-06-11T00:00:00.000Z",
+    "occurredCountry": "DE",
+    "personsAffected": 47,
+    "createdAt": "2025-06-09T10:15:00.000Z"
+  }
+}
+```
+
+<Warning>
+  The `deadline` is calculated automatically under Art. 73. For `SERIOUS_INCIDENT` type, the deadline is **72 hours** from awareness. Do not rely on the deadline field alone — set up a [webhook](/api/webhooks) for `incident.created` to trigger your internal alerting immediately.
+</Warning>
+
+---
+
+## Get an incident
+
+Retrieve the full details of a single incident report.
+
+```
+GET /api/incidents/{id}
+```
+
+### Path parameters
+
+<ParamField path="id" type="string" required>
+  The incident's unique identifier.
+</ParamField>
+
+### curl example
+
+```bash
+curl https://veritome.eu/api/incidents/inc_cm1ab2cd3ef4gh5ij6kl \
+  -H "Authorization: Bearer <your-api-key>"
+```
+
+---
+
+## Check a deadline and escalate
+
+The following Python example retrieves all open incidents and prints those where the Art. 73 deadline is within 24 hours:
+
+```python
+from datetime import datetime, timezone, timedelta
+import requests
+
+API_KEY = "vrt_live_..."
+BASE = "https://veritome.eu/api"
+headers = {"Authorization": f"Bearer {API_KEY}"}
+
+response = requests.get(f"{BASE}/incidents?status=DRAFT", headers=headers)
+data = response.json()
+
+warning_threshold = datetime.now(timezone.utc) + timedelta(hours=24)
+
+for incident in data["incidents"]:
+    deadline = datetime.fromisoformat(incident["deadline"].replace("Z", "+00:00"))
+    if deadline <= warning_threshold:
+        hours_left = (deadline - datetime.now(timezone.utc)).total_seconds() / 3600
+        print(
+            f"⚠️  URGENT: {incident['id']} — deadline in {hours_left:.1f}h "
+            f"(system: {incident['system']['name']})"
+        )
+```

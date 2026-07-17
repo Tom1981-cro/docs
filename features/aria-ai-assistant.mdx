@@ -1,0 +1,147 @@
+---
+title: "Aria: Your EU AI Act Compliance AI Assistant"
+sidebarTitle: "Aria Assistant"
+description: "Aria is Veritome's EU-hosted, Mistral-powered compliance copilot. Ask questions, auto-map evidence, draft notices, and stay current with EU AI Act news."
+---
+
+Aria is Veritome's built-in AI compliance assistant, powered by Mistral and hosted entirely within the EU. Accessible from every page via the command bar (`⌘K` / `Ctrl+K`), Aria helps you navigate the EU AI Act without leaving your workflow — whether you need a quick regulatory answer, want to draft a transparency notice, or need help completing a complex form field.
+
+## What Aria Can Do
+
+<CardGroup cols={2}>
+  <Card title="Compliance Q&A" icon="circle-question">
+    Ask plain-language questions about the EU AI Act. Conversations are resumable — pick up exactly where you left off across sessions.
+  </Card>
+  <Card title="Evidence Auto-Mapping" icon="map">
+    Describe a document and Aria suggests which obligations it satisfies, saving you manual triage time.
+  </Card>
+  <Card title="Transparency Notice Drafting" icon="file-pen">
+    Generate draft notices compliant with Article 13 (high-risk systems) and Article 50 (general-purpose AI interactions).
+  </Card>
+  <Card title="Form Field Suggestions" icon="wand-magic-sparkles">
+    When filling in a system dossier, Aria reads the field context and proposes values you can accept or edit.
+  </Card>
+  <Card title="Horizon Regulatory News" icon="newspaper">
+    The Horizon feed surfaces relevant EU AI Act amendments, guidance documents, and enforcement news directly in the assistant panel.
+  </Card>
+  <Card title="Pinned Proposals" icon="thumbtack">
+    Pin any Aria suggestion to the command bar for quick re-access during a working session.
+  </Card>
+</CardGroup>
+
+## Starting a Conversation
+
+<Steps>
+  <Step title="Open the command bar">
+    Press `⌘K` (macOS) or `Ctrl+K` (Windows/Linux) from any page, or click the **Ask Aria** button in the left sidebar. The Aria panel slides open on the right.
+  </Step>
+  <Step title="Type your question or command">
+    Enter a natural-language question (e.g. *"What technical documentation is required for a high-risk AI system under Annex IV?"*) or use a slash command such as `/draft-notice` or `/map-evidence`.
+  </Step>
+  <Step title="Review the response">
+    Aria streams its response with inline citations to specific EU AI Act articles. Click any citation to open the referenced article in the Horizon panel.
+  </Step>
+  <Step title="Continue or branch the conversation">
+    Reply directly to continue the thread. Select any message and choose **Branch** to explore an alternative line of reasoning without losing the original thread.
+  </Step>
+  <Step title="Save or act on suggestions">
+    Use **Copy**, **Insert into field**, or **Pin to command bar** to apply Aria's output without switching context.
+  </Step>
+</Steps>
+
+## Resumable Conversations
+
+Every conversation is saved automatically under **Aria → History** in the left sidebar. Each entry shows the date, first message, and the system context it was opened from. Click any entry to resume exactly where you left off, including full message history and any pinned proposals.
+
+<Tip>
+  Name important conversations by clicking the pencil icon next to the thread title. Descriptive names like "Art. 13 notice — PaymentScorer v2" make long-running compliance projects much easier to track.
+</Tip>
+
+## Evidence Auto-Mapping
+
+When you upload or link a document, open Aria and run `/map-evidence [document name]`. Aria analyses the document content and returns a ranked list of obligations it believes the document satisfies, along with a confidence score and a brief rationale for each match.
+
+<Steps>
+  <Step title="Trigger auto-mapping">
+    In the Evidence panel, click **Ask Aria to map** next to any unlinked document, or type `/map-evidence` in the command bar.
+  </Step>
+  <Step title="Review suggestions">
+    Aria returns up to ten obligation matches. Each suggestion shows the obligation title, article reference, and confidence level (High / Medium / Low).
+  </Step>
+  <Step title="Accept or reject">
+    Click **Accept** to attach the document to that obligation immediately. Click **Reject** to dismiss the suggestion. Your feedback trains future mapping quality for your organisation.
+  </Step>
+</Steps>
+
+## Drafting Transparency Notices
+
+<Tabs>
+  <Tab title="Article 13 — High-Risk Systems">
+    Article 13 requires that high-risk AI systems provide users with sufficient information to make informed decisions. To draft a notice:
+
+    1. Open Aria from within a high-risk system dossier.
+    2. Run `/draft-notice art13`.
+    3. Aria pre-fills the system name, provider, intended purpose, and known limitations from your dossier.
+    4. Review and edit the draft, then click **Copy to clipboard** or **Insert into dossier**.
+  </Tab>
+  <Tab title="Article 50 — GPAI Interactions">
+    Article 50 requires that users know when they are interacting with an AI system. To draft a disclosure:
+
+    1. Open Aria from any page.
+    2. Run `/draft-notice art50`.
+    3. Specify the interaction channel (chatbot, voice assistant, generated content, etc.).
+    4. Aria generates a concise, plain-language disclosure you can embed in your product UI.
+  </Tab>
+</Tabs>
+
+## Horizon: Regulatory News Feed
+
+The **Horizon** tab inside the Aria panel aggregates EU AI Act regulatory updates — including Commission guidance, EDPB opinions, notified body announcements, and enforcement decisions. Veritome's editorial team curates and tags each item by risk tier and obligation type so you only see news relevant to your systems.
+
+<Info>
+  Horizon updates are delivered daily. Items are automatically archived after 90 days but remain searchable in the Horizon history.
+</Info>
+
+## Understanding Your Quota
+
+Aria usage is measured in messages per calendar month and is set by your plan. To check your remaining quota:
+
+1. Go to **Settings → Billing**.
+2. Look at the **Aria Usage** card — it shows messages used vs. your monthly allowance.
+
+<Accordion title="Quota limits by plan">
+  | Plan       | Monthly message quota |
+  |------------|-----------------------|
+  | Free       | 50 messages           |
+  | Starter    | 250 messages          |
+  | Core       | 750 messages          |
+  | Growth     | 2,500 messages        |
+  | Business   | 10,000 messages       |
+  | Enterprise | Custom / unlimited    |
+</Accordion>
+
+<Warning>
+  Once you reach your monthly quota, Aria responses are paused until the next billing cycle begins. Upgrade your plan from **Settings → Billing** to increase your allowance immediately.
+</Warning>
+
+## Tips for Effective Prompts
+
+<Accordion title="Be specific about the article or obligation">
+  Instead of asking *"What do I need for compliance?"*, ask *"What does Annex IV Section 1 require for technical documentation of a credit-scoring system?"* Specific references produce more accurate, actionable answers.
+</Accordion>
+
+<Accordion title="Include your system context">
+  Open Aria from inside a specific system dossier. Aria automatically reads the system name, risk classification, and sector, and tailors its answers accordingly.
+</Accordion>
+
+<Accordion title="Use slash commands for structured tasks">
+  Slash commands (`/draft-notice`, `/map-evidence`, `/suggest-field`) invoke dedicated workflows that produce structured output rather than free-form prose, making the results easier to insert directly into your dossier.
+</Accordion>
+
+<Accordion title="Give feedback on responses">
+  Use the thumbs-up / thumbs-down buttons on each message. Downvoted responses are reviewed by Veritome's compliance team and used to improve answer quality for all users.
+</Accordion>
+
+<Accordion title="Branch conversations before experimenting">
+  Before asking Aria to rewrite or significantly change a draft, branch the conversation. Branching preserves the original thread so you can compare outputs or revert if the revised draft is worse.
+</Accordion>

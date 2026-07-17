@@ -1,0 +1,139 @@
+---
+title: "Monitor Your Compliance Posture from the Dashboard"
+sidebarTitle: "Dashboard"
+description: "The Governance Dashboard gives you a real-time view of compliance scores, phase progress, upcoming deadlines, and items requiring your attention."
+---
+
+The Governance Dashboard is the first thing you see when you log in to Veritome. It gives you an at-a-glance view of your organisation's overall EU AI Act compliance posture: a score ring, a phase breakdown chart, a live activity feed, and targeted cards that surface the obligations and deadlines that need your attention most. Everything on the dashboard is scoped to the systems and roles your account can access.
+
+## Dashboard Elements
+
+### Org Score Ring
+
+The score ring in the top-left of the dashboard shows your organisation's **overall compliance completion percentage** — a single number representing how much of your total compliance work is done across all systems.
+
+**How the score is calculated:**
+
+> Score = (Obligations with status "Complete" or "Evidenced and approved") ÷ (Total obligations across all active systems) × 100
+
+Obligations in **Draft** or **Not started** status count against your score. Obligations marked **Not applicable** are excluded from both the numerator and denominator.
+
+<Info>
+  The score ring updates in real time as obligations are completed and approved. There is no manual refresh required.
+</Info>
+
+The ring changes colour as your score improves:
+
+| Score range | Ring colour | Interpretation |
+|---|---|---|
+| 0–39% | Red | Significant gaps — prioritise immediately |
+| 40–69% | Amber | Material progress but key gaps remain |
+| 70–89% | Yellow | On track — continue working through obligations |
+| 90–100% | Green | Compliant posture — maintain and monitor |
+
+### Phase Bar-Chart
+
+Below the score ring, the **phase bar-chart** breaks down completion by compliance phase. The phases correspond to the structured workflow inside each system dossier:
+
+- **Foundation** — Risk classification, system registration, intended purpose definition
+- **Technical Documentation** — Annex IV documentation, architecture records, data governance
+- **Risk Management** — Risk register, bias assessment, mitigation measures
+- **Human Oversight** — Oversight measures, roles assignment, intervention procedures
+- **Post-Market** — Monitoring plan, incident reporting, update procedures
+
+Each bar shows percentage completion for that phase across all systems. Click any bar to drill down into the specific obligations within that phase.
+
+<Tip>
+  Use the phase bar-chart to identify systemic gaps in your programme. If the Risk Management bar is consistently low across all systems, that signals a need for a focused remediation sprint rather than piecemeal obligation updates.
+</Tip>
+
+### Live-Signals Feed
+
+The **live-signals feed** on the right side of the dashboard shows a chronological stream of recent compliance activity across your organisation, including:
+
+- Obligations completed or returned for revision
+- Evidence documents uploaded or expired
+- New system registrations
+- Aria-generated notices inserted into dossiers
+- Scheduled report completions
+- Team member invitation acceptances
+
+Each signal is timestamped, attributed to the team member who triggered it, and linked to the relevant obligation or system. Click any signal to navigate directly to that item.
+
+<Accordion title="Filtering the live-signals feed">
+  Click the **Filter** icon above the feed to narrow signals by system, team member, activity type, or date range. Filtered views are saved per session but reset on next login. For persistent filtered views, use the **Reports → Activity Log** export.
+</Accordion>
+
+### Attention Card
+
+The **Attention card** surfaces obligations, evidence items, and approval requests that require your immediate action. Items appear in the Attention card when:
+
+- An obligation is overdue (past its due date with status not "Complete")
+- An evidence document has expired or expires within 7 days
+- An obligation has been returned to you for revision
+- A four-eyes approval is waiting for your sign-off
+
+Items are ordered by urgency — overdue obligations first, then imminent expiries, then pending approvals. Click **Resolve** next to any item to navigate directly to it.
+
+<Warning>
+  Items in the Attention card affect your org score and may represent active regulatory risk. Aim to clear the Attention card at the start of each working week.
+</Warning>
+
+### Deadline Card
+
+The **Deadline card** shows upcoming regulatory deadlines — both internal due dates you have set on obligations and externally mandated EU AI Act applicability dates.
+
+Veritome maintains a built-in calendar of EU AI Act milestone dates (e.g. prohibition on unacceptable-risk systems: February 2025; high-risk system obligations: August 2026) and surfaces them in the Deadline card relative to your registered systems' risk classifications.
+
+<Info>
+  Veritome's editorial team updates the built-in deadline calendar when the European Commission issues clarifying guidance or amendments. You receive an in-app notification when a built-in deadline date changes.
+</Info>
+
+To add a custom internal deadline to an obligation:
+
+1. Open the obligation detail panel.
+2. Click **Add due date** under the obligation title.
+3. Pick a date from the calendar and click **Save**.
+
+The obligation then appears in the Deadline card as it approaches.
+
+### Approvals Inbox
+
+The **Approvals inbox** card lists all obligations that are currently awaiting your explicit approval. This card is especially relevant if your organisation uses the **four-eyes approval workflow**, where two distinct team members must approve an obligation before it counts as complete.
+
+Each entry in the inbox shows:
+
+- Obligation name and system
+- The team member who submitted it for approval
+- The date submitted
+- Any comments attached to the submission
+
+Click **Review** to open the obligation, inspect the evidence, and either **Approve** or **Return for revision** with a comment.
+
+<Note>
+  Owners and Admins can approve any obligation. Members can only approve obligations that are not assigned to them (to satisfy the four-eyes requirement). See [Team & Roles](/settings/team-and-roles) for details.
+</Note>
+
+## Compliance Calendar Tab
+
+Switch to the **Compliance Calendar** tab (next to the main Dashboard tab) for a full monthly calendar view of:
+
+- Internal obligation due dates
+- Scheduled report generation runs
+- Evidence expiry dates
+- Built-in EU AI Act regulatory milestones
+
+Use the calendar to plan team sprints and ensure no deadline is missed. Click any calendar event to navigate directly to the relevant obligation, report, or evidence document.
+
+<Accordion title="Exporting the compliance calendar">
+  Click **Export calendar** in the top-right of the Compliance Calendar tab to download an `.ics` file compatible with Google Calendar, Outlook, and Apple Calendar. The export includes all obligation due dates, evidence expiry dates, and regulatory milestones visible to your account.
+</Accordion>
+
+## Dashboard Scope and Permissions
+
+The dashboard always reflects the systems and obligations your account can access:
+
+- **Owners and Admins** see data for all systems in the organisation.
+- **Members** see only systems they have been explicitly assigned to.
+
+If you notice that your score ring looks lower than expected, check whether you are viewing all systems or a filtered subset — look for the **Scope** selector in the top-right of the dashboard, which allows you to filter the entire dashboard to a single system or phase.

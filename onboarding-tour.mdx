@@ -1,0 +1,117 @@
+---
+title: "Navigate the Veritome Dashboard and Key Sections"
+sidebarTitle: "Dashboard Tour"
+description: "A guided tour of every panel on the Veritome dashboard and a walkthrough of each main navigation section — Systems, Obligations, Evidence, Incidents, and more."
+---
+
+When you first log into Veritome, the dashboard is your command centre. It surfaces the health of your entire AI compliance portfolio at a glance — overall score, phase progress, overdue items, and live regulatory signals — so you always know where to focus next. This tour walks you through each panel and explains every section in the main navigation.
+
+## The dashboard layout
+
+The dashboard is divided into a persistent left sidebar, a topbar, and a content area with several widget panels.
+
+### The compliance score ring
+
+The most prominent element on the dashboard is the **compliance score ring** — a circular chart in the top-left of the content area showing your organisation's overall weighted compliance score as a percentage. The score is calculated from all obligations across all your systems: completed obligations contribute positively, overdue obligations create a drag. The ring colour shifts from amber (below 60 %) to green (80 % and above).
+
+Immediately below the ring you see a row of **KPI chips** showing:
+- **Systems** — total registered AI systems in your workspace.
+- **Obligations** — total active obligations across all systems.
+- **Overdue** — obligations past their due date with no completion recorded.
+- **Due soon** — obligations due within the next 14 days.
+
+### The phase bar chart
+
+To the right of the score ring, the **phase bar chart** shows completion progress across all six compliance phases for your portfolio: Classify, Scope & Literacy, Build & Document, Conformity Assessment, Register, and Operate & Monitor. Each bar represents the percentage of obligations in that phase that have been completed. Use this panel to spot phases where the whole portfolio is lagging and prioritise accordingly.
+
+### The attention card
+
+The **Attention** card lists AI systems that need immediate action — systems with overdue obligations, missing owners, or stalled classifications. Each row shows the system name, its risk tier badge, the number of overdue obligations, and a direct link to the system's obligation view. If a system is on this card, it is the highest-priority item in your queue.
+
+### The approvals queue
+
+For users with the **Approve tasks** permission (Compliance manager or Org admin), an **Approvals** panel appears on the dashboard showing obligations currently in **Awaiting Approval** status. Click any row to open the obligation for review. Approvals on high-risk systems require a four-eyes sign-off: the user who completed the obligation cannot be the same user who approves it.
+
+### The regulatory updates feed
+
+The **Regulatory updates** panel streams live signals from the EU AI Act regulatory landscape: official guidance from the AI Office, national market surveillance authority announcements, and updates from the European Parliament. Each item links to the source and is tagged with the relevant obligation area (e.g. "Risk management", "GPAI governance").
+
+Below regulatory updates, the **Industry news** panel surfaces AI governance and compliance news from sector publications, filtered to topics relevant to your Annex III domains.
+
+### The deadline ribbon
+
+At the top of the content area, the **deadline ribbon** shows upcoming statutory deadlines — EU AI Act milestones and your system-specific due dates — as a horizontal strip of coloured chips. Items turning red are overdue; amber items are due within 30 days. Click any chip to jump to the related obligation or calendar event.
+
+<Tip>
+  Pin your most pressing deadlines in **Calendar** so they appear in your daily view. The calendar integrates with obligation due dates set in the Obligation Engine.
+</Tip>
+
+## The sidebar navigation
+
+The sidebar is divided into two groups: **Workspace** (operational sections) and **Records** (documentation and reports).
+
+### Workspace sections
+
+<Accordion title="Dashboard">
+  The overview screen described above. The shortcut key is **⌘K** (or **Ctrl+K**) to open the command palette from anywhere in the app — type a system name, article reference, or obligation keyword to jump directly to it.
+</Accordion>
+
+<Accordion title="Systems">
+  Your AI system inventory. Each system card shows its name, risk tier, current phase, compliance score, and assigned owner. Use the **+ New system** button to add additional systems (subject to your plan's system limit). Clicking a system opens its detail view with the six-tab obligation layout, classification history, dossier, and incident log.
+</Accordion>
+
+<Accordion title="Obligations">
+  The **All Obligations** tracker — a flat list of every obligation across every system in your organisation, filterable by status, phase, priority, Annex III domain, owner, and article reference. Use this view when you want to work across systems rather than within a single one (e.g. checking all Art. 9 risk management obligations across your portfolio).
+</Accordion>
+
+<Accordion title="Risk Register">
+  A register of all identified risks across your systems, linked to their Art. 9 risk management obligations. Each entry captures the risk description, likelihood, impact, mitigation measures, and residual risk score. The risk register feeds directly into the Art. 9 obligation smart form and the technical documentation dossier.
+</Accordion>
+
+<Accordion title="Incidents">
+  Log and track serious incidents under Art. 73. Each incident record captures the system involved, severity level (Critical, High, Medium, Low), date, description, affected parties, mitigation steps, and reporting status. Incidents with **Critical** severity generate an automatic prompt to initiate the national market surveillance authority notification workflow.
+</Accordion>
+
+<Accordion title="Calendar">
+  A monthly calendar view of all obligation due dates, statutory EU AI Act milestone dates, and custom deadlines set in your workspace. Filter by system or by phase to focus your view. You can subscribe to the calendar via a read-only iCal feed (go to **Settings → Notifications** to generate the URL).
+</Accordion>
+
+<Accordion title="Aria">
+  Aria is Veritome's built-in AI compliance assistant, powered by Mistral (EU-hosted). Access Aria from the **Ask Aria** section in the sidebar or from the Aria launcher pill in the topbar. Aria can:
+  - Answer questions about the EU AI Act and cite the relevant articles.
+  - Draft responses to smart form fields for draftable obligations.
+  - Suggest obligation completions and explain what an article requires in context of your system.
+  - Run a **Horizon Scan** to surface recent regulatory developments relevant to your sectors and domains.
+
+  All Aria conversations are stored in your workspace and are accessible to organisation admins. Aria does not share your data with any US-based AI provider — it runs on Mistral's EU infrastructure.
+</Accordion>
+
+### Records sections
+
+<Accordion title="AI Literacy">
+  Manage your organisation's Art. 4 AI literacy obligations from this section. Assign training programmes to team members, track completion, and issue verifiable certificates. The AI Literacy section covers both the mandatory organisational literacy requirement (one obligation emitted per organisation, not per system) and optional in-depth technical training tracks.
+</Accordion>
+
+<Accordion title="Reports">
+  Generate and download compliance reports: executive summary PDFs, obligation completion exports, evidence audit trails, and regulator-facing dossier packages. Reports are available on the Core plan (€149/month) and above. The executive summary can also be downloaded as a PDF directly from the dashboard.
+</Accordion>
+
+<Accordion title="Evidence Map">
+  A consolidated view of every evidence file attached to obligations across your organisation. Browse by system, obligation, or upload date, verify file integrity via the hash-check function, and see which evidence items are nearing their expiry date. Evidence files are stored in Hetzner object storage in the EU.
+</Accordion>
+
+<Accordion title="User Guide">
+  The in-app user guide — a curated library of short explainers for each EU AI Act article, with practical guidance on what the obligation requires and how to satisfy it in Veritome. The content is updated whenever the AI Office or national authorities publish new technical standards or guidance.
+</Accordion>
+
+## Tips for first-time users
+
+1. **Complete the onboarding checklist first.** The checklist (visible on the dashboard until all items are done) walks you through: add a system, classify it, assign a team member, and complete your first obligation. Finishing the checklist ensures the Obligation Engine is running and the dashboard is populated with real data.
+
+2. **Use the command palette (⌘K).** Typing a system name, article number, or obligation keyword in the command palette is faster than navigating to it. Results include systems, obligations, evidence files, and settings pages.
+
+3. **Set obligation owners before you start working.** Obligations without an assigned owner show a warning badge on the attention card. Assign each obligation or tab to a responsible team member from the obligation detail panel — this surfaces the work in their personal queue.
+
+4. **Check the deadline ribbon every morning.** The ribbon is your single most important daily view. Items in red are already overdue; clear them before moving to amber items.
+
+5. **Explore Aria before you need it.** Aria performs best when you give it the context of your specific system — try asking "What does Art. 9 require for a High-Risk system in the Employment domain?" and review the cited response before starting your risk management form.

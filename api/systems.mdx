@@ -1,0 +1,267 @@
+---
+title: "Systems API: Register and Manage Your AI Systems"
+sidebarTitle: "Systems"
+description: "Register AI systems, retrieve and update their metadata, and trigger the obligation rules engine — all via the Veritome Systems API."
+---
+
+The Systems API is the foundation of your Veritome integration. Every AI system you operate must be registered before obligations, dossiers, or incident reports can be attached to it. Use these endpoints to automate system registration as part of your model deployment pipeline, keep metadata in sync with your internal model registry, and trigger the EU AI Act obligation rules engine whenever a system's classification changes.
+
+---
+
+## List systems
+
+Retrieve all AI systems registered in your organisation.
+
+```
+GET /api/systems
+```
+
+Active systems are returned by default. To retrieve decommissioned systems, pass `?status=archived`.
+
+### Query parameters
+
+<ParamField query="status" type="string">
+  Filter systems by lifecycle status. Pass `archived` to return only decommissioned systems. Omit to return all active systems.
+</ParamField>
+
+### Response
+
+<ResponseField name="systems" type="array">
+  <Expandable title="System object">
+    <ResponseField name="id" type="string">Unique system identifier (cuid).</ResponseField>
+    <ResponseField name="name" type="string">Human-readable system name.</ResponseField>
+    <ResponseField name="ref" type="string">Short human reference, e.g. `SYS-000001`.</ResponseField>
+    <ResponseField name="purpose" type="string">The system's intended purpose as entered during registration.</ResponseField>
+    <ResponseField name="vendor" type="string | null">Vendor or supplier name, if applicable.</ResponseField>
+    <ResponseField name="department" type="string | null">Internal department responsible for the system.</ResponseField>
+    <ResponseField name="status" type="string">Lifecycle status: `ACTIVE`, `UNDER_REVIEW`, or `DECOMMISSIONED`.</ResponseField>
+    <ResponseField name="obligations" type="array">Summarised obligations attached to this system (id, title, status).</ResponseField>
+    <ResponseField name="createdAt" type="string">ISO 8601 timestamp of when the system was registered.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="limit" type="object">
+  <Expandable title="Limit object">
+    <ResponseField name="current" type="number">Number of active systems in your organisation.</ResponseField>
+    <ResponseField name="max" type="number">Maximum systems allowed on your plan. `-1` means unlimited.</ResponseField>
+    <ResponseField name="plan" type="string">Your current plan name.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+### curl example
+
+```bash
+curl https://veritome.eu/api/systems \
+  -H "Authorization: Bearer <your-api-key>"
+```
+
+---
+
+## Register a system
+
+Create a new AI system record in your organisation's register.
+
+```
+POST /api/systems
+```
+
+### Request body
+
+<ParamField body="name" type="string" required>
+  The system's display name, e.g. `"Customer Churn Predictor"`.
+</ParamField>
+
+<ParamField body="purpose" type="string" required>
+  A concise description of what the system does and how it is used, e.g. `"Predicts likelihood of customer churn using CRM and usage data."`.
+</ParamField>
+
+<ParamField body="vendor" type="string">
+  The name of the third-party vendor supplying the system, if applicable.
+</ParamField>
+
+<ParamField body="department" type="string">
+  The internal department responsible for operating the system.
+</ParamField>
+
+<ParamField body="version" type="string">
+  Software version string, e.g. `"2.4.1"`.
+</ParamField>
+
+<ParamField body="isGpai" type="boolean" default="false">
+  Set to `true` if this system is, or is built on, a General-Purpose AI model.
+</ParamField>
+
+<ParamField body="isChatbot" type="boolean" default="false">
+  Set to `true` if the system is a chatbot or conversational AI interface.
+</ParamField>
+
+<ParamField body="generatesContent" type="boolean" default="false">
+  Set to `true` if the system generates synthetic content (text, images, audio, or video).
+</ParamField>
+
+<ParamField body="isWorkplaceAI" type="boolean" default="false">
+  Set to `true` if the system is used to make or support employment-related decisions.
+</ParamField>
+
+<ParamField body="isDeepfake" type="boolean" default="false">
+  Set to `true` if the system generates or manipulates image, audio, or video content that could constitute a deep fake under the AI Act.
+</ParamField>
+
+<ParamField body="establishedOutsideEU" type="boolean" default="false">
+  Set to `true` if your organisation's primary establishment is outside the EU but you place the system on the EU market.
+</ParamField>
+
+### Response (201 Created)
+
+<ResponseField name="system" type="object">
+  The full system record as stored, including the auto-assigned `id` and `ref`.
+</ResponseField>
+
+### curl example
+
+```bash
+curl -X POST https://veritome.eu/api/systems \
+  -H "Authorization: Bearer <your-api-key>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Customer Churn Predictor",
+    "purpose": "Predicts customer churn likelihood from CRM and usage data.",
+    "department": "Data Science",
+    "version": "2.4.1",
+    "isGpai": false,
+    "generatesContent": false
+  }'
+```
+
+---
+
+## Get a system
+
+Retrieve the full record for a single AI system by its `id`.
+
+```
+GET /api/systems/{id}
+```
+
+### Path parameters
+
+<ParamField path="id" type="string" required>
+  The system's unique identifier (cuid) or its human reference (e.g. `SYS-000001`).
+</ParamField>
+
+### curl example
+
+```bash
+curl https://veritome.eu/api/systems/clx9f2k0000043b6wqztp8m1k \
+  -H "Authorization: Bearer <your-api-key>"
+```
+
+---
+
+## Update a system
+
+Partially update a system's metadata. Only fields you supply are changed.
+
+```
+PATCH /api/systems/{id}
+```
+
+### Path parameters
+
+<ParamField path="id" type="string" required>
+  The system's unique identifier.
+</ParamField>
+
+### Request body
+
+Supply any subset of the fields accepted by `POST /api/systems`. For example, to update the version and department:
+
+```json
+{
+  "version": "2.5.0",
+  "department": "ML Platform"
+}
+```
+
+### curl example
+
+```bash
+curl -X PATCH https://veritome.eu/api/systems/clx9f2k0000043b6wqztp8m1k \
+  -H "Authorization: Bearer <your-api-key>" \
+  -H "Content-Type: application/json" \
+  -d '{"version": "2.5.0", "department": "ML Platform"}'
+```
+
+---
+
+## Trigger obligation generation
+
+After a system has been classified, call this endpoint to run the EU AI Act obligation rules engine and populate or refresh the system's obligation list.
+
+```
+POST /api/engine/systems/{id}/obligations/generate
+```
+
+The engine is also called automatically when you register a new system. Use this endpoint after a classification change — for example, when a system is reclassified from limited-risk to high-risk — to regenerate the obligation set to reflect the new classification.
+
+### Path parameters
+
+<ParamField path="id" type="string" required>
+  The system's unique identifier.
+</ParamField>
+
+### curl example
+
+```bash
+curl -X POST \
+  https://veritome.eu/api/engine/systems/clx9f2k0000043b6wqztp8m1k/obligations/generate \
+  -H "Authorization: Bearer <your-api-key>"
+```
+
+### Response
+
+```json
+{
+  "generated": 14,
+  "systemId": "clx9f2k0000043b6wqztp8m1k"
+}
+```
+
+---
+
+## Full workflow: register and onboard a system
+
+The following TypeScript example walks through the complete onboarding sequence: register the system, then immediately trigger obligation generation.
+
+```typescript
+const BASE = "https://veritome.eu/api";
+const headers = {
+  Authorization: `Bearer ${process.env.VERITOME_API_KEY}`,
+  "Content-Type": "application/json",
+};
+
+// Step 1: Register the system
+const createRes = await fetch(`${BASE}/systems`, {
+  method: "POST",
+  headers,
+  body: JSON.stringify({
+    name: "Invoice Fraud Detector",
+    purpose: "Flags potentially fraudulent invoices for human review.",
+    department: "Finance",
+    version: "1.0.0",
+    isWorkplaceAI: false,
+  }),
+});
+
+const { system } = await createRes.json();
+console.log(`Registered: ${system.ref} — ${system.id}`);
+
+// Step 2: Trigger obligation generation after classification
+const obligRes = await fetch(
+  `${BASE}/engine/systems/${system.id}/obligations/generate`,
+  { method: "POST", headers }
+);
+
+const { generated } = await obligRes.json();
+console.log(`Obligations generated: ${generated}`);
+```

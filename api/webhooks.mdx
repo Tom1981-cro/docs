@@ -1,0 +1,235 @@
+---
+title: "Webhooks: Receive Real-Time Compliance Event Notifications"
+sidebarTitle: "Webhooks"
+description: "Configure Veritome to push JSON events to your endpoint when AI systems are classified, obligations change, dossiers are generated, or incidents are created."
+---
+
+Webhooks allow Veritome to proactively notify your systems when important compliance events occur, rather than requiring you to poll the API. When an event fires — for example, when an AI system is classified or an incident report is created — Veritome sends an HTTP `POST` request with a JSON payload to your configured endpoint. This removes the need for polling loops and ensures your downstream systems react immediately.
+
+Webhooks are available on the **Growth plan** and above.
+
+---
+
+## Set up a webhook endpoint
+
+1. Navigate to **Settings → API → Webhooks** in the Veritome dashboard.
+2. Click **Add Endpoint** and enter a public HTTPS URL that your server listens on.
+3. Select the event types you want to subscribe to (or leave blank to receive all events).
+4. Copy the **webhook secret** shown at creation — it is used to verify the signature of incoming requests.
+
+<Warning>
+  The webhook secret is shown only once at creation. Store it securely alongside your API keys. If you lose it, delete the webhook and create a new one.
+</Warning>
+
+You can also manage webhooks programmatically via `POST /api/webhooks` (create), `GET /api/webhooks` (list), and `DELETE /api/webhooks` (remove).
+
+---
+
+## Event types
+
+Veritome emits the following compliance events to your webhook endpoint:
+
+| Event | Description |
+|-------|-------------|
+| `system.created` | A new AI system was registered in your organisation |
+| `system.classified` | An AI system's EU AI Act classification was completed or updated |
+| `obligation.status_changed` | An obligation's status changed (e.g. `NOT_STARTED` → `IN_PROGRESS`) |
+| `obligation.overdue` | An obligation has passed its due date without reaching `APPROVED` status |
+| `dossier.generated` | A dossier document has been successfully generated and is ready to download |
+| `incident.created` | A new Art. 73 incident report has been logged |
+| `incident.deadline_approaching` | An incident's Art. 73 reporting deadline is within 24 hours |
+
+---
+
+## Webhook payload format
+
+Every event is delivered as a JSON object with a consistent envelope:
+
+```json
+{
+  "id": "evt_cm1ab2cd3ef4gh5ij6kl7mn8",
+  "event": "system.classified",
+  "createdAt": "2025-06-10T14:22:00.000Z",
+  "data": {
+    "systemId": "clx9f2k0000043b6wqztp8m1k",
+    "systemName": "Invoice Fraud Detector",
+    "ref": "SYS-000001",
+    "classification": "HIGH_RISK",
+    "annex": "Annex III",
+    "obligationsGenerated": 14
+  }
+}
+```
+
+### Example: `obligation.status_changed`
+
+```json
+{
+  "id": "evt_cm1ab2cd3ef4gh5ij6kl7mn9",
+  "event": "obligation.status_changed",
+  "createdAt": "2025-06-10T15:00:00.000Z",
+  "data": {
+    "obligationId": "cm1ab2cd3ef4gh5ij6kl7mn8",
+    "articleRef": "Art. 9",
+    "title": "Risk Management System",
+    "statusFrom": "IN_PROGRESS",
+    "statusTo": "UNDER_REVIEW",
+    "systemId": "clx9f2k0000043b6wqztp8m1k",
+    "systemName": "Invoice Fraud Detector"
+  }
+}
+```
+
+### Example: `incident.created`
+
+```json
+{
+  "id": "evt_cm1ab2cd3ef4gh5ij6kl7mna",
+  "event": "incident.created",
+  "createdAt": "2025-06-09T10:15:00.000Z",
+  "data": {
+    "incidentId": "inc_cm1ab2cd3ef4gh5ij6kl",
+    "type": "SERIOUS_INCIDENT",
+    "systemId": "clx9f2k0000043b6wqztp8m1k",
+    "systemName": "Invoice Fraud Detector",
+    "deadline": "2025-06-11T10:15:00.000Z",
+    "occurredCountry": "DE"
+  }
+}
+```
+
+---
+
+## Verify webhook signatures
+
+Every request Veritome sends includes an `X-Veritome-Signature` header containing an HMAC-SHA256 signature of the raw request body, signed with your webhook secret. Always verify this signature before processing an event — it proves the request genuinely came from Veritome and has not been tampered with.
+
+### TypeScript (Node.js / Next.js)
+
+```typescript
+import crypto from "crypto";
+
+const WEBHOOK_SECRET = process.env.VERITOME_WEBHOOK_SECRET!;
+
+export async function POST(req: Request) {
+  const rawBody = await req.text();
+  const signature = req.headers.get("x-veritome-signature");
+
+  if (!signature) {
+    return new Response("Missing signature", { status: 401 });
+  }
+
+  // Compute expected HMAC-SHA256 signature
+  const expectedSignature = crypto
+    .createHmac("sha256", WEBHOOK_SECRET)
+    .update(rawBody, "utf8")
+    .digest("hex");
+
+  // Use timingSafeEqual to prevent timing attacks
+  const sigBuffer = Buffer.from(signature, "hex");
+  const expectedBuffer = Buffer.from(expectedSignature, "hex");
+
+  if (
+    sigBuffer.length !== expectedBuffer.length ||
+    !crypto.timingSafeEqual(sigBuffer, expectedBuffer)
+  ) {
+    return new Response("Invalid signature", { status: 401 });
+  }
+
+  const event = JSON.parse(rawBody);
+
+  switch (event.event) {
+    case "system.classified":
+      console.log(`System classified: ${event.data.systemName} → ${event.data.classification}`);
+      // Trigger your internal workflows here
+      break;
+    case "incident.created":
+      console.log(`Incident created — deadline: ${event.data.deadline}`);
+      // Page on-call, open a Jira ticket, etc.
+      break;
+    case "obligation.overdue":
+      console.log(`Obligation overdue: ${event.data.title}`);
+      break;
+    default:
+      console.log(`Unhandled event: ${event.event}`);
+  }
+
+  return new Response("OK", { status: 200 });
+}
+```
+
+### Python (Flask)
+
+```python
+import hashlib
+import hmac
+import os
+import json
+from flask import Flask, request, abort
+
+app = Flask(__name__)
+WEBHOOK_SECRET = os.environ["VERITOME_WEBHOOK_SECRET"]
+
+@app.route("/webhooks/veritome", methods=["POST"])
+def handle_webhook():
+    raw_body = request.get_data()
+    signature = request.headers.get("X-Veritome-Signature", "")
+
+    if not signature:
+        abort(401, "Missing signature")
+
+    expected = hmac.new(
+        WEBHOOK_SECRET.encode("utf-8"),
+        raw_body,
+        hashlib.sha256
+    ).hexdigest()
+
+    # Use compare_digest to prevent timing attacks
+    if not hmac.compare_digest(signature, expected):
+        abort(401, "Invalid signature")
+
+    event = json.loads(raw_body)
+    event_type = event.get("event")
+
+    if event_type == "system.classified":
+        classification = event["data"]["classification"]
+        print(f"System classified as {classification}")
+    elif event_type == "incident.created":
+        deadline = event["data"]["deadline"]
+        print(f"Incident logged — notify authority by {deadline}")
+    elif event_type == "dossier.generated":
+        print(f"Dossier ready for system {event['data']['systemId']}")
+
+    return "", 200
+```
+
+---
+
+## Retry policy
+
+If your endpoint does not respond with a `2xx` status code within **10 seconds**, Veritome marks the delivery as failed and retries with exponential backoff:
+
+| Attempt | Delay |
+|---------|-------|
+| 1st retry | 30 seconds |
+| 2nd retry | 5 minutes |
+| 3rd retry | 30 minutes |
+
+After 3 failed retries the delivery is marked as permanently failed and will not be retried. You can inspect recent delivery attempts and their status codes in **Settings → API → Webhooks** under the delivery history for each endpoint.
+
+<Tip>
+  Return `200 OK` immediately upon receiving the webhook, then process the event asynchronously using a queue (e.g. BullMQ, SQS, or Celery). This prevents timeouts when your processing logic takes longer than 10 seconds.
+</Tip>
+
+---
+
+## Reduce API polling
+
+Subscribing to the right events dramatically reduces the number of API calls your integration needs to make. Here are common polling patterns and their webhook equivalents:
+
+| Instead of polling… | Subscribe to |
+|--------------------|-------------|
+| `GET /api/obligations?status=approved` every few minutes | `obligation.status_changed` |
+| `GET /api/systems/{id}/dossier` waiting for generation | `dossier.generated` |
+| `GET /api/incidents` checking for new reports | `incident.created` |
+| `GET /api/systems/{id}` after classification | `system.classified` |

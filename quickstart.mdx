@@ -1,47 +1,101 @@
 ---
-title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+title: "Get Started with Veritome in Under 10 Minutes"
+sidebarTitle: "Quick Start"
+description: "Sign up for a free Veritome account, register your first AI system, run the classification wizard, and review your obligation list — no credit card needed."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
-
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
-
-## Prerequisites
-
-Before you begin, you must have:
-
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
+Getting to your first obligation list in Veritome takes four steps. The Free plan gives you one AI system and one team member at no cost — no credit card required. By the end of this guide you will have a classified system and a personalised set of EU AI Act duties mapped to your role and risk tier.
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
+  <Step title="Create your account">
+    Go to [app.veritome.eu](https://app.veritome.eu) and choose your sign-up method:
 
-    ```bash
-    npm install your-package
-    ```
+    - **Email and password** — enter your work email and choose a strong password. Veritome sends a verification email; click the link to activate your account.
+    - **Continue with Google** — authorise Google OAuth and your account is created instantly. No separate email verification is required.
+
+    After sign-up you land on the **Create your organisation** screen. Enter your company name — this becomes your workspace and appears on all compliance documents you generate. You can update it later in **Settings → Company profile**.
+
+    <Note>
+      Multi-factor authentication (MFA) is mandatory for all Veritome accounts. After your first login you are directed to the MFA enrolment screen, where you scan a QR code with any TOTP app (Google Authenticator, Authy, 1Password, etc.) and enter a one-time code to confirm enrolment.
+    </Note>
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
 
-    ```bash
-    your-cli init
-    ```
+  <Step title="Register your first AI system">
+    After enrolment you land on the **Dashboard**. If your organisation has no systems yet, an onboarding checklist appears at the top of the page with **Add your first AI system** as the first action.
+
+    Click **New system** (or the **+** button in the top navigation bar). You see two options:
+
+    - **Quick add** — enter the system's name and a short description, then proceed directly to classification. Use this when you want to classify the system immediately.
+    - **Guided setup** — a multi-step wizard that captures the system name, vendor, department, intended purpose, and key boolean flags (chatbot, emotion recognition, synthetic content generation, workplace AI) before classification. Use this when you have the system's details to hand.
+
+    For this walkthrough, choose **Quick add**, enter a name like *"CV screening tool"* or *"Customer support chatbot"*, and click **Continue to classification**.
+
+    <Tip>
+      You can always edit a system's details and add more context later. The most important thing at this stage is to get through classification so the Obligation Engine can generate your duties.
+    </Tip>
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
 
-    ```bash
-    your-cli start
-    ```
+  <Step title="Run the classification wizard">
+    The classification wizard walks you through a structured decision tree, one question at a time. Each question displays the relevant EU AI Act article reference and plain-English guidance.
+
+    The wizard follows this sequence:
+
+    1. **Art. 5 prohibited-practice screen** — the wizard asks whether your system falls under any of the eight categories banned outright by Article 5 (social scoring, subliminal manipulation, real-time remote biometric identification in public spaces, etc.). If you answer **Yes**, the system is classified as **Prohibited** and no further steps are needed.
+
+    2. **GPAI check** — if your organisation develops and provides a general-purpose AI model (a foundation model), answer **Yes**. If you use an application built on a third-party model, answer **No**.
+
+    3. **Annex I product check** — does the system serve as a safety component of a regulated Annex I product (medical device, machinery, motor vehicle, etc.)? If yes, a follow-up asks whether that Annex I product requires third-party conformity assessment — both conditions must be true for Art. 6(1) High-Risk to apply.
+
+    4. **Annex III domain** — select the highest-risk area in which the system operates: Biometrics, Critical Infrastructure, Education, Employment, Essential Services, Law Enforcement, Migration, or Justice & Democracy. If none applies, select **None**.
+
+    5. **Art. 6(3) exception** — if an Annex III domain was selected, the wizard checks whether a not-high-risk exception applies (narrow procedural task, pattern detection only, preparatory task, or improving completed human work). Note: systems that perform profiling of natural persons are always High-Risk regardless of exceptions.
+
+    6. **Your role** — choose whether your organisation is the **Provider** (you built it or market it under your name), **Deployer** (you use it professionally), **Importer**, or **Distributor**. A follow-up asks whether you place the system on the market under your own name or have substantially modified it — if so, your role upgrades to Provider.
+
+    At the end of the wizard, Veritome displays your **classification result**: risk tier badge (Prohibited / High-Risk / Limited-Risk / Minimal-Risk), your role, and the Annex III domain if applicable. Review the result and click **Confirm classification**.
+
+    <Warning>
+      Classification has legal significance. If you are unsure whether a system qualifies as High-Risk, consult legal counsel before confirming. Veritome stores a timestamped classification record every time you run or re-run the wizard.
+    </Warning>
+  </Step>
+
+  <Step title="Review your obligations">
+    After classification, the Obligation Engine runs automatically. Within seconds, it generates the complete set of EU AI Act duties that apply to your system, based on your confirmed role, risk tier, and Annex III domain.
+
+    You land on the system's **Obligations** view. Obligations are grouped into tabs by topic area (Risk Management, Data Governance, Technical Documentation, Human Oversight, Transparency, Post-Market Monitoring, etc.) and organised into phases along the compliance journey bar at the top.
+
+    For each obligation you can see:
+
+    - **Article reference** — the exact EU AI Act article (e.g. Art. 9, Art. 14, Art. 72).
+    - **Plain-English summary** — what the obligation actually requires in plain language.
+    - **Status** — starts as *Not Started*. Update it as you work through each duty.
+    - **Priority** — Critical, High, Medium, or Low, based on the obligation's legal weight.
+    - **Due date** — statutory applicability date or a custom deadline you set.
+    - **Phase** — which of the six journey phases this obligation belongs to.
+
+    Click any obligation to open its smart form, add notes, upload evidence, or use Aria AI to draft a response.
+
+    <Tip>
+      Start with the **Classify** phase obligations — they are already complete once you confirm your classification. Move to **Scope & Literacy** next. The obligation list for your first system on the Free plan is fully functional; upgrade only when you need to track additional systems.
+    </Tip>
   </Step>
 </Steps>
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+## What comes next
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
-</Tip>
+Now that you have a classified system and an obligation list, here are the recommended next steps:
+
+<CardGroup cols={2}>
+  <Card title="Dashboard Tour" icon="layout-dashboard" href="/onboarding-tour">
+    Learn the layout of every dashboard panel, from the compliance score ring to the live regulatory updates feed.
+  </Card>
+  <Card title="Compliance Journey" icon="map" href="/concepts/compliance-journey">
+    Understand how the six phases gate each other and what outputs each phase produces.
+  </Card>
+  <Card title="Account Setup" icon="user-circle" href="/account-setup">
+    Invite team members, assign roles, and configure MFA and SSO for your organisation.
+  </Card>
+  <Card title="Obligation Engine" icon="gear" href="/concepts/obligation-engine">
+    Learn how to work through obligations, use smart forms, attach evidence, and track status.
+  </Card>
+</CardGroup>

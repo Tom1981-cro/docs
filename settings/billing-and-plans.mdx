@@ -1,0 +1,143 @@
+---
+title: "Veritome Pricing Plans and Billing Management"
+sidebarTitle: "Billing & Plans"
+description: "Compare Veritome plans, understand seat and system limits, apply discounts, and manage invoices and upgrades through the Stripe billing portal."
+---
+
+Veritome offers six plans designed for organisations at every stage of their EU AI Act compliance journey — from a single-person startup registering its first AI system to a large enterprise managing a portfolio of high-risk applications. All plans are billed through Stripe, and you can upgrade, downgrade, or cancel at any time from **Settings → Billing**.
+
+## Plan Comparison
+
+| Feature | Free | Starter | Core | Growth | Business | Enterprise |
+|---|---|---|---|---|---|---|
+| **Monthly price** | €0 | €59 | €149 | €349 | €699 | Custom |
+| **AI systems** | 1 | 3 | 5 | 25 | Unlimited | Unlimited |
+| **Team members (seats)** | 1 | 2 | 5 | 10 | 20 | Custom |
+| **PDF dossier generation** | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| **Evidence connectors** | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Audit bundle export** | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| **API & webhooks** | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| **Custom report templates** | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| **RBAC & SSO** | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| **Stored snapshots** | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| **Scheduled reports** | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| **SCIM provisioning** | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| **Enterprise SLA** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| **Dedicated CSM** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+
+<Note>
+  All prices shown are excluding VAT. VAT is applied at checkout based on your billing country in accordance with EU VAT rules. VAT-registered businesses can provide their VAT number to have tax reversed.
+</Note>
+
+## Annual Billing Discount
+
+Switch to annual billing to pay for 10 months and get 12 — a **20% saving** compared to the monthly rate. Annual billing is charged as a single upfront payment and renews automatically unless cancelled.
+
+| Plan | Monthly billing | Annual billing (per month) | Annual saving |
+|---|---|---|---|
+| Starter | €59/mo | €47.20/mo | €141.60/yr |
+| Core | €149/mo | €119.20/mo | €357.60/yr |
+| Growth | €349/mo | €279.20/mo | €837.60/yr |
+| Business | €699/mo | €559.20/mo | €1,677.60/yr |
+
+To switch to annual billing:
+
+1. Go to **Settings → Billing**.
+2. Click **Switch to annual billing**.
+3. Review the prorated amount and click **Confirm** in the Stripe portal.
+
+## Founding Member Discount
+
+Veritome offers a **founding member discount of 30% off annual billing for 3 years**, available to the first 100 organisations to activate it.
+
+<Tip>
+  The founding member discount stacks on top of the annual billing discount — you pay for annual billing at 30% off the monthly price for three consecutive annual billing cycles. After three years, your subscription reverts to the standard annual rate.
+</Tip>
+
+To check whether founding member pricing is still available and to apply it:
+
+1. Go to **Settings → Billing → Available discounts**.
+2. If founding member pricing is still available, a banner shows the remaining spots. Click **Claim founding member discount**.
+3. The discount is applied to your next billing cycle if you are already on annual billing, or immediately if you switch to annual billing at the same time.
+
+<Warning>
+  The founding member discount is non-transferable and applies to the organisation account that claims it, not to individual users. It cannot be applied retroactively to previous billing periods.
+</Warning>
+
+## Upgrading Your Plan
+
+<Steps>
+  <Step title="Go to Settings → Billing">
+    Click **Settings** in the left sidebar, then select **Billing**.
+  </Step>
+  <Step title="Click Change Plan">
+    Under the **Current plan** section, click **Change plan**. A plan picker shows all available plans with your current plan highlighted.
+  </Step>
+  <Step title="Select your new plan">
+    Click the plan you want to upgrade to. A pricing summary shows the prorated amount due today (for upgrades mid-cycle) or at next renewal.
+  </Step>
+  <Step title="Complete checkout in Stripe">
+    Click **Upgrade now**. You are taken to the Stripe billing portal to confirm the payment method and complete the transaction. Once confirmed, your new plan is active immediately.
+  </Step>
+</Steps>
+
+<Info>
+  Upgrades take effect immediately. If you upgrade mid-cycle, Veritome calculates a prorated charge for the remainder of the current billing period, and your next full charge is at the new plan rate.
+</Info>
+
+## Downgrading Your Plan
+
+Downgrades take effect at the end of your current billing cycle — you retain all features of your current plan until the cycle ends.
+
+<Steps>
+  <Step title="Go to Settings → Billing → Change Plan">
+    Follow the same path as for upgrades.
+  </Step>
+  <Step title="Select a lower plan">
+    Choose the plan you want to move to. Veritome shows a **Downgrade impact** warning listing any features or capacity you will lose (e.g. *"You have 8 systems — Core plan allows 5. You must archive or delete 3 systems before the downgrade takes effect."*).
+  </Step>
+  <Step title="Resolve capacity conflicts">
+    If your current data exceeds the limits of the target plan (systems, members, etc.), resolve the conflicts before confirming the downgrade. Unresolved conflicts will block the downgrade.
+  </Step>
+  <Step title="Confirm the downgrade">
+    Click **Schedule downgrade**. The downgrade is confirmed and scheduled for end of cycle. You receive a confirmation email.
+  </Step>
+</Steps>
+
+## Downloading Invoices
+
+Every invoice Veritome issues is available in the Stripe billing portal.
+
+<Steps>
+  <Step title="Go to Settings → Billing → Invoices">
+    Click **Billing** in the left sidebar settings, then select the **Invoices** tab.
+  </Step>
+  <Step title="Click 'Open billing portal'">
+    Click **Open billing portal**. You are redirected to the Stripe customer portal authenticated as your organisation.
+  </Step>
+  <Step title="Download invoices">
+    Under **Invoice history**, click the **Download** icon next to any invoice to download a PDF. You can also update billing details and payment methods from the same portal.
+  </Step>
+</Steps>
+
+## Cancelling Your Subscription
+
+To cancel your Veritome subscription:
+
+1. Go to **Settings → Billing**.
+2. Click **Cancel subscription** at the bottom of the page.
+3. You are redirected to the Stripe portal where you confirm cancellation. Your subscription remains active until the end of the current billing period.
+4. After cancellation, your account moves to the Free plan limits. Systems and data above Free plan limits are read-only until you either resubscribe or reduce your usage to Free plan limits.
+
+<Accordion title="Data retention after cancellation">
+  Veritome retains all your organisation's data (systems, dossiers, evidence, reports) for 90 days after a subscription lapses. During this window you can resubscribe and resume without data loss. After 90 days, data is permanently deleted in accordance with Veritome's data retention policy. Contact support@veritome.eu before the 90-day window expires if you need an extension or a data export.
+</Accordion>
+
+## Enterprise Plan
+
+The Enterprise plan is for organisations with complex requirements: large AI system portfolios, custom contractual SLAs, dedicated implementation support, or specific data residency needs.
+
+Enterprise pricing is custom and negotiated directly. To discuss an Enterprise plan:
+
+1. Visit [veritome.eu/enterprise](https://veritome.eu/enterprise) or click **Contact sales** on the Billing page.
+2. A member of the Veritome sales team will reach out within one business day.

@@ -1,0 +1,148 @@
+---
+title: "Authenticate with the Veritome API Using API Keys"
+sidebarTitle: "Authentication"
+description: "Generate API keys in Settings, pass them as Bearer tokens, and keep credentials secure with rotation and revocation on demand."
+---
+
+The Veritome API uses long-lived API keys for authentication. Every request to a protected endpoint must include your API key as a Bearer token in the `Authorization` header. Keys are scoped to your organisation and carry either read-only or read-write permissions, giving you the flexibility to issue least-privilege credentials to integrations that only need to read data.
+
+## Generate an API key
+
+1. Navigate to **Settings → API** in the Veritome dashboard.
+2. Click **New Key**, enter a descriptive name (e.g. `ci-pipeline-readonly`), and choose a scope.
+3. Copy the full key immediately — it is displayed **only once** and is not stored in recoverable form.
+
+You can also create keys programmatically. Issue a `POST /api/api-keys` request while authenticated with an existing read-write key or an active browser session:
+
+```bash
+curl -X POST https://veritome.eu/api/api-keys \
+  -H "Content-Type: application/json" \
+  -d '{"name": "ci-pipeline", "scope": "READ_ONLY"}'
+```
+
+**Request body fields:**
+
+<ParamField body="name" type="string">
+  A human-readable label for the key. Defaults to `"API Key"` if omitted.
+</ParamField>
+
+<ParamField body="scope" type="string" default="READ_WRITE">
+  Permission level for the key. Must be `"READ_ONLY"` or `"READ_WRITE"`. Omitting this field defaults to `"READ_WRITE"`. An unrecognised value returns `400 Bad Request`.
+</ParamField>
+
+**Response (201 Created):**
+
+```json
+{
+  "key": "vrt_live_a1b2c3d4e5f6...",
+  "prefix": "vrt_live_a1b2",
+  "scope": "READ_ONLY"
+}
+```
+
+<Warning>
+  The full key value is returned only once in this response. Store it securely in a secrets manager before closing this window — it cannot be retrieved again.
+</Warning>
+
+## Pass your API key in requests
+
+Include your key in the `Authorization` header of every request:
+
+```
+Authorization: Bearer <your-api-key>
+```
+
+### curl example
+
+```bash
+curl https://veritome.eu/api/systems \
+  -H "Authorization: Bearer vrt_live_a1b2c3d4e5f6..."
+```
+
+### TypeScript example
+
+```typescript
+const VERITOME_API_KEY = process.env.VERITOME_API_KEY!;
+
+async function listSystems() {
+  const response = await fetch("https://veritome.eu/api/systems", {
+    headers: {
+      Authorization: `Bearer ${VERITOME_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Veritome API error: ${response.status}`);
+  }
+
+  return response.json();
+}
+```
+
+## List your API keys
+
+Retrieve all keys created for your organisation (key values are never returned after creation — only metadata):
+
+```bash
+curl https://veritome.eu/api/api-keys \
+  -H "Authorization: Bearer <your-api-key>"
+```
+
+**Response:**
+
+```json
+{
+  "keys": [
+    {
+      "id": "clx9f2k0000043b6wqztp8m1k",
+      "name": "ci-pipeline",
+      "prefix": "vrt_live_a1b2",
+      "scope": "READ_ONLY",
+      "lastUsed": "2025-06-10T14:33:00.000Z",
+      "rotatedAt": null,
+      "createdAt": "2025-01-15T09:22:00.000Z"
+    }
+  ]
+}
+```
+
+## Rotate a key
+
+Rotation generates a new secret for an existing key record and **immediately invalidates the old secret**. Any in-flight request using the old secret will fail with `401`. Update your secrets manager with the new value before rotating in production.
+
+```bash
+curl -X POST https://veritome.eu/api/api-keys/<key-id>/rotate \
+  -H "Authorization: Bearer <your-api-key>"
+```
+
+The response returns the new full key value in the same `{ key, prefix, scope }` shape as key creation.
+
+## Revoke a key
+
+To permanently delete a key, send a `DELETE` request with the key `id` in the request body:
+
+```bash
+curl -X DELETE https://veritome.eu/api/api-keys \
+  -H "Authorization: Bearer <your-api-key>" \
+  -H "Content-Type: application/json" \
+  -d '{"id": "clx9f2k0000043b6wqztp8m1k"}'
+```
+
+Revocation takes effect immediately. A successful response returns `{ "success": true }`.
+
+## Authentication errors
+
+| Status | Error code | Cause |
+|--------|-----------|-------|
+| `401 Unauthorized` | `unauthorized` | No `Authorization` header, malformed Bearer token, or the key has been revoked or rotated |
+| `403 Forbidden` | `feature_locked` | Your organisation's plan does not include API access (Growth plan or above required) |
+| `400 Bad Request` | `invalid_scope` | You supplied a `scope` value other than `"READ_ONLY"` or `"READ_WRITE"` when creating a key |
+
+## Security best practices
+
+- **Never commit API keys to source control.** Use environment variables or a secrets manager such as AWS Secrets Manager, HashiCorp Vault, or GitHub Actions Secrets.
+- **Use `READ_ONLY` scope** for integrations that only need to read data (dashboards, monitoring scripts, reporting pipelines).
+- **Rotate keys regularly** — at least every 90 days, and immediately whenever a key may have been exposed.
+- **Revoke unused keys** promptly. Each key in `GET /api/api-keys` includes a `lastUsed` timestamp so you can identify and remove stale credentials.
+- **One key per integration.** Sharing a single key across multiple services makes it harder to trace which system was responsible if a key is misused, and forces you to rotate everywhere at once.

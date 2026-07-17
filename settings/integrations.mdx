@@ -1,0 +1,157 @@
+---
+title: "Connect Veritome to Google Drive, GitHub, and More"
+sidebarTitle: "Integrations"
+description: "Connect Google Drive, SharePoint, GitHub, and Jira as evidence sources so your compliance documents flow directly into your obligations."
+---
+
+Veritome's integration layer connects your existing tools to the evidence management workflow. Rather than duplicating files, you authorise Veritome to browse and link documents from the platforms where your team already stores compliance artefacts. Each integration uses OAuth 2.0 — Veritome never stores your credentials, and you can revoke access at any time from the provider's security settings.
+
+<Note>
+  Evidence connectors are available on **Starter and above** plans. Free plan users can upload documents manually but cannot connect external sources.
+</Note>
+
+## Available Integrations
+
+<CardGroup cols={2}>
+  <Card title="Google Drive" icon="google-drive">
+    Browse and link files from My Drive and Shared Drives. Supports all Google Workspace file types and third-party files stored in Drive.
+  </Card>
+  <Card title="SharePoint" icon="microsoft">
+    Access document libraries from SharePoint Online and OneDrive for Business within your Microsoft 365 tenant. Supports site collections and subsites.
+  </Card>
+  <Card title="GitHub" icon="github">
+    Link files from any repository your GitHub account can access. Ideal for attaching model cards, evaluation notebooks, test reports, and CI/CD pipeline outputs.
+  </Card>
+  <Card title="Jira" icon="jira">
+    Attach Jira issues and their file attachments as evidence. Useful for linking change requests, incident tickets, and test execution records to obligations.
+  </Card>
+</CardGroup>
+
+## Connecting an Integration
+
+All integrations follow the same connection pattern through the Veritome Integrations settings page.
+
+<Steps>
+  <Step title="Navigate to Settings → Integrations">
+    Click **Settings** in the left sidebar, then select **Integrations**. The page lists all available connectors with their current connection status.
+  </Step>
+  <Step title="Click Connect">
+    Find the connector you want to add and click **Connect**. A brief description of the permissions Veritome will request is shown.
+  </Step>
+  <Step title="Complete the OAuth flow">
+    You are redirected to the provider's login and authorisation screen. Sign in with the account you want Veritome to access and click **Authorise** (or equivalent) to grant the requested permissions.
+  </Step>
+  <Step title="Return to Veritome">
+    After authorisation, you are redirected back to **Settings → Integrations**. The connector's status changes to **Connected** with the authorised account shown.
+  </Step>
+</Steps>
+
+## Google Drive
+
+Once connected, the Google Drive connector lets you browse any file in My Drive or a Shared Drive that the authorised Google account can access.
+
+**Permissions requested:**
+- Read file metadata and content
+- No write access — Veritome never modifies files in your Drive
+
+**Using Drive as an evidence source:**
+
+When attaching evidence to an obligation, click **Browse connected sources → Google Drive**. The file picker shows your Drive folder hierarchy. Navigate to the file and click **Attach**. Veritome stores a reference to the file (not a copy), so when you open the evidence item from within Veritome, you are always accessing the current version in Drive.
+
+<Tip>
+  If you are using a Google Workspace Shared Drive for compliance documents, ensure the authorised Google account has at least **Viewer** access to that Shared Drive. Otherwise, the Drive connector will not show those files in the picker.
+</Tip>
+
+<Accordion title="Reconnecting Google Drive after token expiry">
+  Google OAuth tokens for Drive can expire or be revoked. If the Drive connector status shows **Disconnected** or **Token expired**, click **Reconnect** on the Integrations page and complete the OAuth flow again. All previously linked evidence references are preserved — you do not need to re-attach documents to obligations.
+</Accordion>
+
+## SharePoint
+
+The SharePoint connector accesses SharePoint Online document libraries and OneDrive for Business within your Microsoft 365 tenant. You must sign in with a Microsoft account that has access to the SharePoint sites you want to browse.
+
+**Permissions requested:**
+- Read files in SharePoint sites and OneDrive for Business
+- Read user profile (to display the authorised account name)
+- No write access
+
+**Supported content:**
+- SharePoint Online document libraries (classic and modern sites)
+- OneDrive for Business personal storage
+- SharePoint subsites
+
+**Using SharePoint as an evidence source:**
+
+Click **Browse connected sources → SharePoint** when attaching evidence. The picker shows your SharePoint sites and OneDrive. Navigate the folder structure, select the file, and click **Attach**.
+
+<Note>
+  On-premises SharePoint (SharePoint Server) is not currently supported. Only SharePoint Online (Microsoft 365) is compatible with the Veritome connector.
+</Note>
+
+## GitHub
+
+The GitHub connector allows you to link files from any repository your GitHub account can access, including organisation repositories you are a member of.
+
+**Permissions requested:**
+- Read access to repository contents (files and metadata)
+- Read access to repository metadata
+- No write access — Veritome never commits to or modifies your repositories
+
+**Common use cases for GitHub evidence:**
+- Model cards (`model_card.md`) from model repositories
+- Evaluation notebooks and test result files
+- AI system architecture documentation stored as Markdown or PDF
+- CI/CD pipeline output logs stored as workflow artefacts
+
+**Using GitHub as an evidence source:**
+
+Click **Browse connected sources → GitHub**. Select the organisation and repository, then navigate the directory structure to find the file. Click **Attach** to link it to the obligation. Veritome links to the file at a specific commit SHA to ensure the evidence reference is stable — if the file changes in a future commit, you receive a notification prompting you to review and re-link.
+
+<Accordion title="Linking to a specific branch or commit">
+  By default, Veritome links to the file at the HEAD of the default branch at the time of attachment, pinning a specific commit SHA. To link to a different branch, use the branch picker in the GitHub file browser before selecting the file.
+</Accordion>
+
+## Jira
+
+The Jira connector supports both **Jira Cloud** and **Jira Data Center** (v9+). Once connected, you can link Jira issues and their attachments as evidence.
+
+**Permissions requested:**
+- Read issues and attachments from projects you have access to
+- Read project metadata
+- No write access — Veritome does not create, edit, or transition Jira issues
+
+**Common use cases for Jira evidence:**
+- Change request tickets as evidence of change management procedures
+- Incident tickets for post-market surveillance obligations
+- Test execution records from Jira test management plugins (e.g. Zephyr, Xray)
+- Bug reports documenting known limitations
+
+**Using Jira as an evidence source:**
+
+Click **Browse connected sources → Jira**. Search for the issue by key (e.g. `COMP-142`) or browse by project. Select the issue or a specific attachment on the issue, then click **Attach**. The evidence entry displays the Jira issue key, summary, and current status so you can tell at a glance whether the underlying ticket has been resolved.
+
+<Tip>
+  Link Jira issues rather than individual attachments when the issue itself (its status, resolution, and comments) constitutes the evidence — for example, a resolved change-control ticket as evidence of a documented change procedure.
+</Tip>
+
+## Disconnecting an Integration
+
+To remove a connector:
+
+<Steps>
+  <Step title="Go to Settings → Integrations">
+    Navigate to the Integrations page from the left sidebar.
+  </Step>
+  <Step title="Click Disconnect">
+    Find the connected integration and click **Disconnect**. A confirmation dialog explains what will happen to linked evidence.
+  </Step>
+  <Step title="Confirm">
+    Click **Confirm disconnect**. The connector status changes to **Not connected**. Existing evidence references in obligations are retained but marked **Connector disconnected** — the files are no longer accessible from within Veritome until you reconnect.
+  </Step>
+</Steps>
+
+<Warning>
+  Disconnecting an integration does not delete the evidence links in your obligations, but it does make those linked files inaccessible from Veritome. Before disconnecting, ensure that any obligations using evidence from that connector have alternative evidence attached, or that you plan to reconnect promptly.
+</Warning>
+
+You should also revoke Veritome's OAuth access from within the provider's own security settings (Google Account → Third-party apps, Microsoft Entra → Enterprise applications, GitHub → Authorised OAuth apps, Atlassian → Connected apps) to fully remove Veritome's access to that account.

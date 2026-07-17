@@ -1,0 +1,70 @@
+---
+title: "Register Your First AI System in Veritome"
+sidebarTitle: "Register a System"
+description: "Add an AI system to your Veritome register in minutes. Learn which fields to complete, how to bulk import, and what happens after you save."
+---
+
+Before you can classify, document, or monitor an AI system under the EU AI Act, you need to register it in Veritome. Registration creates the canonical record in your AI System Register — the single inventory that holds your system's identity, role, risk tier, and six-phase compliance journey. Every obligation, dossier, and incident log you create later is anchored to this record.
+
+## What you'll need
+
+Gather the following before you start. You don't need to have all the answers perfectly formed — you can edit every field after registration — but having a working description ready will let Aria, Veritome's AI assistant, suggest an initial risk classification immediately.
+
+<CardGroup cols={2}>
+  <Card title="System name" icon="tag">
+    A short, human-readable label for the system (e.g. "CV Screening Tool" or "Fraud Detection v2"). This appears throughout the platform and in generated dossiers.
+  </Card>
+  <Card title="Short description" icon="align-left">
+    One or two sentences describing what the system does. Aria uses this text to propose a risk tier and Annex III domain.
+  </Card>
+  <Card title="Intended purpose" icon="bullseye">
+    The specific task or decision the system supports — distinct from a general description. For example: "Rank job applicants by predicted performance score for HR review."
+  </Card>
+  <Card title="Deployment context" icon="building">
+    Where and by whom the system is used: the department, the country, and whether you built it yourself or procured it from a third-party provider.
+  </Card>
+</CardGroup>
+
+## Register a system
+
+<Steps>
+  <Step title="Open the Systems register">
+    From the main navigation, click **Systems**. Your current AI System Register loads, showing all systems your organisation has already registered together with their phase and compliance score.
+  </Step>
+  <Step title="Start the registration wizard">
+    Click **New System** (top-right). Veritome opens the guided registration form. The form is divided into three short sections: Identity, Purpose, and Context.
+  </Step>
+  <Step title="Enter the system name">
+    Type a clear, descriptive name in the **System name** field. This name appears in dossiers, reports, and — if your system is high-risk — in the EU AI Act database export (Annex VIII). Choose something a regulator can identify unambiguously.
+  </Step>
+  <Step title="Write a short description">
+    In the **Short description** field, summarise what the system does in one or two sentences. Keep this factual and technology-agnostic. Aria reads this field when you proceed to classification, so a concrete description (rather than marketing copy) produces better suggestions.
+  </Step>
+  <Step title="State the intended purpose">
+    Fill in the **Intended purpose** field with the specific function the system performs and the decisions it informs or automates. The EU AI Act ties obligations to intended purpose, so be precise: "generate medical image reports for radiologist review" is more useful than "assist doctors."
+  </Step>
+  <Step title="Add deployment context">
+    Select the **Department** and **Country of deployment** from the dropdowns, then indicate whether you are the system's **Provider** (you built or placed it on the market) or its **Deployer** (you use it in a professional context). You will confirm this role formally during classification; the answer here simply pre-fills the classifier.
+  </Step>
+  <Step title="Save the record">
+    Click **Save system**. Veritome creates the record, assigns a unique system ID, and redirects you to the system's overview page. Your system is now listed in the Systems register at phase 1 (Classify) with a compliance score of 0 %.
+  </Step>
+</Steps>
+
+<Note>
+  **Bulk import via CSV** is available on the Starter plan and above. From the Systems register, click the **Import** button and download the CSV template. Fill in one row per system — name, description, intended purpose, department, country, and role — then upload the file. Veritome validates each row and creates the records in bulk. Any rows with validation errors are listed in a downloadable error report for you to correct and re-upload.
+</Note>
+
+## After registration
+
+Once your system is saved, Veritome automatically:
+
+- Adds the system to your **AI System Register** with a unique ID and creation timestamp.
+- Creates an empty **six-phase compliance journey** (Classify → Scope & Literacy → Build & Document → Conformity Assessment → Register → Operate & Monitor) for that system.
+- Makes the system available for **Aria** to analyse — navigate to the Aria panel to ask questions or request a preliminary classification suggestion before running the formal wizard.
+
+Your next step is to run the **Classification wizard** to assign a risk tier, confirm your role, and let the Obligation Engine auto-map the duties that apply to your system.
+
+<Tip>
+  You can register a system with minimal information and return to complete the fields later. However, the classification wizard requires a short description and intended purpose to generate Aria suggestions, so completing those fields at registration saves time.
+</Tip>

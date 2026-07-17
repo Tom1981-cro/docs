@@ -1,0 +1,144 @@
+---
+title: "How AI System Classification Works in Veritome"
+sidebarTitle: "Classification"
+description: "A step-by-step explanation of Veritome's classification wizard — Art. 5 screening, risk tier assignment, role determination, and Annex III domain mapping."
+---
+
+Classification is the foundation of every EU AI Act compliance programme. Before you can know which obligations apply to an AI system, you must know its risk tier, your organisation's role, and whether it falls into a regulated Annex III domain. Veritome's classification wizard makes this determination through a structured, legally-grounded decision tree that takes most users under five minutes to complete. This page explains each stage of the wizard, the four risk tiers, the three primary roles, and how classification records work over time.
+
+## How the classification wizard works
+
+The wizard presents one question at a time, with the relevant EU AI Act article reference and plain-English guidance displayed alongside each question. Your answer to each question determines the next question asked. The full decision path looks like this:
+
+### Step 1 — Art. 5 prohibited-practice screen
+
+The wizard opens with the highest-stakes question: **Is this system on the prohibited list?**
+
+Article 5 of the EU AI Act bans eight categories of AI systems outright. The wizard lists all eight and asks whether any apply to the system you are classifying:
+
+- Social scoring by public authorities (Art. 5(1)(c))
+- Subliminal or manipulative techniques that impair autonomous decision-making (Art. 5(1)(a)(b))
+- Exploitation of vulnerable groups (age, disability, social situation) (Art. 5(1)(b))
+- Real-time remote biometric identification in publicly accessible spaces by law enforcement (Art. 5(1)(h)) — with narrow exceptions
+- Untargeted scraping of facial images to build recognition databases (Art. 5(1)(e))
+- Emotion recognition in workplace and educational settings (Art. 5(1)(f))
+- Biometric categorisation by sensitive characteristics (race, political opinion, religion, etc.) (Art. 5(1)(g))
+- Predictive policing based solely on profiling (Art. 5(1)(d))
+
+If you answer **Yes — prohibited practice**, the system is classified as **Prohibited (Unacceptable Risk)** and no further classification is needed. Veritome records the classification and advises you not to deploy the system. The prohibited-practice screening applies from **2 February 2025**.
+
+<Warning>
+  Deploying a prohibited AI system in the EU carries fines of up to **€35 million or 7 % of global annual turnover** (whichever is higher). If you have any doubt about whether a system falls into a prohibited category, seek legal advice before deploying.
+</Warning>
+
+### Step 2 — GPAI model check
+
+The wizard then asks: **Is this a General Purpose AI model?**
+
+A GPAI model is a model trained on large amounts of data, capable of performing a wide range of tasks, and used as a component in downstream applications — examples include foundation models like GPT-4, Claude, or Gemini. If your organisation **develops and makes available** such a model (even open-source), you are a GPAI model provider under Arts. 53–55.
+
+If you answer **Yes**, a follow-up asks whether your model exceeds the **10²⁵ FLOP training compute threshold** specified in Art. 51 — the threshold that triggers systemic-risk obligations (e.g. adversarial testing, incident reporting to the AI Office, model evaluation).
+
+<Info>
+  Using an application powered by a third-party GPAI model (e.g. a chatbot built on GPT-4) does **not** make you a GPAI model provider. You are the deployer of the application. Only the organisation that trained and placed the GPAI model on the market carries Art. 53–55 obligations.
+</Info>
+
+### Step 3 — Annex I product check
+
+The wizard asks: **Is this system a safety component of a regulated Annex I product?**
+
+Annex I lists 13 product categories with their own EU sectoral legislation (medical devices, machinery, motor vehicles, aviation, railway systems, marine equipment, pressure equipment, personal protective equipment, radio equipment, toys, lifts, appliances burning gaseous fuels, and outdoor noise equipment). If the AI system serves as a safety component of such a product, Art. 6(1) may classify it as High-Risk.
+
+Importantly, two conditions must both be true for Art. 6(1) High-Risk to apply:
+1. The AI system is a safety component of an Annex I product, **and**
+2. The Annex I product is required to undergo **third-party conformity assessment** under its sector-specific legislation.
+
+If only condition 1 is met (Annex I coverage without third-party CA), the system does not become High-Risk under Art. 6(1) — it continues through the rest of the wizard.
+
+### Step 4 — Annex III domain selection
+
+The wizard presents the eight Annex III domains and asks which most closely describes where the system operates:
+
+| Domain | Typical systems |
+|--------|----------------|
+| **Biometrics** | Remote identification, emotion recognition, biometric categorisation |
+| **Critical Infrastructure** | Safety components in power grids, water, transport, digital infrastructure |
+| **Education** | Admissions, student assessment, exam proctoring, learning evaluation |
+| **Employment** | CV screening, candidate ranking, performance monitoring, HR decisions |
+| **Essential Services** | Credit scoring, insurance pricing, emergency services dispatch, benefits eligibility |
+| **Law Enforcement** | Risk assessment tools, predictive policing, evidence reliability analysis |
+| **Migration** | Border risk assessment, visa processing, asylum case triage |
+| **Justice & Democracy** | Judicial research tools, election-related systems, dispute resolution |
+
+If none of the eight domains applies, select **None** — the system is not High-Risk under Art. 6(2) and continues to the transparency and user-interaction checks.
+
+### Step 5 — Art. 6(3) not-high-risk exception
+
+If an Annex III domain was selected, the wizard checks whether one of the Art. 6(3) exceptions applies. Even within an Annex III domain, a system is **not** High-Risk if it satisfies one of:
+
+- **Narrow procedural task** — a routine mechanical step (data format conversion, file organisation) that does not materially affect the decision.
+- **Improves completed human work** — only enhances the results of activity already completed by a human.
+- **Pattern detection only** — detects patterns for human review without replacing or influencing the human assessment.
+- **Preparatory task** — a preliminary step for a later human assessment, with no direct output used for the final decision.
+
+<Warning>
+  Article 6(3) contains an important override: systems that perform **profiling of natural persons** (as defined in the GDPR) are **always High-Risk**, regardless of whether any of the four exceptions would otherwise apply. If the system profiles individuals, no exception can be claimed.
+</Warning>
+
+If an exception applies, the system's risk tier is classified as **Minimal-Risk** (not Limited-Risk — the Act's language is "not high-risk", which defaults to Minimal). Any Art. 50 transparency obligations that apply based on capability (e.g. chatbot disclosure) are handled separately by the Obligation Engine's conditional logic, independent of the tier.
+
+### Step 6 — Transparency and interaction check
+
+If the Annex III path did not apply and the GPAI path was not taken, the wizard asks: **Does this AI system interact directly with people?**
+
+If users see the system's outputs or have conversations with it (chatbot, recommendation engine, virtual assistant), it carries **transparency obligations under Art. 50** — it must inform users that they are interacting with an AI. This results in a **Limited-Risk** classification.
+
+If the system operates entirely in the background (internal analytics, batch processing, infrastructure automation) with no direct user interaction, it is **Minimal-Risk**.
+
+### Step 7 — Role determination
+
+The final question asks: **What is your organisation's role?**
+
+- **Provider** — you developed the system or place it on the market under your own name or brand.
+- **Deployer** — you use a third-party AI system in a professional context.
+- **Importer** — you bring a third-country AI system into the EU market for distribution.
+- **Distributor** — you make the system available in the EU supply chain without modifying it.
+
+A follow-up question asks whether you place the system on the market under your own name or have substantially modified it. If yes, and you answered Deployer, Importer, or Distributor, your role **upgrades to Provider** under Art. 25 — you take on Provider obligations for that system.
+
+## The four risk tiers
+
+<CardGroup cols={2}>
+  <Card title="Prohibited (Unacceptable Risk)" icon="ban">
+    Systems that fall under Art. 5's eight prohibited categories. These systems must not be deployed in the EU. No obligations apply because no deployment is permitted.
+  </Card>
+  <Card title="High-Risk" icon="shield-exclamation">
+    Systems covered by Art. 6(1) (Annex I safety components with third-party CA) or Art. 6(2) (Annex III domains). Carries the most extensive obligations: risk management (Art. 9), data governance (Art. 10), technical documentation (Art. 11), logging (Art. 12), transparency to deployers (Art. 13), human oversight (Art. 14), accuracy and robustness (Art. 15), and conformity assessment before market placement (Art. 43).
+  </Card>
+  <Card title="Limited-Risk" icon="eye">
+    Systems that interact directly with users but do not fall under Annex III (e.g. most chatbots, AI-generated content systems). Obligations focus on transparency: disclose to users that they are interacting with an AI (Art. 50(1)), disclose emotion recognition (Art. 50(2)), label AI-generated content (Art. 50(3)(4)).
+  </Card>
+  <Card title="Minimal-Risk" icon="check-circle">
+    Systems with no Annex III domain, no direct user interaction, or a valid Art. 6(3) exception applied. No mandatory EU AI Act obligations beyond good practice. Veritome still tracks these systems so you have a complete inventory and audit trail.
+  </Card>
+</CardGroup>
+
+## Classification records and re-classification
+
+Every time you complete the classification wizard for a system — whether for the first time or as a re-classification — Veritome creates a new **classification record** timestamped to the second. The record stores the full set of wizard answers, the resulting risk tier and role, and the identity of the user who confirmed it.
+
+The system always uses the **active classification** (the most recent confirmed record) to drive the Obligation Engine. Previous records are retained in the system's classification history tab for audit purposes and are never deleted.
+
+To re-classify a system:
+
+1. Open the system and go to the **Classify** tab.
+2. Click **Re-classify system**.
+3. Enter a **justification note** explaining why re-classification is needed (e.g. "Intended purpose changed — system now used in an employment decision context").
+4. Run through the wizard again.
+5. Confirm the new classification.
+
+Re-classification regenerates the obligation set. Obligations from the previous classification that are already **Complete** or **Approved** are preserved; obligations that no longer apply to the new classification are marked **Not Applicable** with an automated note.
+
+<Note>
+  Re-classification requires the **Re-classify systems** permission. By default, Compliance managers and Org admins hold this permission. Compliance officers and System owners cannot re-classify without explicit permission grant from an admin.
+</Note>

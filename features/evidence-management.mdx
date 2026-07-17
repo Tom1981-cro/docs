@@ -1,0 +1,142 @@
+---
+title: "Manage Compliance Evidence Across All Obligations"
+sidebarTitle: "Evidence"
+description: "Attach documents to obligations, visualise cross-obligation reuse with the Evidence Map, and track document expiry across your AI systems."
+---
+
+Evidence Management is how Veritome links real documents — policies, test reports, conformity assessments, data governance records — to the specific obligations your AI systems must satisfy. Rather than storing files in a folder, Veritome treats every document as a reusable compliance artefact that can satisfy multiple obligations simultaneously, giving you a single source of truth across your entire portfolio.
+
+## The Evidence Model
+
+Every compliance obligation in Veritome has an **Evidence Slot** — a designated attachment point where you prove the obligation is met. A document attached to a slot becomes a piece of **evidence**. The same document can be attached to many obligation slots across many systems, and Veritome tracks each attachment independently.
+
+<Info>
+  If you update a document (upload a new version), Veritome re-evaluates all obligations it was attached to and flags any that require re-review.
+</Info>
+
+## Uploading Documents Manually
+
+<Steps>
+  <Step title="Navigate to an obligation">
+    Open a system dossier, select a compliance phase, and click the obligation you want to satisfy. The obligation detail panel opens on the right.
+  </Step>
+  <Step title="Open the Evidence tab">
+    Click the **Evidence** tab within the obligation panel. Any documents already attached are listed here.
+  </Step>
+  <Step title="Upload a document">
+    Click **Upload document**, select a file from your device (PDF, DOCX, XLSX, PNG, JPG — max 50 MB), and click **Open**. The file uploads and appears in the evidence list immediately.
+  </Step>
+  <Step title="Add metadata">
+    Enter a **Display name**, optional **Description**, and — critically — an **Expiry date** if the document has a validity period (e.g. an annual audit certificate). Click **Save**.
+  </Step>
+  <Step title="Mark the obligation">
+    Once evidence is attached, set the obligation status to **Evidenced** using the status dropdown. The obligation contributes to your overall compliance score.
+  </Step>
+</Steps>
+
+<Tip>
+  Use meaningful display names that include the document type and date, such as *"DPIA — RecruitmentBot v3 — 2024-11"*. This makes the Evidence Map much easier to read when documents are reused across systems.
+</Tip>
+
+## Connecting Cloud Storage
+
+Instead of uploading files manually, connect Veritome to your existing cloud storage or project management tools. Connected sources let you browse and link documents without duplicating files.
+
+<Note>
+  Evidence connectors are available on **Starter and above** plans. See [Integrations](/settings/integrations) for step-by-step connection instructions.
+</Note>
+
+<CardGroup cols={2}>
+  <Card title="Google Drive" icon="google-drive">
+    Browse and link files from any Drive folder your Google account can access, including Shared Drives.
+  </Card>
+  <Card title="SharePoint" icon="microsoft">
+    Link documents from SharePoint document libraries and OneDrive for Business within your Microsoft 365 tenant.
+  </Card>
+  <Card title="GitHub" icon="github">
+    Attach files from any repository — useful for linking model cards, evaluation notebooks, and CI/CD audit logs.
+  </Card>
+  <Card title="Jira" icon="jira">
+    Link Jira issues and attachments as evidence — ideal for mapping incident reports, change requests, and test execution records.
+  </Card>
+</CardGroup>
+
+### Linking a Cloud Document to an Obligation
+
+<Steps>
+  <Step title="Open the Evidence tab">
+    Navigate to the obligation and click the **Evidence** tab as described above.
+  </Step>
+  <Step title="Click 'Browse connected sources'">
+    Click **Browse connected sources**. A picker modal opens listing your active connectors.
+  </Step>
+  <Step title="Select the connector">
+    Choose Google Drive, SharePoint, GitHub, or Jira. The connector's file browser loads inside the modal.
+  </Step>
+  <Step title="Find and select the document">
+    Navigate to the file you want. Click its name to select it (a tick appears), then click **Attach**.
+  </Step>
+  <Step title="Set metadata and expiry">
+    Add a display name and expiry date as with manual uploads, then click **Save**.
+  </Step>
+</Steps>
+
+## The Evidence Map
+
+The **Evidence Map** gives you a bird's-eye view of how documents are distributed across your obligations. Open it from the left sidebar under **Evidence → Map**.
+
+The map renders as a bipartite graph: documents on the left, obligations on the right. A line between a document and an obligation means that document is attached as evidence for that obligation. Documents linked to three or more obligations are highlighted in amber to draw your attention to high-value artefacts.
+
+### Reading the Evidence Map
+
+| Visual cue | Meaning |
+|---|---|
+| Green obligation node | Obligation is fully evidenced |
+| Amber obligation node | Obligation has evidence but is awaiting approval |
+| Red obligation node | Obligation has no evidence attached |
+| Amber document node | Document is reused across 3+ obligations |
+| Red document edge | Document is expired or expiring within 30 days |
+
+<Tip>
+  Click any document node in the Evidence Map to see every obligation it satisfies across all systems in your organisation — not just the current system.
+</Tip>
+
+## Expiry Tracking and Renewal Cascade
+
+Documents with an expiry date are monitored by Veritome automatically. When a document approaches or passes its expiry date, Veritome triggers a **renewal cascade**:
+
+1. **30 days before expiry** — A reminder notification is sent to the document owner and any team members watching the obligation.
+2. **7 days before expiry** — The obligation status changes to **Expiring soon** and appears in the Attention card on the Governance Dashboard.
+3. **On expiry date** — The document is marked **Expired**. All obligations it satisfies revert to **Evidence required** status, and the compliance score updates accordingly.
+4. **After renewal** — Upload or link a replacement document and set a new expiry date. Mark the obligation as evidenced again to restore the score.
+
+<Warning>
+  Expiry cascade affects your overall compliance score immediately on the expiry date. Ensure document owners are notified well in advance and that renewal responsibilities are clearly assigned in your team.
+</Warning>
+
+<Accordion title="Setting up expiry notifications">
+  Each team member can configure their notification preferences under **Settings → Notifications**. Select **Evidence expiry reminders** and choose your preferred lead time (30 days, 14 days, 7 days, or all three). Notifications are delivered by email and as in-app banners.
+</Accordion>
+
+<Accordion title="Bulk-updating expiry dates">
+  To update expiry dates on multiple documents at once, go to **Evidence → All Documents**, filter by connector or obligation phase, select the documents using the checkboxes, and click **Bulk edit → Update expiry date**.
+</Accordion>
+
+## Managing Document Versions
+
+When a document is superseded (for example, after a quarterly review), upload the new version rather than creating a new document entry:
+
+<Steps>
+  <Step title="Locate the document">
+    Go to **Evidence → All Documents** and find the document by name or filter.
+  </Step>
+  <Step title="Upload a new version">
+    Click the document row, then click **Upload new version**. Select the updated file from your device or browse connected sources.
+  </Step>
+  <Step title="Update the expiry date">
+    Set the new expiry date for the updated version and click **Save**.
+  </Step>
+  <Step title="Obligations re-evaluated">
+    All obligations linked to this document are automatically flagged for re-review. Assignees receive a notification prompting them to confirm the updated document still satisfies the obligation.
+  </Step>
+</Steps>

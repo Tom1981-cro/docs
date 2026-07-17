@@ -1,0 +1,116 @@
+---
+title: "Share a Public AI System ID Card for Regulators"
+sidebarTitle: "Public Verify"
+description: "Every AI system in Veritome gets a unique, hash-sealed public URL that regulators can access without logging in to verify your compliance record."
+---
+
+Public Verify gives every AI system registered in Veritome a permanent, publicly accessible identity card hosted at a unique URL. The card displays key system metadata — name, provider, risk tier, classification date, and a cryptographic hash of the compliance dossier — so that regulators, notified bodies, and counterparties can verify your system's compliance posture without needing a Veritome account. Think of it as a digital conformity stamp that you can share anywhere.
+
+## What the ID Card Shows
+
+Each Public Verify page at `/verify/system/[slug]` displays the following information:
+
+<CardGroup cols={2}>
+  <Card title="System Name & Provider" icon="building">
+    The registered name of the AI system and the legal entity responsible for its compliance (as entered in the system dossier).
+  </Card>
+  <Card title="Risk Tier & Classification" icon="shield-halved">
+    The EU AI Act risk classification (Unacceptable, High-Risk, Limited-Risk, Minimal-Risk) and the date on which that classification was last confirmed.
+  </Card>
+  <Card title="Dossier Hash" icon="fingerprint">
+    A SHA-256 hash of the compiled compliance dossier at the time of last publication. Regulators can recompute this hash against a downloaded audit bundle to confirm no data has been altered.
+  </Card>
+  <Card title="QR Code" icon="qrcode">
+    A scannable QR code linking directly to the Public Verify URL — ready to include in printed documentation, product manuals, or conformity declarations.
+  </Card>
+  <Card title="Compliance Status" icon="circle-check">
+    A summary of overall dossier completion status (e.g. *Dossier complete — last updated 2024-11-15*) expressed as a plain-English label, not a score.
+  </Card>
+  <Card title="Publication Timestamp" icon="clock">
+    The UTC date and time the public record was last published. Records are immutable once published — new publications create a new versioned entry.
+  </Card>
+</CardGroup>
+
+<Info>
+  The Public Verify page is intentionally minimal and does not expose obligation-level detail, internal comments, or team member information. It is designed purely for external verification.
+</Info>
+
+## The Hash Seal: Verifying Dossier Integrity
+
+The dossier hash is the cornerstone of the Public Verify feature. When you publish a system's compliance record, Veritome:
+
+1. Compiles all dossier content (obligation responses, attached evidence metadata, risk assessment values) into a canonical JSON structure.
+2. Computes a SHA-256 hash of that structure.
+3. Displays the hash prominently on the Public Verify page.
+4. Seals the record — the published entry is immutable.
+
+If a regulator downloads your audit bundle (see [Reports & Exports](/features/reports-and-exports)), they can recompute the SHA-256 hash of the bundle manifest and compare it against the hash displayed on the Public Verify page. An exact match confirms the dossier has not been altered since publication.
+
+<Note>
+  Publishing a new version of your dossier creates a new versioned Public Verify record with a new hash. Previous versions remain accessible with their original hashes, giving regulators a full publication history.
+</Note>
+
+## Finding Your System's Verify URL
+
+<Steps>
+  <Step title="Open the system dossier">
+    From the left sidebar, navigate to **Systems** and click the system you want to share.
+  </Step>
+  <Step title="Go to the Publish tab">
+    Inside the system dossier, click the **Publish** tab at the top of the page.
+  </Step>
+  <Step title="Publish the record">
+    If you have not yet published this system, click **Publish compliance record**. Veritome computes the dossier hash, seals the record, and generates the public URL. This takes a few seconds.
+  </Step>
+  <Step title="Copy the Verify URL">
+    Once published, the full URL (e.g. `https://veritome.eu/verify/system/paymentscore-v2-abc123`) is displayed with a **Copy link** button. The QR code is available for download as a PNG or SVG.
+  </Step>
+  <Step title="Share with regulators">
+    Paste the URL into emails, conformity declarations, or procurement responses. Recipients open the page in any browser — no login required.
+  </Step>
+</Steps>
+
+## Sharing the QR Code
+
+The QR code on the Public Verify page links directly to the `/verify/system/[slug]` URL and is generated at publication time. To download it:
+
+1. Open the **Publish** tab of the relevant system dossier.
+2. Click **Download QR code** and choose PNG (for digital use) or SVG (for print).
+3. Embed the QR code in conformity declarations, user manuals, product packaging, or any physical documentation accompanying the AI system.
+
+<Tip>
+  Include the QR code and the full Verify URL side by side in printed documentation. Regulators who prefer not to scan a QR code can type or copy the URL directly.
+</Tip>
+
+## Updating the Public Record
+
+The Public Verify page always shows the most recently published version. Veritome does not automatically republish when you update your dossier — you must explicitly trigger a new publication so the hash accurately reflects the current state.
+
+<Steps>
+  <Step title="Update your dossier">
+    Complete any obligation updates, upload new evidence, and resolve any outstanding attention items.
+  </Step>
+  <Step title="Return to the Publish tab">
+    Navigate to the system's **Publish** tab. You will see a **Changes since last publication** indicator showing how many obligations have been modified.
+  </Step>
+  <Step title="Publish a new version">
+    Click **Publish new version**. Veritome recomputes the hash and creates a new sealed record. The Public Verify URL remains the same — it now displays the updated record.
+  </Step>
+</Steps>
+
+<Warning>
+  Once a version is published and sealed, it cannot be edited or deleted. Ensure your dossier is accurate and complete before publishing. If you discover an error in a published record, publish a corrected version — the previous version remains in the publication history as an auditable record.
+</Warning>
+
+## Access and Privacy
+
+The Public Verify page is:
+
+- **Unauthenticated** — no login or Veritome account is required to view it.
+- **Read-only** — visitors cannot modify any data.
+- **Scope-limited** — only the fields described above are displayed. Internal notes, team comments, and evidence file contents are never exposed.
+- **Indexed** — the page may be indexed by search engines unless you enable the **Restrict indexing** option in **Settings → Organisation → Public Verify Settings**.
+
+<Accordion title="Restricting public access to specific systems">
+  If you need to prevent a system's Public Verify page from being publicly accessible (for example, during an active investigation or for systems still in draft), go to the system's **Publish** tab and click **Unpublish**. The URL will return a 404 until you republish. Existing published records are retained internally for your audit history.
+</Accordion>

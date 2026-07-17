@@ -1,0 +1,153 @@
+---
+title: "Troubleshoot Common Issues with Veritome"
+sidebarTitle: "Troubleshooting"
+description: "Step-by-step solutions for the most common issues in Veritome — login problems, classification blocks, export failures, API errors, and more."
+---
+
+Most issues in Veritome resolve quickly with a few targeted steps. Work through the relevant section below, and if the problem persists after following all steps, contact us at [veritome.eu/contact](https://veritome.eu/contact) with the details of what you tried. Where relevant, include your system ID and the error message shown in the platform.
+
+<Accordion title="Can't log in">
+  Start by identifying which scenario matches yours:
+
+  **Forgot your password:**
+  1. Go to the Veritome login page and click **Forgot password**.
+  2. Enter the email address you registered with and submit.
+  3. Check your inbox for the password reset email — it arrives within two minutes in most cases. Check your spam folder if it does not appear.
+  4. The reset link expires after 30 minutes. If it has expired, request a new one from the login page.
+
+  **Email address not yet verified:**
+  1. After creating your account, Veritome sends a verification email to your registered address.
+  2. If you did not receive it or the link has expired, log in with your credentials — if your email is unverified, the platform will prompt you to resend the verification email.
+  3. Once you click the link in the verification email, refresh the page to complete login.
+
+  **SSO / single sign-on issues (Growth and above plans):**
+  - Verify that your SSO configuration (SAML or OIDC) is active and that the identity provider (IdP) is sending the correct email attribute. Veritome uses the email claim to match users to your organisation.
+  - If you recently changed your IdP configuration, your IT administrator may need to update the Veritome service provider settings in the IdP.
+  - Contact your Veritome organisation admin to confirm your account has been provisioned and that your role assignment is correct.
+  - If your IdP is returning an error, capture the SAML response or OIDC error code and send it to [support](https://veritome.eu/contact) — this allows us to diagnose IdP-side issues quickly.
+
+  **Still can't log in?** Contact [support](https://veritome.eu/contact) with your email address and the exact error message shown. Do not share your password.
+</Accordion>
+
+<Accordion title="Classification wizard not advancing — Article 5 prohibited practice flag">
+  If the classification wizard stops and shows a prohibited-practice flag, this is intentional behaviour, not a bug. Veritome blocks the workflow when your system description matches one of the Article 5 prohibited categories, because no obligation set can be generated for a prohibited system.
+
+  **Understanding the flag:**
+  - The wizard shows which specific Article 5 category was triggered and the reasoning behind the flag.
+  - Read the flagged category carefully — some flags are triggered by how a system is described, not necessarily by what it actually does.
+
+  **If you believe the flag is incorrect:**
+  1. Review the system description you entered. Common causes of false flags include overly broad descriptions (for example, describing an AI as "profiling users" when it is actually doing non-consequential preference learning).
+  2. Edit your system description to be more specific about the intended use, the context of deployment, and what the system's output is actually used for.
+  3. If your system falls within a legitimate law-enforcement exception to a prohibition (for example, the narrow Article 5(1)(d) exceptions for real-time biometric ID), select the exception path in the wizard and document your justification — this is retained in your dossier.
+
+  **If the flag stands and your system genuinely matches a prohibited category:**
+  - The system must be redesigned to remove the prohibited feature, or discontinued.
+  - Contact [support](https://veritome.eu/contact) if you need guidance on how to redesign a system to fall outside the prohibition.
+</Accordion>
+
+<Accordion title="Obligations not generating after classification">
+  If you complete the classification wizard but no obligation tasks appear in your dossier, work through these steps:
+
+  1. **Check the classification outcome.** Go to **Systems → [your system] → Classification**. If the outcome shows "Minimal Risk" or "Not in scope", no mandatory obligations are generated — this is correct behaviour, not an error. You may add voluntary tasks manually.
+  2. **Confirm the classification is finalised.** If a four-eyes approval workflow is enabled for your organisation, obligations do not generate until the classification has been approved by the second reviewer. Check the approval status in the Classification tab.
+  3. **Refresh the page.** In rare cases, the obligation generation completes server-side before the UI updates. A full page refresh (not just a browser refresh of cached content — use Ctrl+Shift+R / Cmd+Shift+R) resolves this.
+  4. **Check your role.** Obligation sets are scoped to your declared role (provider, deployer, or both). If you are logged in as a member with view-only permissions, you may not see the task creation interface even if tasks exist.
+
+  If none of the above resolves the issue, contact [support](https://veritome.eu/contact) with your system ID and a screenshot of the Classification tab.
+</Accordion>
+
+<Accordion title="Dossier export failing or taking too long">
+  Dossier exports package your full compliance record — documents, evidence files, task history, and the approval audit trail — into a single download. For larger dossiers, this can take up to two minutes.
+
+  **If the export is "pending" for longer than five minutes:**
+  1. Do not start a second export — duplicate jobs can cause further delays.
+  2. Refresh the **Dossier → Export** page to check for an updated status or an error message.
+  3. If the status changes to "Failed", note the error code shown and proceed to step 4.
+  4. Clear any large evidence files that you no longer need before retrying — extremely large attachments (over 50 MB per file) can occasionally cause timeout issues during packaging.
+  5. Retry the export. If it fails again, contact [support](https://veritome.eu/contact) with your system ID and the error code.
+
+  **If the downloaded file is corrupt or won't open:**
+  - Ensure your browser fully downloaded the file before opening it. Interrupted downloads produce invalid archives.
+  - Try downloading in a different browser or disabling any download-management extensions.
+  - If the file remains corrupt after a clean download, contact support with the file size you received and the system ID.
+</Accordion>
+
+<Accordion title="Evidence connector not syncing (re-authorise OAuth)">
+  Veritome's evidence connectors use OAuth to read documents and artefacts from your connected tools (such as Google Drive, SharePoint, Jira, or Confluence). OAuth tokens can expire, be revoked, or become invalid if you change your password or update your security settings in the connected tool.
+
+  **Signs your connector has lost authorisation:**
+  - The connector shows a "Sync failed" or "Disconnected" status in **Settings → Integrations**.
+  - Evidence tasks show "Last synced: Never" or a date that is significantly in the past.
+
+  **To re-authorise:**
+  1. Go to **Settings → Integrations** and find the affected connector.
+  2. Click **Reconnect** (or **Re-authorise**).
+  3. You will be redirected to the connected tool's OAuth consent screen — log in with the account that has the required permissions and grant access.
+  4. Return to Veritome and click **Sync now** to trigger an immediate pull of the latest evidence.
+
+  **If re-authorisation fails:**
+  - Ensure the account you are using has sufficient permissions in the connected tool (for example, read access to the relevant folders or projects).
+  - Check whether your organisation's IT policy restricts third-party OAuth connections — an administrator may need to approve the Veritome application in your identity provider.
+  - Contact [support](https://veritome.eu/contact) if the connection continues to fail after re-authorisation with a permissioned account.
+</Accordion>
+
+<Accordion title="API key returning 401 Unauthorized">
+  A 401 response from the Veritome API means the request was not authenticated successfully. There are three common causes:
+
+  **1. The API key has expired or been revoked.**
+  - Go to **Settings → API Keys** and check the status of the key you are using. If it shows "Revoked" or an expiry date in the past, generate a new key.
+  - Copy the new key immediately — Veritome only shows the full key value once at creation time.
+
+  **2. The API key is not being sent in the correct header format.**
+  - Veritome expects the key in the `Authorization` header as a Bearer token:
+    ```
+    Authorization: Bearer YOUR_API_KEY
+    ```
+  - Common mistakes: using `API-Key` as the header name instead of `Authorization`, omitting the `Bearer ` prefix, or including extra whitespace around the key value.
+
+  **3. The API key belongs to a different organisation or environment.**
+  - If you have access to multiple Veritome organisations, confirm that the key you are using was generated for the organisation and environment (production vs. sandbox) you are targeting.
+  - The base URL for each environment is shown in **Settings → API Keys** next to each key.
+
+  If you have checked all three causes and are still receiving 401 responses, contact [support](https://veritome.eu/contact) with the first eight characters of the key you are using (never share the full key) and the request details.
+</Accordion>
+
+<Accordion title="Webhook not receiving events">
+  If your webhook endpoint is not receiving events from Veritome, work through the following checks in order:
+
+  **1. Your endpoint must return HTTP 200.**
+  Veritome marks a webhook delivery as failed if the endpoint returns any status code other than 200. Check your server logs to see what status code your endpoint is returning. Common issues:
+  - The endpoint URL has changed and the old URL is returning 301/302 redirects (Veritome does not follow redirects — update the URL in **Settings → Webhooks**).
+  - The endpoint is returning 500 due to a processing error — check your application logs.
+
+  **2. Check your signature verification logic.**
+  Veritome signs every webhook payload using HMAC-SHA256 with your webhook secret. If your endpoint rejects deliveries with valid signatures, it will appear that events are not being received. Verify that:
+  - You are reading the raw request body (not a parsed JSON object) when computing the HMAC.
+  - You are using the correct webhook secret — visible in **Settings → Webhooks → [your endpoint] → Show secret**.
+  - Your comparison is using a timing-safe string comparison function to avoid timing attacks.
+
+  **3. Check for delivery failures in the Veritome dashboard.**
+  Go to **Settings → Webhooks → [your endpoint] → Delivery log**. You can see each delivery attempt, the response code your server returned, and the full request payload. Use the **Retry** button to replay a failed delivery for debugging.
+
+  **4. Firewall or IP allowlisting.**
+  If your endpoint is behind a firewall, ensure that Veritome's outbound IP ranges are permitted. Current IP ranges are listed in the [Trust Center](https://veritome.eu/trust).
+
+  Contact [support](https://veritome.eu/contact) with the webhook endpoint URL (you may redact the domain if preferred), the event type you are targeting, and the error shown in the delivery log.
+</Accordion>
+
+<Accordion title="Team member invitation email not received">
+  If a team member you invited has not received their invitation email, follow these steps:
+
+  1. **Ask them to check their spam folder.** Invitation emails come from `noreply@veritome.eu` — this address is occasionally caught by aggressive spam filters, particularly in large enterprise email environments.
+
+  2. **Check the invitation status.** Go to **Settings → Team** and find the person in the "Pending invitations" list. If the invitation shows "Expired" (invitations expire after 72 hours), click **Resend** to issue a fresh one.
+
+  3. **Verify the email address.** Confirm with the invitee that the email address you used exactly matches their preferred mailbox — a single character typo means the invitation goes to a different address.
+
+  4. **Corporate email filtering.** Some corporate email security gateways (particularly Microsoft Defender for Office 365 and Mimecast) quarantine invitation emails that contain links. The invitee's IT administrator can whitelist `veritome.eu` as a trusted sender domain to resolve this.
+
+  5. **Try an alternative email address.** If the corporate email continues to block invitations, try inviting the person via a personal email address as a temporary workaround while the IT allowlisting is sorted out.
+
+  If invitations are consistently not delivered to your domain, contact [support](https://veritome.eu/contact) — we can investigate at the sending infrastructure level.
+</Accordion>

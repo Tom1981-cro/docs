@@ -1,0 +1,149 @@
+{
+  "projectType": "saas",
+  "projectName": "Veritome",
+  "projectDescription": "Veritome is a EU AI Act compliance platform that helps European SMEs classify AI systems, auto-map obligations, generate audit-ready dossiers (Annex IV, FRIA, DoC), run Article 4 literacy training, and stay regulator-ready — article by article.",
+  "theme": "willow",
+  "primaryColor": "#4d1c3d",
+  "lightColor": "#1b1514",
+  "darkColor": null,
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "account-setup",
+              "onboarding-tour"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "concepts/compliance-journey",
+              "concepts/ai-system-classification",
+              "concepts/obligation-engine",
+              "concepts/roles-and-responsibilities"
+            ]
+          },
+          {
+            "group": "Compliance Guides",
+            "pages": [
+              "guides/register-ai-system",
+              "guides/classify-risk-tier",
+              "guides/manage-obligations",
+              "guides/generate-dossier",
+              "guides/incident-reporting",
+              "guides/ai-literacy-training"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "features/aria-ai-assistant",
+              "features/evidence-management",
+              "features/public-verify",
+              "features/reports-and-exports",
+              "features/governance-dashboard"
+            ]
+          },
+          {
+            "group": "Account & Settings",
+            "pages": [
+              "settings/team-and-roles",
+              "settings/integrations",
+              "settings/billing-and-plans",
+              "settings/sso-and-security"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "api/overview",
+              "api/authentication",
+              "api/rate-limits"
+            ]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              "api/systems",
+              "api/obligations",
+              "api/dossiers",
+              "api/incidents",
+              "api/webhooks"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Knowledge Base",
+        "groups": [
+          {
+            "group": "EU AI Act Explained",
+            "pages": [
+              "knowledge-base/eu-ai-act-overview",
+              "knowledge-base/risk-tiers",
+              "knowledge-base/key-articles",
+              "knowledge-base/prohibited-practices",
+              "knowledge-base/annex-iii-high-risk"
+            ]
+          },
+          {
+            "group": "Support",
+            "pages": [
+              "support/faq",
+              "support/troubleshooting",
+              "support/contact"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Guided AI system classification wizard — article-by-article risk-tier assignment (Unacceptable / High-Risk / Limited / Minimal) with Article 5 prohibited-practice screening",
+    "Obligation Engine — auto-maps the exact EU AI Act duties that apply to each system based on role (provider/deployer/GPAI), risk tier, and Annex III domain",
+    "Audit-ready dossier generation — one-click export of Annex IV technical documentation, FRIA (Art. 27), Declaration of Conformity, and Annex VIII registration",
+    "Public verify URL — hash-sealed AI System ID card at /verify/system/[slug] for regulator-facing transparency",
+    "Aria AI assistant — EU-hosted Mistral-powered compliance copilot that answers questions, auto-maps evidence, drafts notices, and suggests field completions",
+    "Article 4 AI Literacy training — built-in training programmes with completion tracking, certificates, and compliance reports for staff",
+    "Evidence Management & Evidence Map — attach documents to obligations, track expiry, and visualise cross-obligation evidence reuse",
+    "Incident Reporting (Art. 73) — four-eyes workflow for logging, reviewing, and reporting AI incidents with authority register and deadline tracking",
+    "Compliance Calendar & Tasks — deadline tracker auto-populated from obligation due dates and regulatory timelines",
+    "API keys & Webhooks — programmatic access to systems, obligations, and events (Growth plan and above)",
+    "OAuth evidence connectors — Google Drive, SharePoint, GitHub, Jira integrations for pulling compliance evidence automatically",
+    "SSO & SCIM — enterprise single sign-on and seat provisioning (Business/Enterprise plans)",
+    "Pricing tiers — Free, Starter (€59/mo), Core (€149/mo), Growth (€349/mo), Business (€699/mo), Enterprise (custom); 20% annual discount"
+  ],
+  "publicApiSurface": [
+    "POST /api/api-keys — create API key",
+    "DELETE /api/api-keys/[id] — revoke API key",
+    "POST /api/api-keys/[id]/rotate — rotate API key",
+    "GET /api/systems — list AI systems",
+    "POST /api/systems — register a new AI system",
+    "GET /api/systems/[id] — get system detail",
+    "PATCH /api/systems/[id] — update system",
+    "POST /api/engine/systems/[id]/obligations/generate — trigger obligation generation",
+    "GET /api/obligations — list obligations",
+    "GET /api/systems/[id]/obligations — list obligations for a system",
+    "GET /api/systems/[id]/dossier — get dossier",
+    "POST /api/systems/[id]/dossier — create/export dossier",
+    "GET /api/incidents — list incidents",
+    "POST /api/incidents — file new incident",
+    "GET /api/incidents/[id] — get incident detail",
+    "GET /api/aria/conversations — list Aria conversations",
+    "POST /api/aria/chat — send message to Aria",
+    "GET /api/ai-literacy — list training programmes",
+    "GET /api/ai-literacy/compliance-report — export AI literacy compliance report",
+    "GET /verify/system/[slug] — public AI System ID verification page (no auth required)"
+  ]
+}

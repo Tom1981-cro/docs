@@ -1,0 +1,141 @@
+---
+title: "Manage Your Team Members and Roles in Veritome"
+sidebarTitle: "Team & Roles"
+description: "Invite team members, assign roles, enforce four-eyes approvals, and manage seat limits across your Veritome organisation."
+---
+
+Veritome's team management tools let you bring colleagues into your compliance programme and give each person the right level of access for their responsibilities. Roles are organisation-wide — a team member's role determines what they can see and do across all systems registered in your account. Seat limits are set by your plan, so review your current plan before sending invitations.
+
+## Roles Overview
+
+Veritome has three roles. Assign each team member the role that matches their actual responsibility in your compliance programme.
+
+<CardGroup cols={2}>
+  <Card title="Owner" icon="crown">
+    Full access to all systems, settings, and billing. Can invite and remove any team member, change roles, and manage the Stripe subscription. There is exactly one Owner per organisation; ownership can be transferred but not duplicated.
+  </Card>
+  <Card title="Admin" icon="user-shield">
+    Can create and manage AI systems, assign and reassign obligations, invite Members, and approve obligations. Cannot access billing settings or remove the Owner.
+  </Card>
+  <Card title="Member" icon="user">
+    Can view systems they are assigned to, complete and submit obligations for approval, and upload evidence. Cannot manage team membership, create systems, or access billing or organisation settings.
+  </Card>
+</CardGroup>
+
+<Info>
+  System-level access restriction is available on **Business and Enterprise** plans via RBAC. On lower plans, Admins and Owners see all systems; Members see systems they are assigned to.
+</Info>
+
+## Seat Limits by Plan
+
+Each plan includes a maximum number of team members (seats). The Owner counts as one seat.
+
+| Plan | Included seats |
+|---|---|
+| Free | 1 |
+| Starter | 2 |
+| Core | 5 |
+| Growth | 10 |
+| Business | 20 |
+| Enterprise | Custom |
+
+If you need more seats than your plan includes, upgrade from **Settings → Billing** before sending additional invitations.
+
+## Inviting a Team Member
+
+<Steps>
+  <Step title="Go to Settings → Team">
+    Click **Settings** in the left sidebar, then select **Team**. The team management page lists all current members and their roles.
+  </Step>
+  <Step title="Click Invite member">
+    Click the **Invite member** button in the top-right corner of the page.
+  </Step>
+  <Step title="Enter the email address">
+    Type the invitee's work email address in the **Email** field. You can invite up to five people at once by adding multiple email addresses separated by commas.
+  </Step>
+  <Step title="Select a role">
+    Choose **Admin** or **Member** from the **Role** dropdown. You cannot invite someone as Owner — ownership is transferred, not assigned at invite.
+  </Step>
+  <Step title="Send the invitation">
+    Click **Send invitation**. The invitee receives an email with a sign-up link valid for 72 hours. Once they accept and create their account, they appear as an active member on the Team page.
+  </Step>
+</Steps>
+
+<Tip>
+  If an invitation expires before the recipient accepts it, return to **Settings → Team**, find the pending invite in the **Pending invitations** section, and click **Resend**.
+</Tip>
+
+## Changing a Team Member's Role
+
+<Steps>
+  <Step title="Go to Settings → Team">
+    Open the Team page from the left sidebar under **Settings**.
+  </Step>
+  <Step title="Find the member">
+    Locate the team member whose role you want to change. Use the search box if your organisation has many members.
+  </Step>
+  <Step title="Open the role menu">
+    Click the **⋮** (more options) icon at the end of the member's row, then click **Change role**.
+  </Step>
+  <Step title="Select the new role">
+    Choose the new role from the dropdown and click **Confirm**. The change takes effect immediately — the team member's session is updated without requiring them to log out and back in.
+  </Step>
+</Steps>
+
+<Warning>
+  Downgrading an Admin to Member does not remove them from any obligations they are currently assigned to, but they will lose the ability to approve obligations, create systems, or invite other members.
+</Warning>
+
+## Removing a Team Member
+
+<Steps>
+  <Step title="Go to Settings → Team">
+    Navigate to **Settings → Team**.
+  </Step>
+  <Step title="Find the member and open options">
+    Click the **⋮** icon on the member's row, then click **Remove from organisation**.
+  </Step>
+  <Step title="Confirm removal">
+    A confirmation dialog warns you that the member will immediately lose access. Click **Remove** to confirm.
+  </Step>
+  <Step title="Reassign obligations">
+    After removal, any obligations assigned exclusively to the removed member appear in the **Attention card** on the Governance Dashboard flagged as *Unassigned*. Reassign them to active team members promptly.
+  </Step>
+</Steps>
+
+<Note>
+  Removing a team member does not delete any work they completed. Their obligation submissions, evidence uploads, and approval records are retained for audit purposes, attributed to their name.
+</Note>
+
+## Four-Eyes Approval Workflow
+
+The four-eyes approval workflow requires two distinct team members to approve an obligation before it counts as complete. This provides an additional internal control that is especially useful for high-risk system obligations.
+
+**How it works:**
+
+1. A Member or Admin completes an obligation and clicks **Submit for approval**.
+2. A first approver (any Owner or Admin who is not the submitter) reviews the obligation and evidence and clicks **Approve — first sign-off**.
+3. A second approver (a different Owner or Admin) reviews and clicks **Approve — second sign-off**. The obligation is now marked **Complete**.
+
+If either approver clicks **Return for revision**, the obligation reverts to the submitter with a mandatory comment explaining what needs to change.
+
+<Accordion title="Enabling four-eyes approval for specific obligations">
+  Four-eyes approval is configured per-obligation, not organisation-wide. To require four-eyes approval on an obligation, open the obligation detail panel and toggle **Require two approvers** under the **Approval settings** section. Only Owners and Admins can change this setting.
+</Accordion>
+
+<Accordion title="Four-eyes approval and the Approvals inbox">
+  Pending approvals appear in the **Approvals inbox** on the Governance Dashboard. Admins and Owners see all pending approvals. Members do not see obligations assigned to themselves in the inbox (they cannot approve their own submissions).
+</Accordion>
+
+## SCIM Provisioning
+
+On **Business and Enterprise** plans, you can automate team member provisioning and de-provisioning using SCIM (System for Cross-domain Identity Management). SCIM keeps your Veritome team in sync with your identity provider (IdP) — when you onboard a new employee in your IdP, they are automatically added to Veritome with the correct role; when they leave, their Veritome access is revoked automatically.
+
+To configure SCIM:
+
+1. Go to **Settings → SSO & Security → SCIM Provisioning**.
+2. Copy the **SCIM endpoint URL** and **Bearer token**.
+3. Configure these values in your IdP (Okta, Entra ID, Google Workspace, etc.) following your IdP's SCIM setup guide.
+4. Test the connection using your IdP's provisioning test tool.
+
+See [SSO & Security](/settings/sso-and-security) for additional identity provider configuration instructions.

@@ -1,0 +1,197 @@
+---
+title: "Obligations API: Track and Update Compliance Duties"
+sidebarTitle: "Obligations"
+description: "List, filter, and inspect EU AI Act compliance obligations across your organisation or scoped to a specific AI system, with status and due-date tracking."
+---
+
+Obligations are the individual compliance duties that the Veritome rules engine assigns to each of your AI systems based on their EU AI Act classification. Each obligation maps to a specific article or annex requirement — for example, a high-risk system will carry obligations under Articles 9, 13, 14, and 17, among others. Use the Obligations API to integrate compliance tracking into your internal dashboards, ticketing systems, or automated reporting pipelines.
+
+---
+
+## List all obligations (org-wide)
+
+Retrieve every obligation across all systems in your organisation. This endpoint is useful for building compliance dashboards and bulk-exporting obligation data.
+
+```
+GET /api/obligations
+```
+
+### Query parameters
+
+<ParamField query="status" type="string">
+  Filter obligations by their current status. Accepted values:
+  - `not_started` — obligation has been generated but no work has begun
+  - `in_progress` — actively being worked on
+  - `under_review` — completed work is pending approval
+  - `approved` — obligation has been reviewed and approved
+</ParamField>
+
+<ParamField query="systemId" type="string">
+  Filter obligations to a single AI system by its unique identifier.
+</ParamField>
+
+<ParamField query="page" type="number" default="1">
+  Page number for paginated results.
+</ParamField>
+
+<ParamField query="limit" type="number" default="50">
+  Number of obligations to return per page. Maximum: `100`.
+</ParamField>
+
+### Response
+
+<ResponseField name="obligations" type="array">
+  <Expandable title="Obligation object">
+    <ResponseField name="id" type="string">Unique obligation identifier.</ResponseField>
+    <ResponseField name="articleRef" type="string">The EU AI Act article or annex reference, e.g. `"Art. 9"`, `"Art. 13"`, `"Annex IV"`.</ResponseField>
+    <ResponseField name="title" type="string">Short title of the obligation, e.g. `"Risk Management System"`.</ResponseField>
+    <ResponseField name="description" type="string">Full description of the compliance requirement.</ResponseField>
+    <ResponseField name="status" type="string">Current status: `NOT_STARTED`, `IN_PROGRESS`, `UNDER_REVIEW`, or `APPROVED`.</ResponseField>
+    <ResponseField name="priority" type="string">Obligation priority: `HIGH`, `MEDIUM`, or `LOW`.</ResponseField>
+    <ResponseField name="dueDate" type="string | null">ISO 8601 deadline, or `null` if no deadline has been set.</ResponseField>
+    <ResponseField name="assignedTo" type="string | null">Display name of the assigned team member, or `null` if unassigned.</ResponseField>
+    <ResponseField name="system" type="object">
+      <Expandable title="System reference">
+        <ResponseField name="id" type="string">System identifier.</ResponseField>
+        <ResponseField name="name" type="string">System display name.</ResponseField>
+      </Expandable>
+    </ResponseField>
+    <ResponseField name="createdAt" type="string">ISO 8601 timestamp when the obligation was generated.</ResponseField>
+    <ResponseField name="updatedAt" type="string">ISO 8601 timestamp of the last status change.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+### curl examples
+
+Retrieve all obligations with status `in_progress`:
+
+```bash
+curl "https://veritome.eu/api/obligations?status=in_progress" \
+  -H "Authorization: Bearer <your-api-key>"
+```
+
+Retrieve all overdue obligations for a specific system:
+
+```bash
+curl "https://veritome.eu/api/obligations?systemId=clx9f2k0000043b6wqztp8m1k&status=not_started" \
+  -H "Authorization: Bearer <your-api-key>"
+```
+
+### Example response
+
+```json
+{
+  "obligations": [
+    {
+      "id": "cm1ab2cd3ef4gh5ij6kl7mn8",
+      "articleRef": "Art. 9",
+      "title": "Risk Management System",
+      "description": "Establish, implement, document, and maintain a risk management system throughout the lifecycle of the high-risk AI system.",
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "dueDate": "2025-08-01T00:00:00.000Z",
+      "assignedTo": "Maria Kovač",
+      "system": {
+        "id": "clx9f2k0000043b6wqztp8m1k",
+        "name": "Invoice Fraud Detector"
+      },
+      "createdAt": "2025-01-20T11:00:00.000Z",
+      "updatedAt": "2025-03-10T16:45:00.000Z"
+    }
+  ]
+}
+```
+
+---
+
+## List obligations for a system
+
+Retrieve all obligations scoped to a specific AI system. This is equivalent to calling `GET /api/obligations?systemId={id}` but is more explicit and preferred when working within a system-focused context.
+
+```
+GET /api/systems/{id}/obligations
+```
+
+### Path parameters
+
+<ParamField path="id" type="string" required>
+  The system's unique identifier (cuid) or human reference (e.g. `SYS-000001`).
+</ParamField>
+
+### curl example
+
+```bash
+curl https://veritome.eu/api/systems/clx9f2k0000043b6wqztp8m1k/obligations \
+  -H "Authorization: Bearer <your-api-key>"
+```
+
+### Example response
+
+```json
+{
+  "obligations": [
+    {
+      "id": "cm1ab2cd3ef4gh5ij6kl7mn8",
+      "articleRef": "Art. 9",
+      "title": "Risk Management System",
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "dueDate": "2025-08-01T00:00:00.000Z",
+      "phase": "PRE_MARKET",
+      "topicTag": "risk",
+      "updatedAt": "2025-03-10T16:45:00.000Z"
+    },
+    {
+      "id": "cm1ab2cd3ef4gh5ij6kl7mn9",
+      "articleRef": "Art. 13",
+      "title": "Transparency and Provision of Information",
+      "status": "NOT_STARTED",
+      "priority": "HIGH",
+      "dueDate": null,
+      "phase": "PRE_MARKET",
+      "topicTag": "transparency",
+      "updatedAt": "2025-01-20T11:00:00.000Z"
+    }
+  ]
+}
+```
+
+---
+
+## Obligation statuses
+
+Use the `status` filter to segment obligations into meaningful workflow stages:
+
+| Status | Dashboard label | Meaning |
+|--------|----------------|---------|
+| `NOT_STARTED` | Not started | Generated by the engine; no action taken yet |
+| `IN_PROGRESS` | In progress | A team member has begun work |
+| `UNDER_REVIEW` | Under review | Work is complete and awaiting approval |
+| `APPROVED` | Approved | The obligation has been reviewed and signed off |
+
+### TypeScript: fetch all high-priority incomplete obligations
+
+```typescript
+const BASE = "https://veritome.eu/api";
+const headers = { Authorization: `Bearer ${process.env.VERITOME_API_KEY}` };
+
+async function getIncompleteObligations(systemId: string) {
+  const statuses = ["not_started", "in_progress", "under_review"];
+  const results = await Promise.all(
+    statuses.map((status) =>
+      fetch(`${BASE}/obligations?systemId=${systemId}&status=${status}`, { headers })
+        .then((r) => r.json())
+        .then((d) => d.obligations as Array<{ id: string; title: string; status: string; priority: string; dueDate: string | null }>)
+    )
+  );
+
+  return results
+    .flat()
+    .filter((o) => o.priority === "HIGH")
+    .sort((a, b) => {
+      if (!a.dueDate) return 1;
+      if (!b.dueDate) return -1;
+      return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+    });
+}
+```

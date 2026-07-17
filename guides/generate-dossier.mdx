@@ -1,0 +1,83 @@
+---
+title: "Generate Audit-Ready Compliance Dossiers in Veritome"
+sidebarTitle: "Generate Dossier"
+description: "Create hash-sealed, regulator-ready compliance documents — Annex IV, FRIA, Declaration of Conformity, and Annex VIII — and share a public verify URL with auditors."
+---
+
+When a regulator, notified body, or internal auditor requests evidence of EU AI Act compliance, Veritome assembles your data into a formal compliance dossier at the click of a button. Each document is generated from live obligation data, timestamped, hash-sealed with SHA-256, and issued a public `verify.veritome.eu` URL that anyone can use to confirm the document's authenticity — no Veritome account required. Dossier generation is available on the **Core plan and above**.
+
+## Document types
+
+Veritome supports four document types, each mapping to a specific legal requirement under the Act:
+
+<CardGroup cols={2}>
+  <Card title="Annex IV — Technical Documentation" icon="file-code">
+    The full technical file required of high-risk AI system providers under Article 11. Assembles system description, design logic, training data summary, performance metrics, risk management measures, and human oversight provisions from your completed obligations.
+  </Card>
+  <Card title="FRIA — Fundamental Rights Impact Assessment" icon="scale-balanced">
+    The Fundamental Rights Impact Assessment required of deployers of high-risk AI systems under Article 27. Covers the rights at stake, the population affected, risk mitigations, and the outcome of the assessment.
+  </Card>
+  <Card title="Declaration of Conformity (DoC)" icon="certificate">
+    The formal declaration required under Article 47, in which a provider asserts that a high-risk AI system conforms to the EU AI Act. Veritome pre-populates the declaration from your classification record and completed obligations; you countersign it within the platform.
+  </Card>
+  <Card title="Annex VIII — EU Database Registration Export" icon="database">
+    A structured export in the format required for submitting high-risk AI systems to the EU public database under Article 49. Veritome formats the mandatory fields and flags any gaps before export.
+  </Card>
+</CardGroup>
+
+<Note>
+  Not every document type applies to every system. Veritome only makes available the document types that match your system's risk tier and role. For example, the FRIA is available to deployers of high-risk systems; the Declaration of Conformity is available to providers.
+</Note>
+
+## Generate a dossier document
+
+<Steps>
+  <Step title="Navigate to your system's Dossier tab">
+    Open the system you want to document from the **Systems** register. Click the **Dossier** tab in the system's navigation bar. You will see a list of document types available for this system, each showing its current readiness status — a green indicator means all required obligation data is present; amber means one or more source fields are incomplete.
+  </Step>
+  <Step title="Select the document type">
+    Click **Generate** next to the document type you want to produce. If the readiness indicator is amber, Veritome opens a pre-flight checklist showing which obligation fields are missing. You can click through to complete those fields before generating, or proceed and accept that the document will be marked as a draft.
+  </Step>
+  <Step title="Review the document preview">
+    Veritome renders a full-page preview of the document populated with your live compliance data. Read through each section. If you spot an error in a field, click the inline **Edit source** link to jump directly to the obligation form where that data lives — your change propagates immediately back into the preview without losing your place.
+
+    <Tip>
+      Use the **Aria review** button in the preview toolbar to ask Aria to check the document for gaps, inconsistencies, or language that does not align with EU AI Act requirements. Aria returns a list of suggestions with article references; you can accept or dismiss each one individually.
+    </Tip>
+  </Step>
+  <Step title="Export the PDF">
+    When you are satisfied with the content, click **Export PDF**. Veritome:
+
+    1. Locks the document snapshot.
+    2. Computes a **SHA-256 hash** of the full document content.
+    3. Stores the hash in an immutable audit log.
+    4. Generates a **public verify URL** in the format `verify.veritome.eu/d/[document-id]` and embeds it as a QR code on the document cover page.
+    5. Downloads the signed PDF to your browser.
+
+    The exported PDF includes the document hash, generation timestamp, and QR code on its cover page. Anyone who receives the PDF can scan the QR code or visit the verify URL to confirm the hash matches — proving the document has not been altered since export.
+  </Step>
+</Steps>
+
+## The regulator dossier view
+
+When a regulator, auditor, or notified body needs access to your compliance file, you can share a read-only **Regulator Dossier View** instead of sending individual PDF attachments. This is a secure, time-limited link that gives the recipient a structured view of all exported documents for a system, along with their hashes and verification status.
+
+<Steps>
+  <Step title="Open the Dossier tab and click Share">
+    From the system's Dossier tab, click **Share dossier**. A modal opens where you configure the share settings.
+  </Step>
+  <Step title="Configure access">
+    Enter the recipient's email address or generate a link. Set an **expiry date** (up to 90 days). Optionally add a password. Select which document types to include in this share — you can share a subset of the full dossier if appropriate.
+  </Step>
+  <Step title="Send the link">
+    Click **Send** (to email the link directly) or **Copy link** to share it via your own channel. The recipient opens the link in a browser, sees a read-only view of the dossier documents, and can download individual PDFs. Every access event is logged in your audit trail.
+  </Step>
+</Steps>
+
+<Warning>
+  Dossier generation requires the **Core plan (€149/mo) or above**. On the Free or Starter plan, the Generate button is visible but locked. Upgrading your plan immediately unlocks generation for all systems in your organisation.
+</Warning>
+
+## Keeping dossiers current
+
+A dossier is a snapshot of your compliance data at the moment of export. As you complete additional obligations, gather new evidence, or re-classify a system, earlier dossier exports become outdated. Veritome indicates on the Dossier tab when the source data has changed since the last export, prompting you to regenerate. Regenerating creates a new document with a new hash; previous exports remain in the document history with their original hashes intact.

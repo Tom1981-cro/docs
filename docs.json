@@ -1,72 +1,145 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "name": "Veritome",
+  "theme": "willow",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
-  },
-  "favicon": "/favicon.svg",
-  "navigation": {
-    "pages": [
-      {
-        "group": "Getting Started",
-        "pages": [
-          "index",
-          "quickstart"
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    "primary": "#4d1c3d",
+    "light": "#1b1514"
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "https://media.brand.dev/0b15e3b6-ed84-430a-9df1-4d0f39ef470e.svg",
+    "dark": "https://media.brand.dev/0b15e3b6-ed84-430a-9df1-4d0f39ef470e.svg"
   },
+  "favicon": "/favicon.svg",
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
+      "label": "Sign Up Free",
+      "href": "https://veritome.eu/register"
     }
   },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "account-setup",
+              "onboarding-tour"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "concepts/compliance-journey",
+              "concepts/ai-system-classification",
+              "concepts/obligation-engine",
+              "concepts/roles-and-responsibilities"
+            ]
+          },
+          {
+            "group": "Compliance Guides",
+            "pages": [
+              "guides/register-ai-system",
+              "guides/classify-risk-tier",
+              "guides/manage-obligations",
+              "guides/generate-dossier",
+              "guides/incident-reporting",
+              "guides/ai-literacy-training"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "features/aria-ai-assistant",
+              "features/evidence-management",
+              "features/public-verify",
+              "features/reports-and-exports",
+              "features/governance-dashboard"
+            ]
+          },
+          {
+            "group": "Account & Settings",
+            "pages": [
+              "settings/team-and-roles",
+              "settings/integrations",
+              "settings/billing-and-plans",
+              "settings/sso-and-security"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "api/overview",
+              "api/authentication",
+              "api/rate-limits"
+            ]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              "api/systems",
+              "api/obligations",
+              "api/dossiers",
+              "api/incidents",
+              "api/webhooks"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Knowledge Base",
+        "groups": [
+          {
+            "group": "EU AI Act Explained",
+            "pages": [
+              "knowledge-base/eu-ai-act-overview",
+              "knowledge-base/risk-tiers",
+              "knowledge-base/key-articles",
+              "knowledge-base/prohibited-practices",
+              "knowledge-base/annex-iii-high-risk"
+            ]
+          },
+          {
+            "group": "Support",
+            "pages": [
+              "support/faq",
+              "support/troubleshooting",
+              "support/contact"
+            ]
+          }
+        ]
+      }
     ]
   },
   "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
+    "links": [
+      {
+        "title": "Product",
+        "items": [
+          { "label": "Homepage", "href": "https://veritome.eu" },
+          { "label": "Pricing", "href": "https://veritome.eu/pricing" },
+          { "label": "Changelog", "href": "https://veritome.eu/changelog" },
+          { "label": "Trust Center", "href": "https://veritome.eu/trust" }
+        ]
+      },
+      {
+        "title": "Resources",
+        "items": [
+          { "label": "EU AI Act Text", "href": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" },
+          { "label": "Readiness Check", "href": "https://veritome.eu/apps/readiness-assessment" },
+          { "label": "Contact", "href": "https://veritome.eu/contact" }
+        ]
+      }
+    ]
   }
 }

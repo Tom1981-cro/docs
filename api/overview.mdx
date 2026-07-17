@@ -1,0 +1,88 @@
+---
+title: "Veritome REST API: Automate Your AI Act Compliance"
+sidebarTitle: "Overview"
+description: "Use the Veritome REST API to programmatically register AI systems, generate obligations, export dossiers, and log incidents — all from your own tooling."
+---
+
+The Veritome REST API gives you full programmatic control over your EU AI Act compliance programme. Instead of managing systems, obligations, and audit dossiers exclusively through the dashboard, you can integrate Veritome directly into your CI/CD pipelines, internal tooling, or data warehouses. Every action available in the dashboard — registering an AI system, triggering obligation generation, exporting a conformity dossier, or logging an Article 73 incident — is also available through the API.
+
+## Base URL
+
+All API requests are made to:
+
+```
+https://veritome.eu/api
+```
+
+The API is currently unversioned. Endpoints are stable, and breaking changes will be communicated with at least 90 days' notice via the changelog and email to affected account owners.
+
+## Plan requirements
+
+API access requires a **Growth plan** or above. Attempting to call authenticated endpoints on a lower plan returns a `403 Forbidden` response with a `feature_locked` error code. See [Authentication](/api/authentication) for how to obtain and use API keys.
+
+## Quick start
+
+The following example retrieves all AI systems registered in your organisation. Replace `<your-api-key>` with a key generated in **Settings → API → New Key**.
+
+```bash
+curl https://veritome.eu/api/systems \
+  -H "Authorization: Bearer <your-api-key>"
+```
+
+A successful response returns a `systems` array alongside your plan's usage limit:
+
+```json
+{
+  "systems": [
+    {
+      "id": "clx9f2k0000043b6wqztp8m1k",
+      "name": "Customer Churn Predictor",
+      "purpose": "Predicts customer churn likelihood from CRM data",
+      "status": "ACTIVE",
+      "createdAt": "2025-01-15T09:22:00.000Z"
+    }
+  ],
+  "limit": {
+    "current": 1,
+    "max": 25,
+    "plan": "GROWTH"
+  }
+}
+```
+
+## Rate limits
+
+All endpoints are subject to per-key rate limits enforced via sliding-window counters. Exceeding the limit returns `429 Too Many Requests`. Read the [Rate Limits](/api/rate-limits) page for the full policy, response headers, and backoff guidance.
+
+## Public endpoints
+
+One endpoint is publicly accessible and requires no authentication:
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `GET` | `/verify/system/{slug}` | Verify the published compliance status of an AI system by its public slug |
+
+All other endpoints require a valid Bearer token.
+
+## Explore the API
+
+<CardGroup cols={2}>
+  <Card title="Authentication" icon="key" href="/api/authentication">
+    Generate API keys, pass Bearer tokens, rotate and revoke credentials.
+  </Card>
+  <Card title="Systems" icon="server" href="/api/systems">
+    Register AI systems, update metadata, and trigger obligation generation.
+  </Card>
+  <Card title="Obligations" icon="list-check" href="/api/obligations">
+    List and filter compliance duties across your entire organisation.
+  </Card>
+  <Card title="Dossiers" icon="folder-open" href="/api/dossiers">
+    Generate and export audit-ready documents including Annex IV and FRIA.
+  </Card>
+  <Card title="Incidents" icon="triangle-exclamation" href="/api/incidents">
+    Log and manage Article 73 serious-incident reports with deadline tracking.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/api/webhooks">
+    Receive real-time event notifications when compliance state changes.
+  </Card>
+</CardGroup>
